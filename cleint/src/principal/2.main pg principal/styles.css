@@ -1,0 +1,164 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 600px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    
+}
+
+/* Navigation Bar */
+.curved-nav {
+    width: 100%;
+    height: 70px;
+    background-color: #007bff;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0px;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.nav-btn {
+    background-color: white;
+    border: none;
+    color: #007bff;
+    padding: 0.5rem 1rem;
+    margin: 0 1rem;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #0056b3;
+    color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Year Selection Section */
+.year-selection {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.year-box {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.year-box.selected {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.1);
+}
+
+.year-box:hover {
+    background-color: #0056b3;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* SE/TE/BE Selection Section */
+.year-level-selection {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.level-btn {
+    margin: 0 15px;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.level-btn.selected {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.level-btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Semester and Graph Section */
+.sem-graph-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.sem-box:hover{
+   
+    transform: scale(1.05);
+}
+
+.sem-box {
+    border: 0px;
+    width: 45%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Graph Container */
+.graph-container {
+position: relative;
+left: 210px;
+
+   width: 50%;
+   height: 350px;
+    
+}
+
+.graph-container2 {
+position: relative;
+left: 960px;
+bottom: 350px;
+   width: 50%;
+   height: 350px;
+    
+}
+
+hr {
+    border:none;
+    height: 20px;
+       width: 100%;
+      height: 50px;
+      margin-top: 0;
+      border-bottom: 1px solid #504f4f;
+      box-shadow: 0 10px 10px -10px #333;
+    margin: -50px auto 10px; 
+  }

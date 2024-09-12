@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO-PO Attainment Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar Placeholder -->
+    <nav class="curved-nav">
+        <div class="nav-content">
+            <button class="nav-btn">CO</button>
+            <button class="nav-btn">PO</button>
+            <div class="profile-menu">
+                <div class="profile-circle" onclick="toggleLogoutMenu()">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div id="logoutMenu" class="logout-menu">
+                    <button onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <h2>CO-PO Correlation Table</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>CO</th>
+                    <th class="po-header" data-po="PO1">PO1</th>
+                    <th class="po-header" data-po="PO2">PO2</th>
+                    <th class="po-header" data-po="PO3">PO3</th>
+                    <th class="po-header" data-po="PO4">PO4</th>
+                    <th class="po-header" data-po="PO5">PO5</th>
+                    <th class="po-header" data-po="PO6">PO6</th>
+                    <th class="po-header" data-po="PO7">PO7</th>
+                    <th class="po-header" data-po="PO8">PO8</th>
+                    <th class="po-header" data-po="PO9">PO9</th>
+                    <th class="po-header" data-po="PO10">PO10</th>
+                    <th class="po-header" data-po="PO11">PO11</th>
+                    <th class="po-header" data-po="PO12">PO12</th>
+                    <th>CO Description</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>301.1</td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><textarea class="co-description">Remember</textarea></td>
+                </tr>
+
+
+
+                <tr>
+                    <td>301.2</td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><textarea class="co-description">Remember</textarea></td>
+                </tr>
+
+
+                <tr>
+                    <td>301.3</td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><textarea class="co-description">Remember</textarea></td>
+                </tr>
+
+
+                <tr>
+                    <td>301.4</td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><textarea class="co-description">Remember</textarea></td>
+                </tr>
+
+
+                <tr>
+                    <td>301.5</td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><textarea class="co-description">Remember</textarea></td>
+                </tr>
+
+
+                <tr>
+                    <td>301.6</td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><select><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                    <td><textarea class="co-description">Remember</textarea></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tooltip for PO Statement -->
+    <div id="po-tooltip" class="tooltip"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

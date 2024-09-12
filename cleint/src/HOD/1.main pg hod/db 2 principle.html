@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Year & Graph UI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="curved-nav">
+        <div class="nav-content">
+            <button class="nav-btn">Home</button>
+            <button class="nav-btn">About</button>
+            <button class="nav-btn">Contact</button>
+            <div class="profile-menu">
+                <div class="profile-circle">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Year Selection Section -->
+    <div class="year-selection">
+        <div class="year-box selected" data-year="2024">2024</div>
+        <div class="year-box" data-year="2023">2023</div>
+        <div class="year-box" data-year="2022">2022</div>
+        <div class="year-box" data-year="2021">2021</div>
+        <div class="year-box" data-year="2020">2020</div>
+    </div>
+
+    <hr>
+
+    <!-- SE/TE/BE Selection Section -->
+    <div class="year-level-selection">
+        <button class="level-btn selected" data-level="SE">SE</button>
+        <button class="level-btn" data-level="TE">TE</button>
+        <button class="level-btn" data-level="BE">BE</button>
+    </div>
+
+    <hr>
+
+    <!-- Semester and Graph Section -->
+    <div class="sem-graph-container">
+        <button class="sem-box" id="sem1">
+            <h3>Sem 3</h3>
+            
+        </button>
+        <button class="sem-box" id="sem2">
+            <h3>Sem 4</h3>
+            
+        </button>
+    </div>
+
+    <!-- Graph -->
+    <div class="graph-container">
+        <canvas id="levelChart"></canvas>
+        
+    </div>
+
+    <div class="graph-container2">
+        <canvas id="levelChart2"></canvas>
+        
+    </div>
+
+   
+
+    <script src="scripts.js"></script>
+</body>
+</html>

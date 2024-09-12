@@ -1,0 +1,341 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.stream-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.stream-box {
+    margin: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.stream-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stream-box i {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.stream-box h3 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+}
+
+.stream-box p {
+    color: #666;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.stream-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.stream-box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stream-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stream-box i {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.stream-box h3 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+}
+
+.stream-box p {
+    color: #666;
+}
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.curved-nav {
+    width: 100%;
+    height: 70px;
+    background-color: #007bff;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0px;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.nav-btn {
+    background-color: white;
+    border: none;
+    color: #007bff;
+    padding: 0.5rem 1rem;
+    margin: 0 1rem;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #0056b3;
+    color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-circle {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-circle:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-circle i {
+    color: #007bff;
+    font-size: 1.5rem;
+}
+
+.logout-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.logout-menu button {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logout-menu button:hover {
+    background-color: #ff1a1a;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+
+.instruction {
+    font-family: 'Montserrat';
+    font-size: 0.75em;
+    font-weight: bold;
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    user-select: none;  
+  }
+  
+ 
+/* Common Card Styles */
+/* Container and Card Style */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  position: relative;
+  width: 250px;
+  height: 300px;
+  background-color: #f8f9fa;
+  color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  overflow: hidden;
+  cursor: pointer; /* Make sure the card looks clickable */
+}
+
+.card__content {
+  padding: 20px;
+  text-align: center;
+}
+
+.card__name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card__gloss {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(212, 200, 200, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.card:hover {
+ 
+  transform: scale(9.08); /* Slight scaling on hover */
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  background-color: rgba(255, 255, 255, 0.1); /* Slight background glow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.card:active {
+  transform: scale(0.97); /* Shrinks slightly on click */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+
+  
+ 
+  
+  /* IT Department */
+  #card-it {
+    background-color: #1eca5d; /* Blue */
+  }
+  
+  #card-it .card__content i {
+    color: #ecf0f1;
+  }
+  
+  /* Comps Department - Blackish */
+  #card-comps {
+    background-color: #34495e; /* Blackish */
+  }
+  
+  #card-comps .card__content i {
+    color: #18db69; /* Light green for contrast */
+  }
+  
+  /* EXTC Department - Maroonish */
+  #card-extc {
+    background-color: #800000; /* Maroon */
+  }
+  
+  #card-extc .card__content i {
+    color: #ecf0f1;
+  }
+  
+  /* Mechanical Department - Orangeish */
+  #card-mech {
+    background-color: #e67e22; /* Orangeish */
+  }
+  
+  #card-mech .card__content i {
+    color: #ecf0f1;
+  }
+  
+  /* BSH Department - Complimentary Color */
+  #card-bsh {
+    background-color: #9b59b6; /* Purple (Complimentary to yellow/orange) */
+  }
+  
+  #card-bsh .card__content i {
+    color: #ecf0f1;
+  }
+  
+  
+
+ 
+
+
+
+
+    
