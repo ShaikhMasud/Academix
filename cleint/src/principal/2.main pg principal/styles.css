@@ -1,19 +1,7 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Hodmainpage.css */
 
-body {
-    height: 600px;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    
-}
-
-/* Navigation Bar */
-.curved-nav {
+/* Navigation Bar Styles */
+.nav-bar {
     width: 100%;
     height: 70px;
     background-color: #007bff;
@@ -24,19 +12,18 @@ body {
     align-items: center;
     position: fixed;
     top: 0;
-    left: 0px;
     z-index: 1000;
-}
-
-.nav-content {
+  }
+  
+  .nav-bar-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
     max-width: 1200px;
-}
-
-.nav-btn {
+  }
+  
+  .nav-btn {
     background-color: white;
     border: none;
     color: #007bff;
@@ -46,51 +33,43 @@ body {
     border-radius: 20px;
     box-shadow: 0 4px 8px rgb(0, 0, 0);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nav-btn:hover {
-    background-color: #0056b3;
-    color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Year Selection Section */
-.year-selection {
+  }
+  
+  .nav-btn:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Year Selection Styles */
+  .year-selection {
     display: flex;
     justify-content: space-around;
     margin-top: 100px;
     padding: 20px;
-}
-
-.year-box {
+  }
+  
+  .year-box {
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.year-box.selected {
+  }
+  
+  .selected-year-box {
     background-color: #007bff;
     color: white;
     transform: scale(1.1);
-}
-
-.year-box:hover {
-    background-color: #0056b3;
-    color: white;
-    transform: scale(1.05);
-}
-
-/* SE/TE/BE Selection Section */
-.year-level-selection {
+  }
+  
+  /* Level Selection Styles */
+  .level-selection {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-}
-
-.level-btn {
+  }
+  
+  .level-btn {
     margin: 0 15px;
     padding: 10px 20px;
     background-color: #f8f9fa;
@@ -98,67 +77,41 @@ body {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.level-btn.selected {
+  }
+  
+  .selected-level-btn {
     background-color: #007bff;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.level-btn:hover {
-    background-color: #0056b3;
-    color: white;
-}
-
-/* Semester and Graph Section */
-.sem-graph-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-.sem-box:hover{
-   
-    transform: scale(1.05);
-}
-
-.sem-box {
-    border: 0px;
+  }
+  
+  /* Semester Box Styles */
+  .sem-box {
     width: 45%;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Graph Container */
-.graph-container {
-position: relative;
-left: 210px;
-
-   width: 50%;
-   height: 350px;
-    
-}
-
-.graph-container2 {
-position: relative;
-left: 960px;
-bottom: 350px;
-   width: 50%;
-   height: 350px;
-    
-}
-
-hr {
-    border:none;
-    height: 20px;
-       width: 100%;
-      height: 50px;
-      margin-top: 0;
-      border-bottom: 1px solid #504f4f;
-      box-shadow: 0 10px 10px -10px #333;
-    margin: -50px auto 10px; 
+    cursor: pointer;
+    transition: transform 0.3s ease;
   }
+  
+  /* Horizontal Rule Styles */
+  .hr-style {
+    border: none;
+    height: 20px;
+    width: 100%;
+    border-bottom: 1px solid #504f4f;
+    box-shadow: 0 10px 10px -10px #333;
+    margin: 10px auto;
+  }
+  
+  /* Canvas Styles */
+  .canvas-container {
+    position: relative;
+    width: 50%;
+    height: 350px;
+    display: inline-block;
+  }
+  

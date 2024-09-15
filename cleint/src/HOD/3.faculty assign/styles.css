@@ -1,4 +1,3 @@
-/* Styling with white and #007bff */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
@@ -133,4 +132,5 @@ table tr:hover {
 select {
     padding: 5px;
     border-radius: 5px;
+    border: 1px solid #ced4da;
 }

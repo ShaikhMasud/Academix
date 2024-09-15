@@ -1,179 +1,113 @@
-/* Global styling */
+/* style.css */
+
+/* General Styling */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
-.curved-nav {
+table {
     width: 100%;
-    height: 70px;
-    background-color: #007bff;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Description Column Styling */
+.description-column {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0px;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.co-description {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* Tooltip Styling */
+#po-tooltip {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    position: absolute;
     z-index: 1000;
+}
+
+/* Navbar Styling */
+.curved-nav {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .nav-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    max-width: 1200px;
 }
 
 .nav-btn {
-    background-color: white;
+    background: #555;
     border: none;
-    color: #007bff;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
+    color: #fff;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgb(0, 0, 0);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nav-btn:hover {
-    background-color: #0056b3;
-    color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 
 .profile-menu {
     position: relative;
-    display: inline-block;
 }
 
 .profile-circle {
-    width: 50px;
-    height: 50px;
-    background-color: white;
+    background: #555;
     border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.profile-circle:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.profile-circle i {
-    color: #007bff;
-    font-size: 1.5rem;
 }
 
 .logout-menu {
-    display: none;
+    background: #fff;
+    border: 1px solid #ddd;
     position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    top: 50px;
+    right: 0;
+    z-index: 1000;
+    border-radius: 5px;
 }
 
 .logout-menu button {
-    background-color: #ff4d4d;
+    background: #f00;
+    color: #fff;
     border: none;
-    color: white;
-    padding: 10px 20px;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    text-align: center;
 }
 
 .logout-menu button:hover {
-    background-color: #ff1a1a;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: #c00;
 }
-
-
-
-
-
-
-
-
-
-
-h2 {
-    color: #007bff;
-    text-align: center;
-}
-
-/* Table styling */
-.table-container {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-th, td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-th {
-    background-color: #ff6961;
-    color: white;
-    font-size: 16px;
-}
-
-td {
-    background-color: #f9f9f9;
-    font-size: 14px;
-}
-
-select {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.co-description {
-    height: 50px;
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #007bff;
-    background-color: #f0f8ff;
-    border-radius: 5px;
-    text-align: center;
-}
-
-/* Tooltip styling */
-.tooltip {
-    height: 50px;
-    width: 250px;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 8px;
-    border-radius: 5px;
-    display: none;
-    z-index: 100;
-    font-size: 12px;
-}
-
