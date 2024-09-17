@@ -80,7 +80,6 @@ const Hodmainpage = () => {
       {/* Navigation Bar */}
       <div className="nav-bar">
         <div className="nav-bar-content">
-          <Link to="/managefaculty"><button className="nav-btn">Manage Teachers</button></Link>
           <Link to="/subjects"><button className="nav-btn">Subjects</button></Link>
           <button className="nav-btn">Profile Picture</button>
           <div>
@@ -119,8 +118,8 @@ const Hodmainpage = () => {
 
       {/* Semester and Graph Section */}
       <div className="semester-section">
-        <button className="sem-box"><h3>{semesters.sem1}</h3></button>
-        <button className="sem-box"><h3>{semesters.sem2}</h3></button>
+      <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
+      <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
       </div>
 
       {/* Graphs */}
