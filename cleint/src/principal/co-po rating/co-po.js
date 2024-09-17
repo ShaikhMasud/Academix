@@ -3,7 +3,7 @@ import './co-po.css';
 import { Link } from 'react-router-dom';
 
 
-const CO_PO_prin = () => {
+const Co_po_prin = () => {
     // Define the PO statements
     const poStatements = {
         PO1: "Engineering Knowledge: Graduates should have a deep understanding of the fundamental principles, theories, and concepts in their chosen engineering field.",
@@ -135,4 +135,4 @@ const CO_PO_prin = () => {
     );
 };
 
-export default CO_PO_prin;
+export default Co_po_prin;

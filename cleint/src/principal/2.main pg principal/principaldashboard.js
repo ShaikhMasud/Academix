@@ -119,8 +119,8 @@ const PrincipalMainPage = () => {
 
       {/* Semester and Graph Section */}
       <div className="semester-section">
-        <button className="sem-box"><h3>{semesters.sem1}</h3></button>
-        <button className="sem-box"><h3>{semesters.sem2}</h3></button>
+        <Link to="/SemSub"><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
+        <Link to="/SemSub"><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
       </div>
 
       {/* Graphs */}
