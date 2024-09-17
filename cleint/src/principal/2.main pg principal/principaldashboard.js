@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
-import './styles.css'; // Import the CSS file
+import './principaldash.css'; // Adjust the path according to your structure
 
 // Register Chart.js components
 Chart.register(...registerables);
 
-const Principalmainpage = () => {
+const PrincipalMainPage = () => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedLevel, setSelectedLevel] = useState('SE');
   const [semesters, setSemesters] = useState({ sem1: 'Sem 3', sem2: 'Sem 4' });
@@ -75,7 +75,7 @@ const Principalmainpage = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="containerpd">
       {/* Navigation Bar */}
       <div className="nav-bar">
         <div className="nav-bar-content">
@@ -133,4 +133,4 @@ const Principalmainpage = () => {
   );
 };
 
-export default Principalmainpage;
+export default PrincipalMainPage;

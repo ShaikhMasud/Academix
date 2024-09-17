@@ -2,7 +2,8 @@
 
 /* Navigation Bar Styles */
 .nav-bar {
-    width: 100%;
+  right: 160px;
+  width: 100vw;
     height: 70px;
     background-color: #007bff;
     border-radius: 30px;
@@ -10,8 +11,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0;
+    position: relative;
+    
     z-index: 1000;
   }
   
@@ -109,6 +110,7 @@
   
   /* Canvas Styles */
   .canvas-container {
+    left: 125px;
     position: relative;
     width: 50%;
     height: 350px;

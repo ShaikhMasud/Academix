@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './styles.css'; // Ensure this is the path to your CSS file
+import './stream.css'; // Ensure this is the path to your CSS file
 
 const StreamPage = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);

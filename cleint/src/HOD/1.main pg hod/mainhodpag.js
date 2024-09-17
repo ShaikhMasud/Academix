@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
-import './styles.css'; // Import the CSS file
+import './mainhod.css'; // Import the CSS file
 
 // Register Chart.js components
 Chart.register(...registerables);
@@ -75,7 +75,7 @@ const Hodmainpage = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="containerpd">
       {/* Navigation Bar */}
       <div className="nav-bar">
         <div className="nav-bar-content">

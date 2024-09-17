@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
-import './styles.css'; // Ensure you have a styles.css file for styling
+import './faculty.css'; // Ensure you have a styles.css file for styling
 
 const teachers = [
     "Tayyab Sir", "Uday Sir", "Prasad Sir", "Jhanvi Maam", 

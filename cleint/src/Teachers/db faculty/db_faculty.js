@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './style.css';
+import './db_faculty.css';
 
 // Import images
 import bgImage from './bg img/b.JPG';

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import './style.css';
+import './co-po.css';
 
 const Appco = () => {
     // Define the PO statements

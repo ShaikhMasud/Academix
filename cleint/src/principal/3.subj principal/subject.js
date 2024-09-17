@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './subjectprinci.css';
 import bgImg1 from './bg img/b.JPG'; 
 import bgImg2 from './bg img/b2.JPG'; 
 import bgImg3 from './bg img/b3.JPG'; 
