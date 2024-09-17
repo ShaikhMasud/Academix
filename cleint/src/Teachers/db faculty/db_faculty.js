@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './db_faculty.css';
 import { Link } from 'react-router-dom';
-
-
 // Import images
 import bgImage from './bg img/b.JPG';
 import graphIcon from './bg img/graph.png';
 import coIcon from './bg img/co.png';
 import profPic from './bg img/prof.jpeg';
 
-function Appfa() {
+function Subjects() {
     const [showGraph, setShowGraph] = useState(false);
 
     // Function to toggle the graph visibility
@@ -41,8 +39,7 @@ function Appfa() {
         <>
             <nav className="curved-nav">
                 <div className="nav-content">
-                    <button className="nav-btn">CO</button>
-                    <button className="nav-btn">PO</button>
+                    <Link to="/hoddashboard"><button className="nav-btn">Home</button></Link>
                     <div className="profile-menu">
                         <div className="profile-circle" onClick={toggleLogoutMenu}>
                             <i className="fas fa-user" />
@@ -68,15 +65,13 @@ function Appfa() {
                             <button className="icon-button" onClick={toggleGraph}>
                                 <img src={graphIcon} alt="Graph Icon" />
                             </button>
-                            <Link to="/co-po-map"><button className="icon-button">
+                            <Link to="/co-po"><button className="icon-button">
                                 <img src={coIcon} alt="CO Icon" />
                             </button>
                             </Link>
-                            <h2 className="skill-card__title">
-                                ITC-505 <br /> ADSA
-                            </h2>
+                            <h2 className="skill-card__title">ITC-301 MATHEMATICS</h2>
                             <pre className="skill-card__description">
-                                <Link to="/ia"><button className="btn">IA 1 </button> - LEVEL 2{"\n"}
+                                <Link to="/IA_marks_entry"><button className="btn">IA 1 </button> - LEVEL 2{"\n"}
                                 {"\n"}
                                 <button className="btn"> IA 2</button> - LEVEL 1{"\n"}
                                 {"\n"}
@@ -103,7 +98,7 @@ function Appfa() {
                             <button className="icon-button" onClick={toggleGraph}>
                                 <img src={graphIcon} alt="Graph Icon" />
                             </button>
-                            <Link to="/co-po-map"><button className="icon-button">
+                            <Link to="/co-po"><button className="icon-button">
                                 <img src={coIcon} alt="CO Icon" />
                             </button>
                             </Link>
@@ -111,7 +106,7 @@ function Appfa() {
                                 ITC-505 <br /> ADSA
                             </h2>
                             <pre className="skill-card__description">
-                                <Link to="/ia"><button className="btn">IA 1 </button> - LEVEL 2{"\n"}
+                                <Link to="/IA_marks_entry"><button className="btn">IA 1 </button> - LEVEL 2{"\n"}
                                 {"\n"}
                                 <button className="btn"> IA 2</button> - LEVEL 1{"\n"}
                                 {"\n"}
@@ -138,15 +133,15 @@ function Appfa() {
                             <button className="icon-button" onClick={toggleGraph}>
                                 <img src={graphIcon} alt="Graph Icon" />
                             </button>
-                            <Link to="/co-po-map"><button className="icon-button">
+                            <Link to="/co-po"><button className="icon-button">
                                 <img src={coIcon} alt="CO Icon" />
                             </button>
                             </Link>
                             <h2 className="skill-card__title">
-                                ITC-505 <br /> ADSA
+                                ITC-703 <br /> AIML
                             </h2>
                             <pre className="skill-card__description">
-                                <Link to="/ia"><button className="btn">IA 1 </button> - LEVEL 2{"\n"}
+                                <Link to="/IA_marks_entry"><button className="btn">IA 1 </button> - LEVEL 2{"\n"}
                                 {"\n"}
                                 <button className="btn"> IA 2</button> - LEVEL 1{"\n"}
                                 {"\n"}
@@ -175,4 +170,4 @@ function Appfa() {
     );
 }
 
-export default Appfa;
+export default Subjects;

@@ -3,46 +3,46 @@
 
 body {
   
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
 .stream-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .stream-box {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .stream-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .stream-box i {
-    font-size: 3rem;
-    color: #007bff;
-    margin-bottom: 10px;
+  font-size: 3rem;
+  color: #007bff;
+  margin-bottom: 10px;
 }
 
 .stream-box h3 {
-    margin: 10px 0;
-    font-size: 1.5rem;
+  margin: 10px 0;
+  font-size: 1.5rem;
 }
 
 .stream-box p {
-    color: #666;
+  color: #666;
 }
 
 
@@ -51,107 +51,107 @@ body {
 
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  
 }
 
 .curved-nav {
-    width: 100%;
-    height: 70px;
-    background-color: #007bff;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgb(0, 0, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0px;
-    z-index: 1000;
+  width: 100%;
+  height: 70px;
+  background-color: #007bff;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0px;
+  z-index: 1000;
 }
 
 .nav-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
 }
 
 .nav-btn {
-    background-color: white;
-    border: none;
-    color: #007bff;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
-    cursor: pointer;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgb(0, 0, 0);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  border: none;
+  color: #007bff;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgb(0, 0, 0);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav-btn:hover {
-    background-color: #0056b3;
-    color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #0056b3;
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .profile-menu {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .profile-circle {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 .profile-circle:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .profile-circle i {
-    color: #007bff;
-    font-size: 1.5rem;
+  color: #007bff;
+  font-size: 1.5rem;
 }
 
 .logout-menu {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 
 .logout-menu button {
-    background-color: #ff4d4d;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logout-menu button:hover {
-    background-color: #ff1a1a;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #ff1a1a;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -166,283 +166,284 @@ body {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap");
 
 :root {
-  /* Colors */
-  --brand-color: hsl(46, 100%, 50%);
-  --black: hsl(0, 0%, 0%);
-  --white: hsl(0, 0%, 100%);
-  /* Fonts */
-  --font-title: "Montserrat", sans-serif;
-  --font-text: "Lato", sans-serif;
+/* Colors */
+--brand-color: hsl(46, 100%, 50%);
+--black: hsl(0, 0%, 0%);
+--white: hsl(0, 0%, 100%);
+/* Fonts */
+--font-title: "Montserrat", sans-serif;
+--font-text: "Lato", sans-serif;
 }
 
 
 .skill-card__title {
-  font-size: 25px;
-  font-family: var(--font-title);
-  color: var(--white);
-  color: white;
+font-size: 25px;
+font-family: var(--font-title);
+color: var(--white);
+color: white;
 }
 
 .skill-card__description {
-  font-family: var(--font-text);
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--white);
+font-family: var(--font-text);
+font-size: 15px;
+line-height: 1.5;
+color: var(--white);
 }
 
 .flow>*+* {
-  margin-top: var(--flow-space, 1em);
+margin-top: var(--flow-space, 1em);
 }
 
 /* CARD COMPONENT */
 
 .card-container {
-    display: flex; /* Arrange children in a row */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-    gap: 20px; /* Adjust spacing between cards */
-    padding: 20px; /* Optional padding around the container */
-  }
-  
-  .skill-card {
-    display: grid;
-    place-items: center;
-    width: 250px;
-    max-width: 21.875rem;
-    height: 350px;
-    overflow: hidden;
-    border-radius: 0.625rem;
-    box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-    margin-left: 25px;
-  margin-top: 100px;
-    /* Removed margins that affect the card’s placement */
-  }
+  display: flex; /* Arrange children in a row */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  gap: 20px; /* Adjust spacing between cards */
+  padding: 20px; /* Optional padding around the container */
+}
+
+.skill-card {
+  display: grid;
+  place-items: center;
+  width: 250px;
+  max-width: 21.875rem;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+  margin-left: 25px;
+margin-top: 100px;
+  /* Removed margins that affect the card’s placement */
+}
 
 
 
 
 .skill-card>* {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
+grid-column: 1 / 2;
+grid-row: 1 / 2;
 }
 
 .skill-card__background {
-  object-fit: cover;
-  max-width: 100%;
-  height: 100%;
+object-fit: cover;
+max-width: 100%;
+height: 100%;
 }
 
 .skill-card__content {
-  --flow-space: 0.9375rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-self: flex-end;
-  height: 93%;
-  padding: 12% 50px;
-  background: linear-gradient(180deg,
-      hsla(0, 0%, 0%, 0) 0%,
-      hsla(0, 0%, 0%, 0.3) 10%,
-      hsl(0, 0%, 0%) 100%);
+--flow-space: 0.9375rem;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-self: flex-end;
+height: 93%;
+padding: 12% 50px;
+background: linear-gradient(180deg,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.3) 10%,
+    hsl(0, 0%, 0%) 100%);
 }
 
 
 
 .skill-card__title {
-  position: relative;
-  width: fit-content;
-  width: -moz-fit-content;
+right: 20px;
+position: relative;
+width: fit-content;
+width: -moz-fit-content;
 }
 
 .skill-card__title::after {
-  content: "";
-  position: absolute;
-  height: 3px;
-  width: calc(100% + 1.25rem);
-  bottom: calc((1.25rem - 0.5rem) * -1);
-  left: -1.25rem;
-  background-color: var(--brand-color);
+content: "";
+position: absolute;
+height: 3px;
+width: calc(100% + 1.25rem);
+bottom: calc((1.25rem - 0.5rem) * -1);
+left: -1.25rem;
+background-color: var(--brand-color);
 }
 
 .skill-card__button {
-  padding: 0.75em 1.6em;
-  width: fit-content;
-  width: 150px;
-  height: 50px;
-  font-variant: small-caps;
-  font-weight: bold;
-  border-radius: 0.45em;
-  border: none;
-  background-color: var(--brand-color);
-  font-family: var(--font-title);
-  font-size: 15px;
-  color: var(--black);
+padding: 0.75em 1.6em;
+width: fit-content;
+width: 150px;
+height: 50px;
+font-variant: small-caps;
+font-weight: bold;
+border-radius: 0.45em;
+border: none;
+background-color: var(--brand-color);
+font-family: var(--font-title);
+font-size: 15px;
+color: var(--black);
 }
 
 .skill-card__button:focus {
-  outline: 2px solid black;
-  outline-offset: -5px;
+outline: 2px solid black;
+outline-offset: -5px;
 }
 
 @media (any-hover: hover) and (any-pointer: fine) {
-  .skill-card__content {
-    transform: translateY(100px);
-    transition: transform 300ms ease-out;
-    transition-delay: 300ms;
-  }
+.skill-card__content {
+  transform: translateY(100px);
+  transition: transform 300ms ease-out;
+  transition-delay: 300ms;
+}
 
-  .skill-card__title::after {
-    opacity: 0;
-    transform: scaleX(0);
-    transition: opacity 300ms ease-in, transform 300ms ease-out;
-    transition-delay: 300ms;
-    transform-origin: right;
-  }
+.skill-card__title::after {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 300ms ease-in, transform 300ms ease-out;
+  transition-delay: 300ms;
+  transform-origin: right;
+}
 
-  .skill-card__background {
-    transition: transform 300ms ease-in;
-  }
+.skill-card__background {
+  transition: transform 300ms ease-in;
+}
 
-  .skill-card__content--container> :not(.skill-card__title),
-  .skill-card__button {
-    opacity: 0;
-    transition: transform 300ms ease-out, opacity 300ms ease-out;
-  }
+.skill-card__content--container> :not(.skill-card__title),
+.skill-card__button {
+  opacity: 0;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+}
 
-  .skill-card:hover,
-  .skill-card:focus-within {
-    transform: scale(1);
-    transition: transform 300ms ease-in;
+.skill-card:hover,
+.skill-card:focus-within {
+  transform: scale(1);
+  transition: transform 300ms ease-in;
 
-  }
+}
 
-  .skill-card:hover .skill-card__content,
-  .skill-card:focus-within .skill-card__content {
-    transform: translateY(0);
-    transition: transform 300ms ease-in;
-    height: 400px;
-  }
+.skill-card:hover .skill-card__content,
+.skill-card:focus-within .skill-card__content {
+  transform: translateY(0);
+  transition: transform 300ms ease-in;
+  height: 400px;
+}
 
-  .skill-card:focus-within .skill-card__content {
-    transition-duration: 0ms;
-  }
+.skill-card:focus-within .skill-card__content {
+  transition-duration: 0ms;
+}
 
-  .skill-card:hover .skill-card__background,
-  .skill-card:focus-within .skill-card__background {
-    transform: scale(1.3);
-  }
+.skill-card:hover .skill-card__background,
+.skill-card:focus-within .skill-card__background {
+  transform: scale(1.3);
+}
 
-  .skill-card:hover .skill-card__content--container> :not(.skill-card__title),
-  .skill-card:hover .skill-card__button,
-  .skill-card:focus-within .skill-card__content--container> :not(.skill-card__title),
-  .skill-card:focus-within .skill-card__button {
-    opacity: 1;
-    transition: opacity 300ms ease-in;
-    transition-delay: 600ms;
-  }
+.skill-card:hover .skill-card__content--container> :not(.skill-card__title),
+.skill-card:hover .skill-card__button,
+.skill-card:focus-within .skill-card__content--container> :not(.skill-card__title),
+.skill-card:focus-within .skill-card__button {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+  transition-delay: 600ms;
+}
 
-  .skill-card:hover .skill-card__title::after,
-  .skill-card:focus-within .skill-card__title::after {
-    opacity: 1;
-    transform: scaleX(2);
-    transform-origin: left;
-    transition: opacity 500ms ease-in, transform 500ms ease-in;
-    transition-delay: 500ms;
-  }
+.skill-card:hover .skill-card__title::after,
+.skill-card:focus-within .skill-card__title::after {
+  opacity: 1;
+  transform: scaleX(2);
+  transform-origin: left;
+  transition: opacity 500ms ease-in, transform 500ms ease-in;
+  transition-delay: 500ms;
+}
 }
 
 
 .profile{
-  box-shadow: 0px 10px 15px;
-  border: 1px #000000;
-  margin-left: 20px;
-  margin-top: 70px;
-  height: 600px;
-  width: 570px;
+box-shadow: 0px 10px 15px;
+border: 1px #000000;
+margin-left: 20px;
+
+height: 600px;
+width: 570px;
 }
 
 .profile-pic{
-  position: relative;
-  left: 30%;
-  mix-blend-mode: multiply;
+position: relative;
+left: 30%;
+mix-blend-mode: multiply;
 }
 
 .icon-button {
-  
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+
+background: none;
+border: none;
+padding: 0;
+cursor: pointer;
 }
 
 .icon-button img {
-  width: 30px; /* Adjust size as needed */
-  height: 30px; /* Adjust size as needed */
+width: 30px; /* Adjust size as needed */
+height: 30px; /* Adjust size as needed */
 }
 
 
 
 /* Graph Container */
 .graph-container {
-  mix-blend-mode: multiply;
-  position: relative;
-  left: 25%;
-  width: 50%;
-  height: 350px;
-  display: none; /* Initially hidden */
+mix-blend-mode: multiply;
+position: relative;
+left: 25%;
+width: 50%;
+height: 350px;
+display: none; /* Initially hidden */
 }
 
 /* Ensure the graph container has a background to make it visible */
 .graph-container canvas {
-  background-color: #fff;
+background-color: #fff;
 }
 
-  
+
 .name{
-  position: relative;
-  bottom: 30px;
-  text-align: center;
+position: relative;
+bottom: 30px;
+text-align: center;
 }
 
 /* Style for the button */
 .btn {
-  padding: 4px 8px; /* Adjust padding for a compact button size */
-  font-size: 14px; /* Font size for readability */
-  color: #ffffff; /* Button text color */
-  background-color: #007bff; /* Initial button background color */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+padding: 4px 8px; /* Adjust padding for a compact button size */
+font-size: 14px; /* Font size for readability */
+color: #ffffff; /* Button text color */
+background-color: #007bff; /* Initial button background color */
+border: none; /* Remove border */
+border-radius: 5px; /* Rounded corners */
+cursor: pointer; /* Pointer cursor on hover */
+transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 /* Hover effects */
 .btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: translateY(-3px); /* Lift the button slightly */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+background-color: #0056b3; /* Darker blue on hover */
+transform: translateY(-3px); /* Lift the button slightly */
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
 }
 
 /* Active state (when button is pressed) */
 .btn:active {
-  transform: translateY(0); /* Return button to its original position */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Return shadow to its original state */
+transform: translateY(0); /* Return button to its original position */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Return shadow to its original state */
 }
 
 /* Button animation when it first loads */
 .btn {
-  animation: fadeIn 0.6s ease-out;
+animation: fadeIn 0.6s ease-out;
 }
 
 /* Fade-in animation */
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+0% {
+  opacity: 0;
+  transform: scale(0.9);
+}
+100% {
+  opacity: 1;
+  transform: scale(1);
+}
 }
 

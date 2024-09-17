@@ -4,7 +4,10 @@ body {
 }
 
 .stream-container {
-  display: grid;
+  display: flex;
+  right: 90px;
+  top: 150px;
+  position: relative;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
@@ -180,6 +183,7 @@ color: white;
 }
 
 .skill-card__description {
+  padding: 20px;
 font-family: var(--font-text);
 font-size: 15px;
 line-height: 1.5;
@@ -240,13 +244,13 @@ margin-top: 170px;
 }
 
 .skill-card__content {
---flow-space: 0.9375rem;
+
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 align-self: flex-end;
-height: 70%;
-padding: 12% 2.25rem 1.875rem;
+height: 100%;
+padding: 12% 50px;
 background: linear-gradient(180deg,
     hsla(0, 0%, 0%, 0) 0%,
     hsla(0, 0%, 0%, 0.3) 10%,
@@ -293,7 +297,7 @@ outline-offset: -5px;
 
 @media (any-hover: hover) and (any-pointer: fine) {
 .skill-card__content {
-  transform: translateY(82px);
+  transform: translateY(150px);
   transition: transform 300ms ease-out;
   transition-delay: 300ms;
 }
@@ -327,7 +331,7 @@ outline-offset: -5px;
 .skill-card:focus-within .skill-card__content {
   transform: translateY(0);
   transition: transform 300ms ease-in;
-  height: 300px;
+  height: 450px;
 }
 
 .skill-card:focus-within .skill-card__content {

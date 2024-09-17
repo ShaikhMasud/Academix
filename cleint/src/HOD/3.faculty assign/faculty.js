@@ -85,20 +85,21 @@ const FacultyAssignment = () => {
         : subjects.filter(subject => subject.type === filter);
 
     return (
-        <div>
-            <nav className="navbar">
-                <ul>
-                    <li><a href="#">CO</a></li>
-                    <li><a href="#">PO</a></li>
-                    <li><a href="#">Faculty</a></li>
-                </ul>
-                <div className="profile">
-                    <img src="profile.png" alt="Profile" id="profile-circle" />
-                    <div className="dropdown-content">
-                        <a href="#" id="logout">Logout</a>
-                    </div>
-                </div>
-            </nav>
+        
+            <div className="containerpd">
+      {/* Navigation Bar */}
+      <div className="nav-bar">
+        <div className="nav-bar-content">
+          <Link to="/subjects"><button className="nav-btn">Subjects</button></Link>
+          <button className="nav-btn">Profile Picture</button>
+          <div>
+            <div className="user-icon">
+              <i className="fas fa-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
             <div className="filter-section">
                 <button className="filter-btn" onClick={() => handleFilter('all')}>All Subjects</button>
