@@ -237,8 +237,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-self: flex-end;
-  height: 80%;
-  padding: 12% 2.7rem 1.875rem;
+  height: 93%;
+  padding: 12% 50px;
   background: linear-gradient(180deg,
       hsla(0, 0%, 0%, 0) 0%,
       hsla(0, 0%, 0%, 0.3) 10%,
@@ -285,7 +285,7 @@ body {
 
 @media (any-hover: hover) and (any-pointer: fine) {
   .skill-card__content {
-    transform: translateY(82px);
+    transform: translateY(100px);
     transition: transform 300ms ease-out;
     transition-delay: 300ms;
   }
@@ -319,7 +319,7 @@ body {
   .skill-card:focus-within .skill-card__content {
     transform: translateY(0);
     transition: transform 300ms ease-in;
-    height: 300px;
+    height: 400px;
   }
 
   .skill-card:focus-within .skill-card__content {
@@ -445,3 +445,4 @@ body {
     transform: scale(1);
   }
 }
+
