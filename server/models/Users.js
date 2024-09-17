@@ -18,11 +18,6 @@ const UserSchema = new mongoose.Schema({
         required:true,
     },
 })
-const TeacherSchema= new mongoose.Schema({
-    name : String,
-    email : String,
-    password : String,
-})
 
 
 const UserModel = mongoose.model("users",UserSchema)

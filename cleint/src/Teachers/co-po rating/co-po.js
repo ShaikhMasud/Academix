@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './co-po.css';
+import { Link } from 'react-router-dom';
+
 
 const Appco = () => {
     // Define the PO statements
@@ -112,7 +114,9 @@ const Appco = () => {
                             </tr>
                         ))}
                     </tbody>
+
                 </table>
+                <Link to="/facultydashboard"><button>back</button>  <button>Submit</button></Link>
             </div>
             {tooltipText && (
                 <div

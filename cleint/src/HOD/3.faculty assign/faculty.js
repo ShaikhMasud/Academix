@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import './faculty.css'; // Ensure you have a styles.css file for styling
+import { Link } from 'react-router-dom';
+
 
 const teachers = [
     "Tayyab Sir", "Uday Sir", "Prasad Sir", "Jhanvi Maam", 
@@ -123,6 +125,7 @@ const FacultyAssignment = () => {
                     </tbody>
                 </table>
             </div>
+            <Link to="/hoddashboard"><button>back</button>  <button>Submit</button></Link>
         </div>
     );
 };

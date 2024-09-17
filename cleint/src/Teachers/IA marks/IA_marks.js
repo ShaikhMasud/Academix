@@ -1,6 +1,8 @@
 import React from 'react';
 import './IA.css'; // Import CSS for styling
 import * as XLSX from 'xlsx'; // Import XLSX library
+import { Link } from 'react-router-dom';
+
 
 const StudentMarksEntry = () => {
     // Function to handle file upload and fetch data
@@ -129,6 +131,7 @@ const StudentMarksEntry = () => {
                     </tbody>
                 </table>
             </div>
+            <Link to="/facultydashboard"><button>back</button>  <button>Submit</button></Link>
         </div>
     );
 };

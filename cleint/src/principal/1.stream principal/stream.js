@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './stream.css'; // Ensure this is the path to your CSS file
+import { Link } from 'react-router-dom';
 
 const StreamPage = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
@@ -89,7 +90,7 @@ const StreamPage = () => {
       <nav className="curved-nav">
         <div className="nav-content">
           <button className="nav-btn">CO</button>
-          <button className="nav-btn">PO</button>
+          <Link to="/sub"><button className="nav-btn">Subjects</button></Link>
           <div className="profile-menu">
             <div className="profile-circle" onClick={toggleLogoutMenu}>
               <i className="fas fa-user"></i>
@@ -103,6 +104,7 @@ const StreamPage = () => {
         </div>
       </nav>
 
+      <Link to="/stream_analysis">
       <div className="stream-container">
         {['it', 'comps', 'extc', 'mech', 'bsh'].map((stream) => (
           <div className="container" key={stream}>
@@ -132,6 +134,7 @@ const StreamPage = () => {
           </div>
         ))}
       </div>
+      </Link>
     </div>
   );
 };

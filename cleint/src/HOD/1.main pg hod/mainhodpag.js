@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
 import './mainhod.css'; // Import the CSS file
+import { Link } from 'react-router-dom';
 
 // Register Chart.js components
 Chart.register(...registerables);
@@ -79,9 +80,9 @@ const Hodmainpage = () => {
       {/* Navigation Bar */}
       <div className="nav-bar">
         <div className="nav-bar-content">
-          <button className="nav-btn">Home</button>
-          <button className="nav-btn">About</button>
-          <button className="nav-btn">Contact</button>
+          <Link to="/managefaculty"><button className="nav-btn">Manage Teachers</button></Link>
+          <Link to="/subjects"><button className="nav-btn">Subjects</button></Link>
+          <button className="nav-btn">Profile Picture</button>
           <div>
             <div className="user-icon">
               <i className="fas fa-user"></i>
