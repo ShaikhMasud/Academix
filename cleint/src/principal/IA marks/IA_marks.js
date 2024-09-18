@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 const StudentMarksEntryprin = () => {
+    const storedUser = sessionStorage.getItem('currentUser');
+    const user = storedUser ? JSON.parse(storedUser) : null;
     // Function to handle file upload and fetch data
     const uploadExcel = () => {
         const fileInput = document.getElementById('fileUpload');
@@ -39,7 +41,11 @@ const StudentMarksEntryprin = () => {
         alert('Logging out...');
     };
 
+    if (!user) {
+        return <p>Please log in to access this page.</p>;
+    }
     return (
+        user.role==="Principal"?(
         <div>
             <nav className="curved-nav">
                 <div className="nav-content">
@@ -133,6 +139,9 @@ const StudentMarksEntryprin = () => {
             </div>
             <Link to="/sub"><button>back</button>  <button>Submit</button></Link>
         </div>
+        ):(
+            <p>Access denied. This page is for Principal only.</p>
+        )
     );
 };
 

@@ -8,6 +8,9 @@ import coIcon from './bg img/co.png';
 import profPic from './bg img/prof.jpeg';
 
 function Subjects() {
+    const storedUser = sessionStorage.getItem('currentUser');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+
     const [showGraph, setShowGraph] = useState(false);
 
     // Function to toggle the graph visibility
@@ -34,8 +37,11 @@ function Subjects() {
     useEffect(() => {
         // Initialize Chart.js or other required setup here if needed
     }, []);
-
+    if (!user) {
+        return <p>Please log in to access this page.</p>;
+    }
     return (
+        user.role==="HOD" ? (
         <>
             <nav className="curved-nav">
                 <div className="nav-content">
@@ -167,6 +173,9 @@ function Subjects() {
                 </div>
             </div>
         </>
+        ) : (
+            <p>Access denied. This page is for HODs only.</p>
+        )
     );
 }
 

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 
 const Appco = () => {
+    const storedUser = sessionStorage.getItem('currentUser');
+    const user = storedUser ? JSON.parse(storedUser) : null;
     // Define the PO statements
     const poStatements = {
         PO1: "Engineering Knowledge: Graduates should have a deep understanding of the fundamental principles, theories, and concepts in their chosen engineering field.",
@@ -51,8 +53,11 @@ const Appco = () => {
         alert('Logging out...');
         // Add your logout logic here
     };
-
+    if (!user) {
+        return <p>Please log in to access this page.</p>;
+    }
     return (
+        user.role==="Teacher"?(
         <>
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -133,6 +138,9 @@ const Appco = () => {
                 </div>
             )}
         </>
+        ):(
+            <p>Access denied. This page is for Teachers only.</p>
+        )
     );
 };
 

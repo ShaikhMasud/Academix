@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
-import './mainhod.css'; // Import the CSS file
+import './mainhod.css';
 import { Link } from 'react-router-dom';
 
 // Register Chart.js components
 Chart.register(...registerables);
 
 const Hodmainpage = () => {
+  const storedUser = sessionStorage.getItem('currentUser');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedLevel, setSelectedLevel] = useState('SE');
   const [semesters, setSemesters] = useState({ sem1: 'Sem 3', sem2: 'Sem 4' });
@@ -40,40 +43,49 @@ const Hodmainpage = () => {
 
   // Initialize the chart
   useEffect(() => {
-    const ctx1 = document.getElementById('levelChart').getContext('2d');
-    const chart1 = new Chart(ctx1, {
-      type: 'pie',
-      data: {
-        labels: ['Level 0', 'Level 1', 'Level 2'],
-        datasets: [{
-          label: 'Level Distribution',
-          data: [30, 50, 20],
-          backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
-          hoverOffset: 4
-        }]
-      }
-    });
+    if (user) {
+      const ctx1 = document.getElementById('levelChart')?.getContext('2d');
+      const chart1 = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+          labels: ['Level 0', 'Level 1', 'Level 2'],
+          datasets: [{
+            label: 'Level Distribution',
+            data: [30, 50, 20],
+            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
+            hoverOffset: 4
+          }]
+        }
+      });
+  
+      const ctx2 = document.getElementById('levelChart2')?.getContext('2d');
+      const chart2 = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+          labels: ['Level 0', 'Level 1', 'Level 2'],
+          datasets: [{
+            label: 'Level Distribution',
+            data: [45, 25, 30],
+            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
+            hoverOffset: 4
+          }]
+        }
+      });
+  
+      return () => {
+        if (chart1) chart1.destroy();
+        if (chart2) chart2.destroy();
+      };
+    }
+  }, [user]);
+  
+  if (!user) {
+    return <p>Please log in to access this page.</p>;
+  }
 
-    const ctx2 = document.getElementById('levelChart2').getContext('2d');
-    const chart2 = new Chart(ctx2, {
-      type: 'pie',
-      data: {
-        labels: ['Level 0', 'Level 1', 'Level 2'],
-        datasets: [{
-          label: 'Level Distribution',
-          data: [45, 25, 30],
-          backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
-          hoverOffset: 4
-        }]
-      }
-    });
-
-    // Cleanup function to destroy charts on component unmount
-    return () => {
-      if (chart1) chart1.destroy();
-      if (chart2) chart2.destroy();
-    };
-  }, []);
+  if (user.role !== "HOD") {
+    return <p>Access denied. This page is for HODs only.</p>;
+  }
 
   return (
     <div className="containerpd">
@@ -82,10 +94,8 @@ const Hodmainpage = () => {
         <div className="nav-bar-content">
           <Link to="/subjects"><button className="nav-btn">Subjects</button></Link>
           <button className="nav-btn">Profile Picture</button>
-          <div>
-            <div className="user-icon">
-              <i className="fas fa-user"></i>
-            </div>
+          <div className="user-icon">
+            <i className="fas fa-user"></i>
           </div>
         </div>
       </div>
@@ -118,8 +128,8 @@ const Hodmainpage = () => {
 
       {/* Semester and Graph Section */}
       <div className="semester-section">
-      <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
-      <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
+        <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
+        <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
       </div>
 
       {/* Graphs */}

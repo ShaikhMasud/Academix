@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 const StudentMarksEntry = () => {
+    const storedUser = sessionStorage.getItem('currentUser');
+    const user = storedUser ? JSON.parse(storedUser) : null;
     // Function to handle file upload and fetch data
     const uploadExcel = () => {
         const fileInput = document.getElementById('fileUpload');
@@ -38,8 +40,11 @@ const StudentMarksEntry = () => {
     const logout = () => {
         alert('Logging out...');
     };
-
+    if (!user) {
+        return <p>Please log in to access this page.</p>;
+    }
     return (
+        user.role==="Teacher"?(
         <div>
             <nav className="curved-nav">
                 <div className="nav-content">
@@ -133,6 +138,9 @@ const StudentMarksEntry = () => {
             </div>
             <Link to="/facultydashboard"><button>back</button>  <button>Submit</button></Link>
         </div>
+        ):(
+            <p>Access denied. This page is for Teachers only.</p> 
+        )
     );
 };
 

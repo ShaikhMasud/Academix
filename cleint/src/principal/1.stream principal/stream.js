@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 
 
 const StreamPage = () => {
+  const storedUser = sessionStorage.getItem('currentUser');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+
   const [isMenuVisible, setMenuVisible] = useState(false);
   const cardRefs = useRef([]);
 
@@ -20,6 +23,7 @@ const StreamPage = () => {
   const handleCardClick = (stream) => {
     window.location.href = `/${stream}-overview.html`;
   };
+  
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -86,8 +90,11 @@ const StreamPage = () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-
+  if (!user) {
+    return <p>Please log in to access this page.</p>;
+  }
   return (
+    user.role==="Principal"?(
     <div>
       <nav className="curved-nav">
         <div className="nav-content">
@@ -138,6 +145,9 @@ const StreamPage = () => {
       </div>
       </Link>
     </div>
+    ):(
+      <p>Access denied. This page is for Pricipal only.</p>
+    )
   );
 };
 

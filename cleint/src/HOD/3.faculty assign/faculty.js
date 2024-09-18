@@ -26,6 +26,10 @@ const initialSubjects = [
 ];
 
 const FacultyAssignment = () => {
+    const storedUser = sessionStorage.getItem('currentUser');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+
+
     const [subjects, setSubjects] = useState(initialSubjects);
     const [filter, setFilter] = useState('all');
 
@@ -84,9 +88,13 @@ const FacultyAssignment = () => {
         ? subjects
         : subjects.filter(subject => subject.type === filter);
 
+    if (!user) {
+        return <p>Please log in to access this page.</p>;
+    }
+
     return (
-        
-            <div className="containerpd">
+     user.role==="HOD"?(   
+    <div className="containerpd">
       {/* Navigation Bar */}
       <div className="nav-bar">
         <div className="nav-bar-content">
@@ -128,6 +136,9 @@ const FacultyAssignment = () => {
             </div>
             <Link to="/hoddashboard"><button>back</button>  <button>Submit</button></Link>
         </div>
+     ):(
+        <p>Access denied. This page is for HODs only.</p>
+     )
     );
 };
 

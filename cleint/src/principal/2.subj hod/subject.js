@@ -8,6 +8,8 @@ import bgImg5 from './bg img/b5.JPG';
 
 
 const Subjectpageprin = () => {
+  const storedUser = sessionStorage.getItem('currentUser');
+  const user = storedUser ? JSON.parse(storedUser) : null;
   const toggleLogoutMenu = () => {
     const logoutMenu = document.getElementById('logoutMenu');
     if (logoutMenu.style.display === 'block') {
@@ -21,8 +23,11 @@ const Subjectpageprin = () => {
     alert('Logging out...');
     // Add your logout logic here
   };
-
+  if (!user) {
+    return <p>Please log in to access this page.</p>;
+  }
   return (
+    user.role==="Principal"?(
     <div className="App">
       <nav className="curved-nav">
         <div className="nav-content">
@@ -174,6 +179,9 @@ const Subjectpageprin = () => {
         
       </div>
     </div>
+    ):(
+      <p>Access denied. This page is for Principal only.</p>
+    )
   );
 };
 

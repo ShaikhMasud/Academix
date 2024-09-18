@@ -4,18 +4,30 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/login', { name, password })
+    console.log('Clearing session storage...');
+    sessionStorage.removeItem('currentUser');
+    console.log('Session storage after clearing:', sessionStorage.getItem('currentUser'));
+    
+      axios.post('http://localhost:3001/login', { username, password })
       .then(result => {
         if (result.data !== "UnAthorised") {
-          sessionStorage.setItem('currentUser', JSON.stringify(result.data));
-          navigate("/home");
+          if(result.data.role==="HOD"){
+            sessionStorage.setItem('currentUser', JSON.stringify(result.data));
+            navigate("/hoddashboard");
+          } else if(result.data.role==="Principal"){
+            sessionStorage.setItem('currentUser', JSON.stringify(result.data));
+            navigate("/principaldashboard");
+          } else if(result.data.role==="Teacher"){
+            sessionStorage.setItem('currentUser', JSON.stringify(result.data));
+            navigate("/facultydashboard");
+          }
         } else {
           setMessage('Unauthorized: Please check your credentials.');
         }
@@ -33,7 +45,7 @@ function Login() {
             <input
               type="text"
               className="form-control"
-              placeholder="Enter Name"
+              placeholder="Enter Username"
               name="name"
               onChange={(e) => setName(e.target.value)}
               required
