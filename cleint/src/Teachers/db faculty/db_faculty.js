@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState,  useEffect } from 'react';
 import './db_faculty.css';
 import { Link } from 'react-router-dom';
 // Import images

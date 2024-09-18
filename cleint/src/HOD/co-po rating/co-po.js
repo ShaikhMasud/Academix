@@ -36,10 +36,6 @@ const CO_PO_HOD = () => {
         setTooltipText('');
     };
 
-    const handleBoxClick = (stream) => {
-        window.location.href = `/${stream}-overview.html`; // Example of navigating to a stream's overview page
-    };
-
     const [logoutMenuVisible, setLogoutMenuVisible] = useState(false);
 
     const toggleLogoutMenu = () => {
