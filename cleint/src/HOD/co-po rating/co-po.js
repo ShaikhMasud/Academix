@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 const CO_PO_HOD = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
+    
 
     const poStatements = {
         PO1: "Engineering Knowledge: Graduates should have a deep understanding of the fundamental principles, theories, and concepts in their chosen engineering field.",

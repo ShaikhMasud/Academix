@@ -2,6 +2,7 @@ import React from 'react';
 import './IA.css'; // Import CSS for styling
 import * as XLSX from 'xlsx'; // Import XLSX library
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 
 const StudentMarksEntryprin = () => {
