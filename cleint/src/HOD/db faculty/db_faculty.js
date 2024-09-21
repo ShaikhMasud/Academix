@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './db_faculty.css';
 import { Link } from 'react-router-dom';
 // Import images
@@ -12,7 +12,7 @@ function Subjects() {
     const user = storedUser ? JSON.parse(storedUser) : null;
 
     const [showGraph, setShowGraph] = useState(false);
-    
+
     // Function to toggle the graph visibility
     const toggleGraph = () => {
         setShowGraph(prevShowGraph => !prevShowGraph);

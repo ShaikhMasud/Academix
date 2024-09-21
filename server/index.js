@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose =require('mongoose')
 const cors = require("cors")
 const UserModel =require('./models/Users')
+const CO_POModel =require('./models/CO_PO')
 
 const app = express()
 app.use(express.json())
@@ -102,5 +103,42 @@ app.post('/updateSubjects', async (req, res) => {
     } catch (err) {
         console.error('Error updating subjects:', err);
         res.status(500).json({ success: false, message: 'Error updating subjects' });
+    }
+});
+
+app.post('/submitCoPo', async (req, res) => {
+    const { semester, subject_name, CO1, CO2, CO3, CO4, CO5, CO6 } = req.body;
+    console.log("Received data:", { semester, subject_name, CO1, CO2, CO3, CO4, CO5, CO6 });
+    try {
+        const existingRecord = await CO_POModel.findOne({ semester, subject_name });
+
+        if (existingRecord) {
+            existingRecord.CO1 = { PoValues: CO1.poValues, description: CO1.description };
+            existingRecord.CO2 = { PoValues: CO2.poValues, description: CO2.description };
+            existingRecord.CO3 = { PoValues: CO3.poValues, description: CO3.description };
+            existingRecord.CO4 = { PoValues: CO4.poValues, description: CO4.description };
+            existingRecord.CO5 = { PoValues: CO5.poValues, description: CO5.description };
+            existingRecord.CO6 = { PoValues: CO6.poValues, description: CO6.description };
+            await existingRecord.save();
+            return res.json({ success: true, message: 'Record updated successfully!' });
+        }
+
+        const newRecord = new CO_POModel({
+            semester,
+            subject_name,
+            CO1: { PoValues: CO1.poValues, description: CO1.description },
+            CO2: { PoValues: CO2.poValues, description: CO2.description },
+            CO3: { PoValues: CO3.poValues, description: CO3.description },
+            CO4: { PoValues: CO4.poValues, description: CO4.description },
+            CO5: { PoValues: CO5.poValues, description: CO5.description },
+            CO6: { PoValues: CO6.poValues, description: CO6.description },
+        });
+
+        await newRecord.save();
+        res.json({ success: true, message: 'Record created successfully!' });
+
+    } catch (error) {
+        console.error("Error saving CO-PO data:", error);
+        res.status(500).json({ success: false, message: 'Error saving CO-PO data', error: error.message });
     }
 });

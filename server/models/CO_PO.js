@@ -1,53 +1,9 @@
 const mongoose = require('mongoose');
 
 const PO_Subschema = new mongoose.Schema({
-    PO1: {
-        type: String,
-        required: true,
-    },
-    PO2: {
-        type: String,
-        required: true,
-    },
-    PO3: {
-        type: String,
-        required: true,
-    },
-    PO4: {
-        type: String,
-        required: true,
-    },
-    PO5: {
-        type: String,
-        required: true,
-    },
-    PO6: {
-        type: String,
-        required: true,
-    },
-    PO7: {
-        type: String,
-        required: true,
-    },
-    PO8: {
-        type: String,
-        required: true,
-    },
-    PO9: {
-        type: String,
-        required: true,
-    },
-    PO10: {
-        type: String,
-        required: true,
-    },
-    PO11: {
-        type: String,
-        required: true,
-    },
-    PO12: {
-        type: String,
-        required: true,
+    PoValues: {
+        type: Array, 
+        required: true 
     },
     description: {
         type: String,

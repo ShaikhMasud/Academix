@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
-import './faculty.css'; // Ensure you have a styles.css file for styling
+import './faculty.css'; 
 import { Link } from 'react-router-dom';
 
 

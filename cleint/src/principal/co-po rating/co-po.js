@@ -39,9 +39,9 @@ const Co_po_prin = () => {
         setTooltipText('');
     };
 
-    const handleBoxClick = (stream) => {
-        window.location.href = `/${stream}-overview.html`; // Example of navigating to a stream's overview page
-    };
+    // const handleBoxClick = (stream) => {
+    //     window.location.href = `/${stream}-overview.html`; // Example of navigating to a stream's overview page
+    // };
 
     const [logoutMenuVisible, setLogoutMenuVisible] = useState(false);
 
