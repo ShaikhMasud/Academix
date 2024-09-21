@@ -43,10 +43,10 @@ function App() {
         <Route path='/iamarks_entry' element={<StudentMarksEntryprin/>}></Route>
 
         {/* Faculty routes */}
-        <Route path='/co-po-map' element={<Appco/>}></Route>
+        <Route path='/co-po-map/:subject/:semester' element={<Appco />} />
         <Route path='/facultydashboard' element={<Appfa/>}></Route>
-        <Route path='/ia' element={<StudentMarksEntry/>}></Route>
-
+        <Route path='/ia/:subject/:semester' element={<StudentMarksEntry />} />
+        
       </Routes>
     </BrowserRouter>
   );

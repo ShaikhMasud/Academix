@@ -197,11 +197,13 @@ margin-top: var(--flow-space, 1em);
 /* CARD COMPONENT */
 
 .card-container {
-  display: flex; /* Arrange children in a row */
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
-  gap: 20px; /* Adjust spacing between cards */
-  padding: 20px; /* Optional padding around the container */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
 }
+
+
 
 .skill-card {
   display: grid;
@@ -356,7 +358,6 @@ outline-offset: -5px;
 box-shadow: 0px 10px 15px;
 border: 1px #000000;
 margin-left: 20px;
-
 height: 600px;
 width: 570px;
 }

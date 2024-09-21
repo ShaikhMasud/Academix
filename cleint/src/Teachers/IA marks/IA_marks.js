@@ -2,9 +2,11 @@ import React from 'react';
 import './IA.css'; // Import CSS for styling
 import * as XLSX from 'xlsx'; // Import XLSX library
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 
 const StudentMarksEntry = () => {
+    const { subject, semester } = useParams();
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     // Function to handle file upload and fetch data

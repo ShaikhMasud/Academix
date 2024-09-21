@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import './co-po.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from "react-router-dom";
+
 
 const CO_PO_HOD = () => {
     const storedUser = sessionStorage.getItem('currentUser');
@@ -22,8 +24,7 @@ const CO_PO_HOD = () => {
         PO12: "Life-long learning: Recognize the need for independent and life-long learning in the broadest context of technological change."
     };
 
-    const semester = 3;
-    const subject = "Maths";
+    const { subject, semester } = useParams();
 
     const [tooltipText, setTooltipText] = useState('');
     const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });

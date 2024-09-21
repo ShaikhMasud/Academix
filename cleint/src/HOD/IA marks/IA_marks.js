@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const StudentMarksEntryHOD = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
+    const { subject, semester } = useParams();
 
     // Function to handle file upload and fetch data
     function uploadExcel() {
