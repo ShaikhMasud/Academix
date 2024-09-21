@@ -8,28 +8,44 @@ const StudentMarksEntry = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     // Function to handle file upload and fetch data
-    const uploadExcel = () => {
-        const fileInput = document.getElementById('fileUpload');
-        if (fileInput.files.length === 0) return;
-
-        const file = fileInput.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-
-            // Process the data from the first sheet
-            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-            const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-
-            // Here, you should handle the jsonData and update the table
-            console.log(jsonData);
+    function uploadExcel() {
+        var fileUpload = document.getElementById("fileUpload");
+        var reader = new FileReader();
+    
+        reader.onload = function (e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+    
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            var jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+    
+            populateTable(jsonData);
         };
-
-        reader.readAsArrayBuffer(file);
-    };
-
+    
+        if (fileUpload.files.length > 0) {
+            reader.readAsArrayBuffer(fileUpload.files[0]);
+        } else {
+            alert("Please upload an Excel file.");
+        }
+    }
+    
+    function populateTable(data) {
+        var tableBody = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+        tableBody.innerHTML = "";  // Clear existing table data
+    
+        // Populate the table
+        for (var i = 1; i < data.length; i++) {
+            var row = document.createElement("tr");
+    
+            for (var j = 0; j < data[i].length; j++) {
+                var cell = document.createElement("td");
+                cell.textContent = data[i][j];
+                row.appendChild(cell);
+            }
+    
+            tableBody.appendChild(row);
+        }
+    }
     // Function to toggle logout menu visibility
     const toggleLogoutMenu = () => {
         const logoutMenu = document.getElementById('logoutMenu');
