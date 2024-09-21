@@ -12,7 +12,7 @@ function Subjects() {
     const user = storedUser ? JSON.parse(storedUser) : null;
 
     const [showGraph, setShowGraph] = useState(false);
-
+    
     // Function to toggle the graph visibility
     const toggleGraph = () => {
         setShowGraph(prevShowGraph => !prevShowGraph);
