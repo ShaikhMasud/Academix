@@ -1,5 +1,6 @@
 /* General Container */
 .containerpd {
+  left: 145px;
   width: 1200px;
   position: relative;
   background: #ffffff; /* Light grey background */
