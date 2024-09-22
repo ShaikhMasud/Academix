@@ -27,11 +27,11 @@ function Subjects() {
                 ]
             },
             {
-                "name": "FE",
+                "name": "IT",
                 "semesters": [
                     {
                         "semester": 3,
-                        "subjects": ["Engineering Mathematics-III", "Discrete Mathematics", "Computer Networks", "Database Management Systems", "Object-Oriented Programming"]
+                        "subjects": ["Java Lab","Engineering Mathematics-III", "Discrete Mathematics", "Computer Networks", "Database Management Systems", "Object-Oriented Programming"]
                     },
                     {
                         "semester": 4,
@@ -181,7 +181,7 @@ function Subjects() {
 
     const subjectsAssigned = user.Subjects_assigned || [];
 
-    return user.role === 'Principal' ? (
+    return user.role === 'HOD' ? (
         <>
             <nav className="curved-nav">
                 <div className="nav-content">
@@ -217,13 +217,17 @@ function Subjects() {
                                         <button className="icon-button" onClick={toggleGraph}>
                                             <img src={graphIcon} alt="Graph Icon" />
                                         </button>
-                                        <Link to={`/co-po-map/${subject}/${semester}`}>                                            <button className="icon-button">
+                                        <Link to={`/co-po/${subject}/${semester}`}>                                            
+                                                <button className="icon-button">
                                                 <img src={coIcon} alt="CO Icon" />
                                             </button>
                                         </Link>
                                         <h2 className="skill-card__title">{subject}</h2>
                                         <pre className="skill-card__description">
-                                        <Link to={`/ia/${subject}/${semester}`}>                                                <button className="btn">IA 1</button> - LEVEL 2{"\n"}
+                                        <Link to={`/IA_marks_entry/${subject}/${semester}/${1}`}>                                                
+                                                <button className="btn">IA 1</button> - LEVEL 2{"\n"}
+                                                </Link>
+                                                <Link to={`/IA_marks_entry/${subject}/${semester}/${2}`}>                                                
                                                 <button className="btn">IA 2</button> - LEVEL 1{"\n"}
                                             </Link>
                                             <button className="btn">INTERNAL</button> - LEVEL 2{"\n"}

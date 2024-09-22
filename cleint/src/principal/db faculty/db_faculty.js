@@ -114,7 +114,7 @@ function Prin_sub() {
                 ]
             },
             {
-                "name": "Electronics and Telecommunication",
+                "name": "EXTC",
                 "semesters": [
                     {
                         "semester": 3,
@@ -217,13 +217,17 @@ function Prin_sub() {
                                         <button className="icon-button" onClick={toggleGraph}>
                                             <img src={graphIcon} alt="Graph Icon" />
                                         </button>
-                                        <Link to={`/co-po-map/${subject}/${semester}`}>                                            <button className="icon-button">
+                                        <Link to={`/co_po/${subject}/${semester}`}>                                            
+                                                <button className="icon-button">
                                                 <img src={coIcon} alt="CO Icon" />
                                             </button>
                                         </Link>
                                         <h2 className="skill-card__title">{subject}</h2>
                                         <pre className="skill-card__description">
-                                        <Link to={`/ia/${subject}/${semester}`}>                                                <button className="btn">IA 1</button> - LEVEL 2{"\n"}
+                                        <Link to={`/iamarks_entry/${subject}/${semester}/${1}`}>                                                
+                                                <button className="btn">IA 1</button> - LEVEL 2{"\n"}
+                                                </Link>
+                                                <Link to={`/iamarks_entry/${subject}/${semester}/${2}`}>                                                
                                                 <button className="btn">IA 2</button> - LEVEL 1{"\n"}
                                             </Link>
                                             <button className="btn">INTERNAL</button> - LEVEL 2{"\n"}
@@ -245,7 +249,7 @@ function Prin_sub() {
             </div>
         </>
     ) : (
-        <p>Access Denied. This page is only for HODs Only.</p>
+        <p>Access Denied. This page is only for Principal Only.</p>
     );
 }
 

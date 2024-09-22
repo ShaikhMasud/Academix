@@ -3,7 +3,7 @@ const mongoose =require('mongoose')
 const cors = require("cors")
 const UserModel =require('./models/Users')
 const CO_POModel =require('./models/CO_PO')
-const StudentModel = require('./models/students');
+const StudentModel = require('./models/student');
 
 const app = express()
 app.use(express.json())
@@ -145,30 +145,66 @@ app.post('/submitCoPo', async (req, res) => {
 });
 
 app.post('/students', async (req, res) => {
-    const students = req.body;
-
+    const studentData = req.body;
     try {
-        for (const student of students) {
-            const { roll_no, student_name, sem1 } = student;
-
-            // Check if the student already exists in the database by roll_no
-            let existingStudent = await StudentModel.findOne({ roll_no });
-
+        for (const student of studentData) {
+            // Find the student by roll number
+            let existingStudent = await StudentModel.findOne({ roll: student.rollno });
+            
+            // If student exists
             if (existingStudent) {
-                // If the student exists, update the sem1 information (IA marks, COs, etc.)
-                existingStudent.sem1 = sem1;  // You can modify this if you want to allow partial updates
-                await existingStudent.save(); // Save the updated student record
+                // Loop through each semester in the request (e.g., sem1, sem2, sem3, etc.)
+                Object.keys(student).forEach(semKey => {
+                    if (semKey.startsWith('sem')) {
+                        let semester = student[semKey]; // The semester data from the request
+                        
+                        // Find the subject in the existing student's semester
+                        let existingSubject = existingStudent[semKey]?.find(sub => sub.subject_name === semester.subject_name);
+                        
+                        if (existingSubject) {
+                            // If the subject exists, update IA1 or IA2 based on what is in the request
+                            if (semester.IA1) {
+                                existingSubject.IA1 = { ...existingSubject.IA1, ...semester.IA1 }; // Merge new IA1 data
+                            }
+                            if (semester.IA2) {
+                                existingSubject.IA2 = { ...existingSubject.IA2, ...semester.IA2 }; // Merge new IA2 data
+                            }
+                        } else {
+                            // If the subject doesn't exist, create a new subject with the provided IA1/IA2 data
+                            existingStudent[semKey].push({
+                                subject_name: semester.subject_name,
+                                IA1: semester.IA1 || null,
+                                IA2: semester.IA2 || null,
+                                ESE: semester.ESE || null,
+                                Assignment: semester.Assignment || null
+                            });
+                        }
+                    }
+                });
+                // Save updated student
+                await existingStudent.save();
             } else {
-                // If the student does not exist, create a new student record
-                const newStudent = new StudentModel({ roll_no, student_name, sem1 });
-                await newStudent.save(); // Save the new student record
+                // If student does not exist, create a new student
+                const newStudent = new StudentModel({
+                    studentname: student.studentname,
+                    roll: student.rollno,
+                    sem1: student.sem1 ? [student.sem1] : [],
+                    sem2: student.sem2 ? [student.sem2] : [],
+                    sem3: student.sem3 ? [student.sem3] : [],
+                    sem4: student.sem4 ? [student.sem4] : [],
+                    sem5: student.sem5 ? [student.sem5] : [],
+                    sem6: student.sem6 ? [student.sem6] : [],
+                    sem7: student.sem7 ? [student.sem7] : [],
+                    sem8: student.sem8 ? [student.sem8] : []
+                });
+                await newStudent.save();
             }
         }
 
-        // Send success response after saving all students
-        res.json({ success: true, message: 'Student data saved successfully!' });
+        // Send success response
+        return res.status(200).json({ success: true, message: 'Student data processed successfully.' });
     } catch (error) {
         console.error("Error saving student data:", error);
-        res.status(500).json({ success: false, message: 'Error saving student data', error: error.message });
+        return res.status(500).json({ success: false, message: 'Error processing student data.' });
     }
 });

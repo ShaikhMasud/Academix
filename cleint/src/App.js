@@ -29,23 +29,23 @@ function App() {
         <Route path='/hoddashboard' element={<Hodmainpage/>}></Route>
         <Route path='/managefaculty' element={<FacultyAssignment/>}></Route>
         <Route path='/SemSubjects' element={<Subjectpagehod/>}></Route>
-        <Route path='/co-po' element={<CO_PO_HOD/>}></Route>
+        <Route path='/co-po/:subject/:semester' element={<CO_PO_HOD/>}></Route>
         <Route path='/subjects' element={<Subjects/>}></Route>
-        <Route path='/IA_marks_entry' element={<StudentMarksEntryHOD/>}></Route>
+        <Route path='/IA_marks_entry/:subject/:semester/:ia' element={<StudentMarksEntryHOD/>}></Route>
 
 
         {/* Principal routes */}
         <Route path='/principaldashboard' element={<SelectStream/>}></Route>
         <Route path='/stream_analysis' element={<Principalmainpage/>}></Route>
         <Route path='/SemSub' element={<Subjectpageprin/>}></Route>
-        <Route path='/co_po' element={<Co_po_prin/>}></Route>
+        <Route path='/co_po/:subject/:semester' element={<Co_po_prin/>}></Route>
         <Route path='/sub' element={<Prin_sub/>}></Route>
-        <Route path='/iamarks_entry' element={<StudentMarksEntryprin/>}></Route>
+        <Route path='/iamarks_entry/:subject/:semester/:ia' element={<StudentMarksEntryprin/>}></Route>
 
         {/* Faculty routes */}
         <Route path='/co-po-map/:subject/:semester' element={<Appco />} />
         <Route path='/facultydashboard' element={<Appfa/>}></Route>
-        <Route path='/ia/:subject/:semester' element={<StudentMarksEntry />} />
+        <Route path='/ia/:subject/:semester/:ia' element={<StudentMarksEntry />} />
         
       </Routes>
     </BrowserRouter>

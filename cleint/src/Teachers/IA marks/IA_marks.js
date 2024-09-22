@@ -3,10 +3,10 @@ import './IA.css';
 import * as XLSX from 'xlsx'; 
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-import axios from 'axios'; // Add axios for API calls
+import axios from 'axios'; 
 
 const StudentMarksEntry = () => {
-    const { subject, semester } = useParams();
+    const { subject, semester,ia } = useParams(); // Fetch the subject and semester from the URL params
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -37,7 +37,6 @@ const StudentMarksEntry = () => {
         const tableBody = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
         tableBody.innerHTML = "";  
 
-        // Populate the table
         for (let i = 1; i < data.length; i++) {
             const row = document.createElement("tr");
 
@@ -68,26 +67,27 @@ const StudentMarksEntry = () => {
             const q3Marks = parseFloat(cells[4].textContent);
             const total = parseFloat(cells[5].textContent);
 
-            const coSelectors = document.querySelectorAll(".co-select"); // Collect CO selectors
+            const coSelectors = document.querySelectorAll(".co-select"); 
 
             return {
-                roll_no: rollNo,
-                student_name: name,
-                sem1: {
-                    subject_name: 'XYZ', 
-                    ia1: {
-                        q1_marks: q1Marks,
-                        q2_marks: q2Marks,
-                        q3_marks: q3Marks,
-                        q1_co: coSelectors[0].value,
-                        q2_co: coSelectors[1].value,
-                        q3_co: coSelectors[2].value,
+                studentname: name,
+                rollno: rollNo,
+                [`sem${semester}`]: {  // Dynamically assign the semester
+                    subject_name: subject, // Assign the subject name from URL
+                    [`IA${ia}`]: {  // You can change this to IA2, ESE, or Assignment based on the input type
+                        Q1: q1Marks,
+                        Q2: q2Marks,
+                        Q3: q3Marks,
+                        Q1_co: coSelectors[0].value,
+                        Q2_co: coSelectors[1].value,
+                        Q3_co: coSelectors[2].value,
                     }
                 }
             };
         });
 
         try {
+            console.log(studentData)
             const response = await axios.post('http://localhost:3001/students', studentData);
             if (response.data.success) {
                 alert('Student data submitted successfully!');
