@@ -153,7 +153,7 @@ const Appco = () => {
                             ))}
                         </tbody>
                     </table>
-                    <Link to="/subjects">
+                    <Link to="/facultydashboard">
                         <button>back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>

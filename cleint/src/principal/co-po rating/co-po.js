@@ -154,7 +154,7 @@ const Co_po_prin = () => {
                             ))}
                         </tbody>
                     </table>
-                    <Link to="/subjects">
+                    <Link to="/sub">
                         <button>back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>

@@ -190,7 +190,7 @@ const StudentMarksEntryHOD = () => {
                         <tbody></tbody>
                     </table>
 
-                    <Link to="/facultydashboard">
+                    <Link to="/subjects">
                         <button>Back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>
