@@ -3,6 +3,7 @@ const mongoose =require('mongoose')
 const cors = require("cors")
 const UserModel =require('./models/Users')
 const CO_POModel =require('./models/CO_PO')
+const StudentModel = require('./models/students');
 
 const app = express()
 app.use(express.json())
@@ -140,5 +141,34 @@ app.post('/submitCoPo', async (req, res) => {
     } catch (error) {
         console.error("Error saving CO-PO data:", error);
         res.status(500).json({ success: false, message: 'Error saving CO-PO data', error: error.message });
+    }
+});
+
+app.post('/students', async (req, res) => {
+    const students = req.body;
+
+    try {
+        for (const student of students) {
+            const { roll_no, student_name, sem1 } = student;
+
+            // Check if the student already exists in the database by roll_no
+            let existingStudent = await StudentModel.findOne({ roll_no });
+
+            if (existingStudent) {
+                // If the student exists, update the sem1 information (IA marks, COs, etc.)
+                existingStudent.sem1 = sem1;  // You can modify this if you want to allow partial updates
+                await existingStudent.save(); // Save the updated student record
+            } else {
+                // If the student does not exist, create a new student record
+                const newStudent = new StudentModel({ roll_no, student_name, sem1 });
+                await newStudent.save(); // Save the new student record
+            }
+        }
+
+        // Send success response after saving all students
+        res.json({ success: true, message: 'Student data saved successfully!' });
+    } catch (error) {
+        console.error("Error saving student data:", error);
+        res.status(500).json({ success: false, message: 'Error saving student data', error: error.message });
     }
 });
