@@ -57,6 +57,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+  .year-box:hover {
+    background-color: #007bff;
+  }
   .selected-year-box {
     background-color: #007bff;
     color: white;
@@ -87,15 +90,19 @@
   }
   
   /* Semester Box Styles */
+  .sem-box:hover{
+    color: white;
+  }
+  
+  
   .sem-box {
-    
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
   }
   
   /* Horizontal Rule Styles */
