@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import './principaldash.css';
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 // Register Chart.js components
 Chart.register(...registerables);
 
 const PrincipalMainPage = () => {
+  const {stream}=useParams();
   const storedUser = sessionStorage.getItem('currentUser');
   const user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -90,6 +92,7 @@ const PrincipalMainPage = () => {
             <Link to="/principaldashboard"><button className="nav-btn">Home</button></Link>
             <Link to="/sub"><button className="nav-btn">Subjects</button></Link>
             <button className="nav-btn">Profile Picture</button>
+            <button className="nav-btn">{stream}</button>
             <div className="user-icon">
               <i className="fas fa-user"></i>
             </div>
@@ -126,8 +129,8 @@ const PrincipalMainPage = () => {
 
         {/* Semester and Graph Section */}
         <div className="semester-section">
-          <Link to="/SemSub"><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
-          <Link to="/SemSub"><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
+          <Link to={`/SemSub/${semesters.sem1}/${stream}`}><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
+          <Link to={`/SemSub/${semesters.sem2}/${stream}`}><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
         </div>
 
         {/* Graphs */}

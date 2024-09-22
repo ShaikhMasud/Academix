@@ -113,9 +113,9 @@ const StreamPage = () => {
         </div>
       </nav>
 
-      <Link to="/stream_analysis">
       <div className="stream-container">
-        {['it', 'comps', 'extc', 'mech', 'bsh'].map((stream) => (
+        {['IT', 'Comps', 'EXTC', 'Mech', 'FE'].map((stream) => (
+          <Link to={`/stream_analysis/${stream}`}>
           <div className="container" key={stream}>
             <button
               id={`card-${stream}`}
@@ -124,26 +124,26 @@ const StreamPage = () => {
               ref={(el) => (cardRefs.current[stream] = el)}
             >
               <div className="card__content">
-                <i className={`fas fa-${stream === 'it' ? 'network-wired' : stream === 'comps' ? 'laptop-code' : stream === 'extc' ? 'broadcast-tower' : stream === 'mech' ? 'cogs' : 'flask'}`}></i>
+                <i className={`fas fa-${stream === 'IT' ? 'network-wired' : stream === 'Comps' ? 'laptop-code' : stream === 'EXTC' ? 'broadcast-tower' : stream === 'Mech' ? 'cogs' : 'flask'}`}></i>
                 <h3 className="card__name">
-                  {stream === 'it'
+                  {stream === 'IT'
                     ? 'Information Technology'
-                    : stream === 'comps'
+                    : stream === 'Comps'
                     ? 'Computer Science'
-                    : stream === 'extc'
+                    : stream === 'EXTC'
                     ? 'Electronics & Telecomm'
-                    : stream === 'mech'
+                    : stream === 'Mech'
                     ? 'Mechanical Engineering'
-                    : 'Basic Science & Humanities'}
+                    : 'First Year'}
                 </h3>
                 <p className="card__stream">{stream.toUpperCase()}</p>
               </div>
               <div className="card__gloss"></div>
             </button>
           </div>
+          </Link>
         ))}
       </div>
-      </Link>
     </div>
     ):(
       <p>Access denied. This page is for Pricipal only.</p>

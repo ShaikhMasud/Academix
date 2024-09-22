@@ -128,8 +128,8 @@ const Hodmainpage = () => {
 
       {/* Semester and Graph Section */}
       <div className="semester-section">
-        <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
-        <Link to="/SemSubjects"><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
+        <Link to={`/SemSubjects/${semesters.sem1}`}><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
+        <Link to={`/SemSubjects/${semesters.sem2}`}><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
       </div>
 
       {/* Graphs */}

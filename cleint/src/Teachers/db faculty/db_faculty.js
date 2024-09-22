@@ -185,9 +185,6 @@ function Subjects() {
         <>
             <nav className="curved-nav">
                 <div className="nav-content">
-                    <Link to="/hoddashboard">
-                        <button className="nav-btn">Home</button>
-                    </Link>
                     <div className="profile-menu">
                         <div className="profile-circle" onClick={toggleLogoutMenu}>
                             <i className="fas fa-user" />

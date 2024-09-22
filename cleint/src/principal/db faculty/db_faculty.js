@@ -185,7 +185,7 @@ function Prin_sub() {
         <>
             <nav className="curved-nav">
                 <div className="nav-content">
-                    <Link to="/hoddashboard">
+                    <Link to="/principaldashboard">
                         <button className="nav-btn">Home</button>
                     </Link>
                     <div className="profile-menu">

@@ -28,7 +28,7 @@ function App() {
         {/* HOD routes */}
         <Route path='/hoddashboard' element={<Hodmainpage/>}></Route>
         <Route path='/managefaculty' element={<FacultyAssignment/>}></Route>
-        <Route path='/SemSubjects' element={<Subjectpagehod/>}></Route>
+        <Route path='/SemSubjects/:sem' element={<Subjectpagehod/>}></Route>
         <Route path='/co-po/:subject/:semester' element={<CO_PO_HOD/>}></Route>
         <Route path='/subjects' element={<Subjects/>}></Route>
         <Route path='/IA_marks_entry/:subject/:semester/:ia' element={<StudentMarksEntryHOD/>}></Route>
@@ -36,8 +36,8 @@ function App() {
 
         {/* Principal routes */}
         <Route path='/principaldashboard' element={<SelectStream/>}></Route>
-        <Route path='/stream_analysis' element={<Principalmainpage/>}></Route>
-        <Route path='/SemSub' element={<Subjectpageprin/>}></Route>
+        <Route path='/stream_analysis/:stream' element={<Principalmainpage/>}></Route>
+        <Route path='/SemSub/:sem/:stream' element={<Subjectpageprin/>}></Route>
         <Route path='/co_po/:subject/:semester' element={<Co_po_prin/>}></Route>
         <Route path='/sub' element={<Prin_sub/>}></Route>
         <Route path='/iamarks_entry/:subject/:semester/:ia' element={<StudentMarksEntryprin/>}></Route>
