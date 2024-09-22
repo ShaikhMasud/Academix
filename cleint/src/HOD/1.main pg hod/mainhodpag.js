@@ -11,15 +11,15 @@ const Hodmainpage = () => {
   const user = storedUser ? JSON.parse(storedUser) : null;
   
   const [selectedYear, setSelectedYear] = useState('2024');
-  const [selectedLevel, setSelectedLevel] = useState('SE');
-  const [semesters, setSemesters] = useState({ sem1: 'Sem 3', sem2: 'Sem 4' });
+  const [selectedLevel, setSelectedLevel] = useState('SE');  // Default to SE
+  const [semesters, setSemesters] = useState({ sem1: 'Sem 3', sem2: 'Sem 4' }); // Set to Sem 3 and Sem 4 by default
 
   // Update semester display based on selected level
   const updateSemesterDisplay = (level) => {
     let semYear = 0;
     switch (level) {
       case 'SE':
-        semYear = 2;
+        semYear = 2; // Set semYear to 2 to get Sem 3 and Sem 4
         setSemesters({ sem1: `Sem ${semYear + 1}`, sem2: `Sem ${semYear + 2}` });
         break;
       case 'TE':
@@ -40,6 +40,11 @@ const Hodmainpage = () => {
     setSelectedLevel(level);
     updateSemesterDisplay(level);
   };
+
+  // Set the default semesters on initial load based on the default level (SE)
+  useEffect(() => {
+    updateSemesterDisplay(selectedLevel); // Initialize with SE semesters
+  }, []);
 
   // Initialize the chart
   useEffect(() => {
@@ -113,25 +118,36 @@ const Hodmainpage = () => {
 
       <hr className="hr-style" />
 
-      {/* Level Selection Section */}
-      <div className="level-selection">
-        {['SE', 'TE', 'BE'].map(level => (
-          <button key={level}
-            onClick={() => handleLevelChange(level)}
-            className={selectedLevel === level ? 'selected-level-btn' : 'level-btn'}>
-            {level}
-          </button>
-        ))}
-      </div>
+      {/* Conditional Level and Semester Selection */}
+      {user.department === 'FE' ? (
+        // Only show Sem 1 and Sem 2 for FE department
+        <div className="semester-section">
+          <Link to={`/SemSubjects/Sem 1`}><button className="sem-box"><h3>Sem 1</h3></button></Link>
+          <Link to={`/SemSubjects/Sem 2`}><button className="sem-box"><h3>Sem 2</h3></button></Link>
+        </div>
+      ) : (
+        <>
+          {/* Level Selection Section */}
+          <div className="level-selection">
+            {['SE', 'TE', 'BE'].map(level => (
+              <button key={level}
+                onClick={() => handleLevelChange(level)}
+                className={selectedLevel === level ? 'selected-level-btn' : 'level-btn'}>
+                {level}
+              </button>
+            ))}
+          </div>
 
-      <hr className="hr-style" />
+          <hr className="hr-style" />
 
-      {/* Semester and Graph Section */}
-      <div className="semester-section">
-        <Link to={`/SemSubjects/${semesters.sem1}`}><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
-        <Link to={`/SemSubjects/${semesters.sem2}`}><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
-      </div>
-
+          {/* Semester and Graph Section */}
+          <div className="semester-section">
+            <Link to={`/SemSubjects/${semesters.sem1}`}><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
+            <Link to={`/SemSubjects/${semesters.sem2}`}><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
+          </div>
+        </>
+      )}
+      
       {/* Graphs */}
       <div className="canvas-container">
         <canvas id="levelChart"></canvas>

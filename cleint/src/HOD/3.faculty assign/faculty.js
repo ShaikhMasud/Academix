@@ -4,15 +4,6 @@ import * as XLSX from 'xlsx';
 import './faculty.css'; 
 import { Link } from 'react-router-dom';
 
-
-// const teachers = [
-//     "Tayyab Sir", "Uday Sir", "Prasad Sir", "Jhanvi Maam", 
-//     "Aruna Maam", "Vaishali Maam", "Nilesh Sir", "Sunantha Maam",
-//     "Shiv Sir", "Mrudul Maam", "Teacher 11", "Teacher 12",
-//     "Teacher 13", "Teacher 14", "Teacher 15", "Teacher 16",
-//     "Teacher 17", "Teacher 18", "Teacher 19", "Teacher 20"
-// ];
-
 const initialSubjects = [
     { code: 'ITM301', course: 'Mini Project - 1 A for Front end /backend Application using JAVA', faculty: '', type: 'lab' },
     { code: 'ITL304', course: 'Java Lab', faculty: '', type: 'lab' },

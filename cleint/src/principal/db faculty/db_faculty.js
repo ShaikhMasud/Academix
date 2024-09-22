@@ -244,7 +244,9 @@ function Prin_sub() {
                 )}
 
                 <div className="profile">
+                    
                     <img className="profile-pic" src={profPic} alt="Profile" />
+                    <p className='name'>Hello! {user.name}</p>
                 </div>
             </div>
         </>

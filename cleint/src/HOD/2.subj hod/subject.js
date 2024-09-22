@@ -16,7 +16,7 @@ const Subjectpagehod = () => {
             "semesters": [
                 {
                     "semester": 1,
-                    "subjects": ["Mathematics I", "Physics I", "chemistry", "Engineering Mechanics", "Basic Electrical Engineering"]
+                    "subjects": ["Mathematics I", "Physics I", "chemistry", "Engineering Mechanics", "Basic Electrical Engineering","python"]
                 },
                 {
                     "semester": 2,
@@ -208,7 +208,6 @@ const Subjectpagehod = () => {
                   <h2 className="skill-card__title">
                     {subject}
                     <br />
-                    Prof XYZ
                   </h2>
                   <pre className="skill-card__description">
                     IA 1 - LEVEL 2
