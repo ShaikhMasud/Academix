@@ -115,13 +115,14 @@ body {
 }
 
 /* Table Styles */
-.table-container {
+.table-containers {
+    
     margin-top: 40px;
-    width: 1200px;
+    width: 100%;
 }
 
 table {
-    width: 100%;
+    width: 76%;
     border-collapse: collapse;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);

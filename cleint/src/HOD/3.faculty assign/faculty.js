@@ -600,8 +600,9 @@ const FacultyAssignment = () => {
                 </div>
 
                 {/* Subjects Table */}
-                <div className="table-container">
+                <div className="table-containers">
                     <form onSubmit={handleSubmit}>
+                       
                         <table>
                             <thead>
                                 <tr>
@@ -614,6 +615,7 @@ const FacultyAssignment = () => {
                                 {generateTable(filteredSubjects)}
                             </tbody>
                         </table>
+                        
 
                         {message && <p>{message}</p>}
                         <button type="submit" className="btn">Submit</button>

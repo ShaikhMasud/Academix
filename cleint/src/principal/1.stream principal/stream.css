@@ -76,8 +76,8 @@
 }
 .container {
   width: 100%; /* Adjust the width as needed (or use pixels like 800px) */
-  height: 250px; /* Or set a specific height if needed */
-  max-width: 250px; /* Optional: set a maximum width */
+  height: 400px; /* Or set a specific height if needed */
+  max-width: 1400px; /* Optional: set a maximum width */
   margin: 0 auto; /* Centers the container */
   padding: 20px; /* Optional: adjust padding if needed */
 }
