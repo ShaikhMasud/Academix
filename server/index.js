@@ -29,10 +29,10 @@ app.post('/login',(req,res)=>{
             if(user.password === password){
                 res.json(user)
             }else{
-                res.json('UnAthorised')
+                res.json('Unauthorised')
             }
         } else{
-            res.json("UnAthorised")
+            res.json("Unauthorised")
         }
     })
 })
@@ -47,6 +47,17 @@ app.get('/teachers', async (req, res) => {
         }
     } catch (err) {
         console.error('Error fetching teachers:', err);
+        res.status(500).send('Server Error');
+    }
+});
+
+app.get('/dept_faculty', async (req, res) => {
+    const { department } = req.query; // Change this line to use req.query
+    try {
+        const faculty = await UserModel.find({ department, role: { $ne: 'Principal' } }, 'name');
+        res.json(faculty);
+    } catch (err) {
+        console.error('Error fetching faculty:', err);
         res.status(500).send('Server Error');
     }
 });
