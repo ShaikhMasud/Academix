@@ -134,7 +134,7 @@ const StreamPage = () => {
                     ? 'Electronics & Telecomm'
                     : stream === 'Mech'
                     ? 'Mechanical Engineering'
-                    : 'First Year'}
+                    : 'First Year Engineering'}
                 </h3>
                 <p className="card__stream">{stream.toUpperCase()}</p>
               </div>
