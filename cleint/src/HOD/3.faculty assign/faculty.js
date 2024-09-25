@@ -1,11 +1,8 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import './faculty.css'; 
 import { Link } from 'react-router-dom';
-// import Subjectpagehod from '../2.subj hod/subject.js'; // Adjust the path as necessary
 
 const FacultyAssignment = () => {
 
@@ -334,6 +331,7 @@ const FacultyAssignment = () => {
     const [teachers, setTeachers] = useState([]);
     const [message, setMessage] = useState('');
     const [selectedSemester, setSelectedSemester] = useState('');
+    const [hasChanges, setHasChanges] = useState(true);
 
     const department = user ? user.department : null;
 
@@ -426,7 +424,14 @@ const FacultyAssignment = () => {
                 <td>
                     <select 
                         value={subject.faculty} 
-                        onChange={(e) => handleFacultyChange(index, e.target.value)}
+                        onChange={(e) => {
+                            const newFaculty = e.target.value;
+                            if (hasChanges) {
+                                setSelections(index, newFaculty);
+                            } else {
+                                handleFacultyChange(index, newFaculty);
+                            }
+                        }}
                     >
                         <option value="" disabled>Select Faculty</option>
                         {teachers.length > 0 ? (
@@ -443,6 +448,33 @@ const FacultyAssignment = () => {
             </tr>
         ));
     };
+
+    const setSelections = async (index, newFaculty) => {
+        const updatedSubjects = [...subjects];
+        const selectedSubject = updatedSubjects[index].course;
+        updatedSubjects[index].faculty = newFaculty;
+        setSubjects(updatedSubjects);
+
+        try {
+            // Send the subjects to the backend
+            const response = await axios.post(`http://localhost:3001/submitSubjects`, subjects);
+
+            // Check the status of the response (if status is 200 or success)
+            if (response.status === 200) {
+                setMessage('Data submitted successfully!');
+                // Re-fetch teachers to get updated Subjects_assigned
+                const fetchResponse = await axios.get(`http://localhost:3001/dept_faculty?department=${department}`);
+                setTeachers(fetchResponse.data);
+                setSubjectsForSemester(selectedSemester, fetchResponse.data);
+                setHasChanges(false); // Reset the change tracker after fetching
+            } else {
+                setMessage('Error submitting data.');
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            setMessage('Error submitting data.');
+        }
+    }
 
     // Handle faculty assignment change
     const handleFacultyChange = async (index, newFaculty) => {
@@ -462,7 +494,7 @@ const FacultyAssignment = () => {
             });
 
             // Re-fetch teachers to get updated Subjects_assigned
-            const response = await axios.get(`http://localhost:3001/teachers?department=${department}`);
+            const response = await axios.get(`http://localhost:3001/dept_faculty?department=${department}`);
             setTeachers(response.data);
             setSubjectsForSemester(selectedSemester, response.data);
         } catch (error) {
@@ -515,38 +547,6 @@ const FacultyAssignment = () => {
         }
     };
 
-    // Handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // Check if all faculties are selected
-        const allSelected = subjects.every(subject => subject.faculty !== '');
-
-        if (!allSelected) {
-            alert('Please complete all fields before submitting.');
-            return;
-        }
-
-        try {
-            // Send the subjects to the backend
-            const response = await axios.post(`http://localhost:3001/submitSubjects`, subjects);
-
-            // Check the status of the response (if status is 200 or success)
-            if (response.status === 200) {
-                setMessage('Data submitted successfully!');
-                // Re-fetch teachers to get updated Subjects_assigned
-                const fetchResponse = await axios.get(`http://localhost:3001/dept_faculty?department=${department}`);
-                setTeachers(fetchResponse.data);
-                setSubjectsForSemester(selectedSemester, fetchResponse.data);
-            } else {
-                setMessage('Error submitting data.');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            setMessage('Error submitting data.');
-        }
-    };
-
     // Filter subjects based on type
     const filteredSubjects = filter === 'all'
         ? subjects
@@ -573,7 +573,7 @@ const FacultyAssignment = () => {
                         </div>
                     </div>
                 </div>
-
+    
                 {/* Semester Selection Dropdown */}
                 <div className="semester-dropdown">
                     <select value={selectedSemester} onChange={handleSemesterChange}>
@@ -585,43 +585,38 @@ const FacultyAssignment = () => {
                         ))}
                     </select>
                 </div>
-
+    
                 {/* Filter Buttons */}
                 <div className="filter-section">
                     <button className="filter-btn" onClick={() => handleFilter('all')}>All Subjects</button>
                     <button className="filter-btn" onClick={() => handleFilter('theory')}>Theory Subjects</button>
                     <button className="filter-btn" onClick={() => handleFilter('lab')}>Lab Subjects</button>
                 </div>
-
+    
                 {/* File Upload Section */}
                 <div className="upload-section">
                     <input type="file" id="excelUpload" accept=".xlsx" onChange={handleFileUpload} />
                     <button id="uploadBtn" className="btn">Upload Excel</button>
                 </div>
-
+    
                 {/* Subjects Table */}
                 <div className="table-containers">
-                    <form onSubmit={handleSubmit}>
-                       
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Subject Code</th>
-                                    <th>Course</th>
-                                    <th>Faculty</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {generateTable(filteredSubjects)}
-                            </tbody>
-                        </table>
-                        
-
-                        {message && <p>{message}</p>}
-                        <button type="submit" className="btn">Submit</button>
-                    </form>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject Code</th>
+                                <th>Course</th>
+                                <th>Faculty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {generateTable(filteredSubjects)}
+                        </tbody>
+                    </table>
+    
+                    {message && <p>{message}</p>}
                 </div>
-
+    
                 <Link to="/hoddashboard">
                     <button>Back</button>
                 </Link>
