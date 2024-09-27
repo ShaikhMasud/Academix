@@ -11,18 +11,7 @@ const IA_SubSchema = new mongoose.Schema({
 });
 
 const ESE_SubSchema = new mongoose.Schema({
-    Q1: { type: Number },
-    Q2: { type: Number },
-    Q3: { type: Number },
-    Q4: { type: Number },
-    Q5: { type: Number },
-    Q6: { type: Number },
-    Q1_co: { type: String },
-    Q2_co: { type: String },
-    Q3_co: { type: String },
-    Q4_co: { type: String },
-    Q5_co: { type: String },
-    Q6_co: { type: String }
+    total: { type: Number }
 });
 
 const Assignment_SubSchema = new mongoose.Schema({
