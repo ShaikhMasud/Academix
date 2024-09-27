@@ -54,8 +54,12 @@ app.get('/teachers', async (req, res) => {
 app.get('/dept_faculty', async (req, res) => {
     const { department } = req.query; // Change this line to use req.query
     try {
-        const faculty = await UserModel.find({ department, role: { $ne: 'Principal' } }, 'name');
-        res.json(faculty);
+        const faculty = await UserModel.find({ department, role: { $ne: 'Principal' } }, 'name Subjects_assigned');
+        if(!faculty || faculty.length === 0){
+            res.status(404).json({ message: 'No teachers found' });
+        }else{    
+            res.json(faculty);
+        }
     } catch (err) {
         console.error('Error fetching faculty:', err);
         res.status(500).send('Server Error');
