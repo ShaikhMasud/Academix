@@ -366,3 +366,178 @@ app.get('/fetchStudentsAssignment', async (req, res) => {
     }
 });
 
+app.get('/LevelCalculationIA', async (req, res) => {
+    const { subject, semester, ia } = req.query;
+
+    // Validate inputs
+    if (!subject || !semester || !ia) {
+        return res.status(400).json({ message: "Missing required parameters" });
+    }
+
+    try {
+        // Fetch all students' data for the specified semester
+        const students = await StudentModel.find({}, {
+            [`sem${semester}`]: 1 // Fetch only the specified semester's data
+        });
+
+
+        if (students.length === 0) {
+            return res.status(404).json({ message: "No students found for the specified parameters" });
+        }
+
+        let totalStudents = students.length;
+        let studentsAbove40 = 0;
+
+        // Iterate through each student's IA scores and check the selected IA
+        students.forEach(student => {
+            let currentSubjectData = student[`sem${semester}`].find(sub => sub.subject_name === subject);
+            if (currentSubjectData) {
+                let iaMarks = ia === '1' ? currentSubjectData.IA1 : currentSubjectData.IA2;
+                let totalMarks = iaMarks.Q1 + iaMarks.Q2 + iaMarks.Q3;
+                let percentage = ((totalMarks / 20) * 100);  // Assume each question is equally weighted
+                if (percentage >= 40) {
+                    studentsAbove40++;
+                }
+            }
+        });
+
+        // Calculate the percentage of students who scored above 40%
+        let percentageAbove40 = totalStudents > 0 ? (studentsAbove40 / totalStudents) * 100 : 0;
+        
+        // Determine the level
+        let level = "Level 0";
+        if (percentageAbove40 >= 70) {
+            level = "Level 3";
+        } else if (percentageAbove40 >= 60) {
+            level = "Level 2";
+        } else if (percentageAbove40 >= 50) {
+            level = "Level 1";
+        }
+        // Return the calculated level
+        res.json(level);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+app.get('/LevelCalculationEnd', async (req, res) => {
+    const { subject, semester } = req.query;
+
+    // Validate inputs
+    if (!subject || !semester) {
+        return res.status(400).json({ message: "Missing required parameters" });
+    }
+
+    try {
+        // Fetch all students' data for the specified semester
+        const students = await StudentModel.find({}, {
+            [`sem${semester}`]: 1 // Fetch only the specified semester's data
+        });
+
+        if (students.length === 0) {
+            return res.status(404).json({ message: "No students found for the specified parameters" });
+        }
+
+        let totalStudents = students.length;
+        let studentsAbove40 = 0;
+
+        // Iterate through each student's IA scores and check the selected IA
+        students.forEach(student => {
+            let currentSubjectData = student[`sem${semester}`].find(sub => sub.subject_name === subject);
+            if (currentSubjectData && currentSubjectData.ESE && currentSubjectData.ESE.total !== undefined) {
+                let EndSemMarks = currentSubjectData.ESE;
+                let totalMarks = EndSemMarks.total;
+                let percentage = ((totalMarks / 80) * 100);  // Assume each question is equally weighted
+                if (percentage >= 40) {
+                    studentsAbove40++;
+                }
+            }
+        });
+
+        // Calculate the percentage of students who scored above 40%
+        let percentageAbove40 = totalStudents > 0 ? (studentsAbove40 / totalStudents) * 100 : 0;
+        
+        // Determine the level
+        let level = "Level 0";
+        if (percentageAbove40 >= 70) {
+            level = "Level 3";
+        } else if (percentageAbove40 >= 60) {
+            level = "Level 2";
+        } else if (percentageAbove40 >= 50) {
+            level = "Level 1";
+        }
+
+        // Return the calculated level
+        res.json(level);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+app.get('/LevelCalculationAssign', async (req, res) => {
+    const { subject, semester } = req.query;
+
+    // Validate inputs
+    if (!subject || !semester) {
+        return res.status(400).json({ message: "Missing required parameters" });
+    }
+
+    try {
+        // Fetch all students' data for the specified semester
+        const students = await StudentModel.find({}, {
+            [`sem${semester}`]: 1 // Fetch only the specified semester's data
+        });
+
+        if (students.length === 0) {
+            return res.status(404).json({ message: "No students found for the specified parameters" });
+        }
+
+        let totalStudents = students.length;
+        let studentsAbove40 = 0;
+
+        // Iterate through each student's assignment scores
+        students.forEach(student => {
+            let currentSubjectData = student[`sem${semester}`].find(sub => sub.subject_name === subject);
+            if (currentSubjectData && currentSubjectData.Assignment && currentSubjectData.Assignment.length > 0) {
+                let assignments = currentSubjectData.Assignment;
+
+                // Calculate the total marks obtained and the total max marks (10 * number of assignments)
+                let totalObtainedMarks = assignments.reduce((acc, assignment) => acc + (assignment.AssignmentMarks || 0), 0);
+                let totalMaxMarks = assignments.length * 10; // 10 marks per assignment
+
+                // Calculate the percentage
+                let percentage = (totalObtainedMarks / totalMaxMarks) * 100;
+
+                if (percentage >= 40) {
+                    studentsAbove40++;
+                }
+            }
+        });
+
+        // Calculate the percentage of students who scored above 40%
+        let percentageAbove40 = totalStudents > 0 ? (studentsAbove40 / totalStudents) * 100 : 0;
+
+        // Determine the level
+        let level = "Level 0";
+        if (percentageAbove40 >= 70) {
+            level = "Level 3";
+        } else if (percentageAbove40 >= 60) {
+            level = "Level 2";
+        } else if (percentageAbove40 >= 50) {
+            level = "Level 1";
+        }
+
+        // Return the calculated level
+        res.json(level);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+

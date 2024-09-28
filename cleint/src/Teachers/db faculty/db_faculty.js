@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './db_faculty.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bgImage from './bg img/b.JPG';
 import graphIcon from './bg img/graph.png';
 import coIcon from './bg img/co.png';
 import profPic from './bg img/prof.jpeg';
 import { Chart } from 'chart.js';
-
+import axios from 'axios'; // Import Axios
 
 function Subjects() {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     const [showGraph, setShowGraph] = useState(false);
     const chartRef = useRef(null);
+    const navigate = useNavigate();
 
     const Allsubject = {
         "departments": [
@@ -327,9 +328,9 @@ function Subjects() {
                     }
                 ]
             }
-            // Your departments and semesters data...
         ]
     }
+
 
     const findSemester = (departmentName, subjectName) => {
         const department = Allsubject.departments.find(dep => dep.name === departmentName);
@@ -369,7 +370,7 @@ function Subjects() {
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(tooltipItem) {
+                                label: function (tooltipItem) {
                                     return tooltipItem.label + ': ' + tooltipItem.raw + '%';
                                 }
                             }
@@ -378,7 +379,71 @@ function Subjects() {
                 }
             });
         }
-    }, [showGraph]);
+    }, [showGraph, user]);
+
+    const [levelia1, setLevelia1] = useState("Show level");
+    const [levelia2, setLevelia2] = useState("Show level");
+    const [levelend, setLevelend] = useState("Show level");
+    const [levelassign, setLevelassign] = useState("Show level");
+
+
+    const calculatelevelend = async (subject, semester) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/LevelCalculationEnd`, {
+                params: {
+                    subject: subject,
+                    semester: semester,
+                }
+            });
+
+            // Update the levelia1 based on the response from the server
+            setLevelend(response.data);
+            }
+         catch (error) {
+            console.error('Error fetching level data:', error);
+            setLevelia1("Error fetching level");
+        }
+    };
+
+    const calculatelevelia = async (subject, semester, ia) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/LevelCalculationIA`, {
+                params: {
+                    subject: subject,
+                    semester: semester,
+                    ia: ia
+                }
+            });
+
+            // Update the levelia1 based on the response from the server
+            if(ia===1){
+                setLevelia1(response.data);
+            } else if(ia===2){
+                setLevelia2(response.data)
+            }
+        } catch (error) {
+            console.error('Error fetching level data:', error);
+            setLevelia1("Error fetching level");
+        }
+    };
+
+    const calculatelevelassign = async (subject, semester) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/LevelCalculationAssign`, {
+                params: {
+                    subject: subject,
+                    semester: semester,
+                }
+            });
+
+            // Update the levelia1 based on the response from the server
+            setLevelassign(response.data);
+            }
+         catch (error) {
+            console.error('Error fetching level data:', error);
+            setLevelia1("Error fetching level");
+        }
+    };
 
     const toggleLogoutMenu = () => {
         const logoutMenu = document.getElementById('logoutMenu');
@@ -395,6 +460,13 @@ function Subjects() {
     }
 
     const subjectsAssigned = user.Subjects_assigned || [];
+
+    const handleIAClick = (subject, semester, ia) => {
+        navigate(`/ia/${subject}/${semester}`); // Navigate to the new page
+    };
+    const handleAssignmentClick = (subject, semester) => {
+        navigate(`/assignment/${subject}/${semester}`); // Navigate to the new page
+    };
 
     return user.role === 'Teacher' ? (
         <>
@@ -436,18 +508,26 @@ function Subjects() {
                                         </Link>
                                         <h2 className="skill-card__title">{subject}</h2>
                                         <pre className="skill-card__description">
-                                            <Link to={`/ia/${subject}/${semester}/${1}`}>
-                                                <button className="btn">IA 1</button> - LEVEL 2{"\n"}
-                                            </Link>
-                                            <Link to={`/ia/${subject}/${semester}/${2}`}>
-                                                <button className="btn">IA 2</button> - LEVEL 1{"\n"}
-                                            </Link>
-                                            <Link to={`/assignment/${subject}/${semester}`}>
-                                            <button className="btn">INTERNAL</button> - LEVEL 2{"\n"}
-                                            </Link>
-                                            <Link to={`/ia/${subject}/${semester}/${3}`}>
-                                            <button className="btn">ESE</button> - LEVEL 1{"\n"}
-                                            </Link>
+                                            <div>
+                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 1</button>
+                                                 - <button className="btn" onClick={() => calculatelevelia(subject, semester, 1)}>{levelia1}</button>
+                                            </div>
+
+                                            <div>
+                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 2</button>
+                                                 - <button className="btn" onClick={() => calculatelevelia(subject, semester, 2)}>{levelia2}</button>
+                                            </div>
+                                            
+                                            <div>
+                                                <button className="btn" onClick={() => handleAssignmentClick(subject, semester)}>Assignment</button>
+                                                 - <button className="btn" onClick={() => calculatelevelassign(subject, semester)}>{levelassign}</button>
+                                            </div>
+
+                                            <div>
+                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>End</button>
+                                                 - <button className="btn" onClick={() => calculatelevelend(subject, semester)}>{levelend}</button>
+                                            </div>
+
                                             <p>Semester: {semester !== null ? semester : 'Not Found'}</p>
                                         </pre>
                                     </div>

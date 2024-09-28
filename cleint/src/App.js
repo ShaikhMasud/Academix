@@ -26,6 +26,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login/>}></Route>
+        
         {/* HOD routes */}
         <Route path='/hoddashboard' element={<Hodmainpage/>}></Route>
         <Route path='/managefaculty' element={<FacultyAssignment/>}></Route>
@@ -33,7 +34,6 @@ function App() {
         <Route path='/co-po/:subject/:semester' element={<CO_PO_HOD/>}></Route>
         <Route path='/subjects' element={<Subjects/>}></Route>
         <Route path='/IA_marks_entry/:subject/:semester/:ia' element={<StudentMarksEntryHOD/>}></Route>
-
 
         {/* Principal routes */}
         <Route path='/principaldashboard' element={<SelectStream/>}></Route>
@@ -46,7 +46,7 @@ function App() {
         {/* Faculty routes */}
         <Route path='/co-po-map/:subject/:semester' element={<Appco />} />
         <Route path='/facultydashboard' element={<Appfa/>}></Route>
-        <Route path='/ia/:subject/:semester/:ia' element={<StudentMarksEntry />} />
+        <Route path='/ia/:subject/:semester' element={<StudentMarksEntry />} />
         <Route path='/assignment/:subject/:semester' element={<StudentMarksEntryAssignment />} />
 
         

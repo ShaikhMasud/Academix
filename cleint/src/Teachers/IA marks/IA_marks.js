@@ -26,7 +26,7 @@ const StudentMarksEntry = () => {
     }, []);
 
 
-    const { subject, semester,ia } = useParams();
+    const { subject, semester} = useParams();
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     const [selectedExam, setSelectedExam] = useState("Select Exam");
