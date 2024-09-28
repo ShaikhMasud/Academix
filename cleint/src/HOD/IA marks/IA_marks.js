@@ -43,7 +43,18 @@ const StudentMarksEntryHOD = () => {
 
             for (let j = 0; j < data[i].length; j++) {
                 const cell = document.createElement("td");
-                cell.textContent = data[i][j];
+                if (j === 1) { // Assuming column index 1 is for student names
+                    const studentName = data[i][j];
+                    const rollNo = data[i][0]; // Assuming column index 0 is for roll numbers
+                    const studentLink = document.createElement("a");
+                    studentLink.href = `/Studdb`; // Link to the student details page
+                    studentLink.textContent = studentName;
+                    studentLink.style.color = "blue"; // Style link color
+                    studentLink.style.textDecoration = "underline"; // Underline for hyperlink
+                    cell.appendChild(studentLink);
+                } else {
+                    cell.textContent = data[i][j];
+                }
                 row.appendChild(cell);
             }
 

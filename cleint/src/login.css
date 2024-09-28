@@ -1,0 +1,118 @@
+/* Container and Background Styling */
+
+
+
+.containerlog {
+    background: linear-gradient(135deg, #007bff, #6610f2) !important;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @keyframes fadeInBack {
+    0% {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.8); /* Start slightly smaller and further back */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(-50%) scale(1); /* Fade in and scale to full size */
+    }
+  }
+  
+  /* Card (Login Form) Styling */
+  .cardlog {
+    width: 40%;
+    align-content: center;
+    position: absolute !important; /* Absolute positioning to control its position */
+   
+   align-self: center;
+    height: 70% !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    padding: 20px !important;
+    border-radius: 15px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
+    animation: cardEntry 1s ease forwards !important;
+    transform: scale(0.9) !important;
+    animation: fadeInBack 1s ease forwards !important; /* Animation call */
+  }
+  
+  /* Heading Styling */
+  .cardlog h2 {
+    text-align: center;
+    color: #343a40 !important;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Input Fields Styling */
+  .form-control {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid #ced4da !important;
+    padding: 10px 15px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .form-control:focus {
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5) !important;
+    border-color: #007bff !important;
+  }
+  
+  /* Login Button Styling */
+  .btn-primary {
+    background-color: #007bff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    transition: background-color 0.3s ease !important;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3 !important;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5) !important;
+  }
+  
+  /* Eye Icon Styling */
+  .eye-icon {
+    position: absolute !important;
+    right: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    cursor: pointer !important;
+    font-size: 20px !important;
+    color: #6c757d !important;
+    transition: color 0.3s ease !important;
+    z-index: 2 !important;
+  }
+  
+  .eye-icon:hover {
+
+    color: #007bff !important;
+  }
+  
+  /* Error Message Styling */
+  .text-danger {
+    color: #dc3545 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+  }
+  
+  /* Keyframe Animations */
+  @keyframes cardEntry {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
