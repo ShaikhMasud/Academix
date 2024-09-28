@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f0f2f5, #e0e7ff);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.marks-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.marks-section {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    margin-right: 10px;
+}
+
+.marks-card {
+    background-color: #2563eb;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+.marks-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.marks-value {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.total {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.graph-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    margin-left: 10px;
+}
+
+#coGraph {
+    max-width: 100%;
+    height: 300px;
+}
+
+.progress-info {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.progress-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.progress-info li {
+    margin: 5px 0;
+}

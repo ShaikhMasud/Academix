@@ -6,6 +6,8 @@ import FacultyAssignment from './HOD/3.faculty assign/faculty.js';
 import Subjects from './HOD/db faculty/db_faculty.js';
 import CO_PO_HOD from './HOD/co-po rating/co-po.js';
 import StudentMarksEntryHOD from './HOD/IA marks/IA_marks.js';
+import Studdashboard from './students/studdb/studdb.js';
+
 
 import SelectStream from './principal/1.stream principal/stream.js';
 import Principalmainpage from './principal/2.main pg principal/principaldashboard.js';
@@ -20,6 +22,7 @@ import Subjectpageprin from './principal/2.subj hod/subject.js';
 import Co_po_prin from './principal/co-po rating/co-po.js';
 import StudentMarksEntryAssignment from './Teachers/Assignment/Assignment.js';
 
+
 function App() {
 
   return (
@@ -33,7 +36,7 @@ function App() {
         <Route path='/co-po/:subject/:semester' element={<CO_PO_HOD/>}></Route>
         <Route path='/subjects' element={<Subjects/>}></Route>
         <Route path='/IA_marks_entry/:subject/:semester/:ia' element={<StudentMarksEntryHOD/>}></Route>
-
+        <Route path='/Studdb' element={<Studdashboard/>}></Route>
 
         {/* Principal routes */}
         <Route path='/principaldashboard' element={<SelectStream/>}></Route>
