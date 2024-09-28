@@ -442,8 +442,12 @@ function Subjects() {
                                             <Link to={`/ia/${subject}/${semester}/${2}`}>
                                                 <button className="btn">IA 2</button> - LEVEL 1{"\n"}
                                             </Link>
+                                            <Link to={`/assignment/${subject}/${semester}`}>
                                             <button className="btn">INTERNAL</button> - LEVEL 2{"\n"}
+                                            </Link>
+                                            <Link to={`/ia/${subject}/${semester}/${3}`}>
                                             <button className="btn">ESE</button> - LEVEL 1{"\n"}
+                                            </Link>
                                             <p>Semester: {semester !== null ? semester : 'Not Found'}</p>
                                         </pre>
                                     </div>

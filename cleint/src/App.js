@@ -18,6 +18,7 @@ import StudentMarksEntry from './Teachers/IA marks/IA_marks.js';
 import Subjectpagehod from './HOD/2.subj hod/subject.js';
 import Subjectpageprin from './principal/2.subj hod/subject.js';
 import Co_po_prin from './principal/co-po rating/co-po.js';
+import StudentMarksEntryAssignment from './Teachers/Assignment/Assignment.js';
 
 function App() {
 
@@ -46,6 +47,8 @@ function App() {
         <Route path='/co-po-map/:subject/:semester' element={<Appco />} />
         <Route path='/facultydashboard' element={<Appfa/>}></Route>
         <Route path='/ia/:subject/:semester/:ia' element={<StudentMarksEntry />} />
+        <Route path='/assignment/:subject/:semester' element={<StudentMarksEntryAssignment />} />
+
         
       </Routes>
     </BrowserRouter>

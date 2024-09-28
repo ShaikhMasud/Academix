@@ -164,33 +164,44 @@ app.post('/students', async (req, res) => {
         for (const student of studentData) {
             // Find the student by roll number
             let existingStudent = await StudentModel.findOne({ roll: student.rollno });
-            
+
             // If student exists
             if (existingStudent) {
-                // Loop through each semester in the request (e.g., sem1, sem2, sem3, etc.)
+                // Loop through each semester in the request (e.g., sem1, sem2, etc.)
                 Object.keys(student).forEach(semKey => {
                     if (semKey.startsWith('sem')) {
                         let semester = student[semKey]; // The semester data from the request
-                        
+
+                        // Initialize the semester array if it's undefined
+                        if (!existingStudent[semKey]) {
+                            existingStudent[semKey] = [];
+                        }
+
                         // Find the subject in the existing student's semester
-                        let existingSubject = existingStudent[semKey]?.find(sub => sub.subject_name === semester.subject_name);
-                        
+                        let existingSubject = existingStudent[semKey].find(sub => sub.subject_name === semester.subject_name);
+
                         if (existingSubject) {
-                            // If the subject exists, update IA1 or IA2 based on what is in the request
+                            // If the subject exists, update IA1, IA2, ESE, or Assignment based on what is in the request
                             if (semester.IA1) {
                                 existingSubject.IA1 = { ...existingSubject.IA1, ...semester.IA1 }; // Merge new IA1 data
                             }
                             if (semester.IA2) {
                                 existingSubject.IA2 = { ...existingSubject.IA2, ...semester.IA2 }; // Merge new IA2 data
                             }
+                            if (semester.ESE) {
+                                existingSubject.ESE = { ...existingSubject.ESE, ...semester.ESE }; // Merge new ESE data
+                            }
+                            if (semester.Assignment) {
+                                existingSubject.Assignment = [...existingSubject.Assignment, ...semester.Assignment]; // Merge new Assignment data
+                            }
                         } else {
-                            // If the subject doesn't exist, create a new subject with the provided IA1/IA2 data
+                            // If the subject doesn't exist, create a new subject with the provided IA1/IA2/ESE/Assignment data
                             existingStudent[semKey].push({
                                 subject_name: semester.subject_name,
                                 IA1: semester.IA1 || null,
                                 IA2: semester.IA2 || null,
                                 ESE: semester.ESE || null,
-                                Assignment: semester.Assignment || null
+                                Assignment: semester.Assignment || []
                             });
                         }
                     }
@@ -220,5 +231,107 @@ app.post('/students', async (req, res) => {
     } catch (error) {
         console.error("Error saving student data:", error);
         return res.status(500).json({ success: false, message: 'Error processing student data.' });
+    }
+});
+
+app.get('/fetchStudents', async (req, res) => {
+    const { examType, subject, semester } = req.query;
+
+    try {
+        // Find students with the specified subject in the selected semester array
+        const students = await StudentModel.find({
+            [`sem${semester}.subject_name`]: subject
+        });
+
+        const studentData = students.map(student => {
+            // Find the subject object inside the array of the specific semester
+            let semData = student[`sem${semester}`].find(sub => sub.subject_name === subject);
+
+            if (semData) {
+                // Handle missing examType objects (e.g., IA1, IA2, Assignment, ESE)
+                const examData = semData[examType] ? semData[examType] : { marks: '-' }; // Fallback if examType data is missing
+
+                return {
+                    studentname: student.studentname,
+                    rollno: student.roll,
+                    [examType]: examData
+                };
+            }
+            return {}; // Return empty object if no data found for the subject
+        });
+
+        res.status(200).json(studentData);
+    } catch (error) {
+        console.error("Error fetching students:", error);
+        res.status(500).json({ message: "Error fetching students" });
+    }
+});
+
+
+app.post('/studentsAssignment', async (req, res) => {
+    const { studentData, semester } = req.body;
+
+    try {
+        for (const student of studentData) {
+            const { studentname, rollno } = student;
+
+            // Find or create student by roll number
+            let studentRecord = await StudentModel.findOne({ roll: rollno });
+            if (!studentRecord) {
+                studentRecord = new StudentModel({
+                    studentname,
+                    roll: rollno,
+                    sem1: [], sem2: [], sem3: [],
+                    sem4: [], sem5: [], sem6: [],
+                    sem7: [], sem8: []
+                });
+            }
+
+            // Access the correct semester data
+            let semesterData = studentRecord[`sem${semester}`] || [];
+            const subjectData = student[`sem${semester}`];
+
+            const assignmentArray = Object.entries(subjectData.Assignment).map(([assignmentName, assignmentData]) => ({
+                AssignmentNumber: parseInt(assignmentName.split('_')[1]),
+                AssignmentMarks: assignmentData.marks,
+                AssignmentCo: assignmentData.co
+            }));
+
+            const existingSubjectIndex = semesterData.findIndex(
+                (entry) => entry.subject_name === subjectData.subject_name
+            );
+
+            if (existingSubjectIndex !== -1) {
+                let existingSubject = semesterData[existingSubjectIndex];
+
+                assignmentArray.forEach(newAssignment => {
+                    const existingAssignmentIndex = existingSubject.Assignment.findIndex(
+                        (assignment) => assignment.AssignmentNumber === newAssignment.AssignmentNumber
+                    );
+
+                    if (existingAssignmentIndex !== -1) {
+                        existingSubject.Assignment[existingAssignmentIndex] = newAssignment;
+                    } else {
+                        existingSubject.Assignment.push(newAssignment);
+                    }
+                });
+            } else {
+                semesterData.push({
+                    subject_name: subjectData.subject_name,
+                    IA1: subjectData.IA1 || {},
+                    IA2: subjectData.IA2 || {},
+                    ESE: subjectData.ESE || {},
+                    Assignment: assignmentArray
+                });
+            }
+
+            studentRecord[`sem${semester}`] = semesterData;
+            await studentRecord.save();
+        }
+
+        res.status(200).json({ success: true, message: 'Student data submitted and updated successfully!' });
+    } catch (error) {
+        console.error("Error saving student data:", error);
+        res.status(500).json({ success: false, message: 'Error saving student data' });
     }
 });

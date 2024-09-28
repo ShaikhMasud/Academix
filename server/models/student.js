@@ -15,12 +15,9 @@ const ESE_SubSchema = new mongoose.Schema({
 });
 
 const Assignment_SubSchema = new mongoose.Schema({
-    Q1: { type: Number },
-    Q2: { type: Number },
-    Q3: { type: Number },
-    Q1_co: { type: String },
-    Q2_co: { type: String },
-    Q3_co: { type: String }
+    AssignmentNumber: { type : Number },
+    AssignmentMarks: { type : Number },
+    AssignmentCo: { type: String }
 });
 
 const Subject_SubSchema = new mongoose.Schema({
@@ -28,7 +25,7 @@ const Subject_SubSchema = new mongoose.Schema({
     IA1: IA_SubSchema,
     IA2: IA_SubSchema,
     ESE: ESE_SubSchema,
-    Assignment: Assignment_SubSchema
+    Assignment: [Assignment_SubSchema]
 });
 
 const StudentSchema = new mongoose.Schema({
