@@ -19,7 +19,9 @@ import Subjectpagehod from './HOD/2.subj hod/subject.js';
 import Subjectpageprin from './principal/2.subj hod/subject.js';
 import Co_po_prin from './principal/co-po rating/co-po.js';
 import StudentMarksEntryAssignment from './Teachers/Assignment/Assignment.js';
-import Studdashboard from './students/studdb/studentdb.js';
+import Studdashboard from './students/studdb/studentdb.js'
+
+
 
 function App() {
 
