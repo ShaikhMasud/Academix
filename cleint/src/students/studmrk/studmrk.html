@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Student Marks Analysis</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Student Marks Analysis</h1>
+        </div>
+
+        <div class="marks-container">
+            <div class="marks-section">
+                <h2>IA Marks Overview:ITC401:MATHEMATICS</h2>
+                <div class="marks-card">
+                    <h3>Q1 - CO1</h3>
+                    <div class="marks-value">4 / 5</div>
+                </div>
+                <div class="marks-card">
+                    <h3>Q2 - CO2</h3>
+                    <div class="marks-value">3 / 5</div>
+                </div>
+                <div class="marks-card">
+                    <h3>Q3 - CO3</h3>
+                    <div class="marks-value">8 / 10</div>
+                </div>
+                <div class="total">
+                    <h3>Total Marks: <span id="totalMarks">15</span> / 20</h3>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <h2>Course Outcome Progress</h2>
+                <canvas id="coGraph"></canvas>
+                <div class="progress-info">
+                    <p>Performance by Course Outcome:</p>
+                    <ul>
+                        <li>CO1: <strong>80%</strong></li>
+                        <li>CO2: <strong>60%</strong></li>
+                        <li>CO3: <strong>80%</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
