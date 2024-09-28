@@ -335,3 +335,34 @@ app.post('/studentsAssignment', async (req, res) => {
         res.status(500).json({ success: false, message: 'Error saving student data' });
     }
 });
+
+// Route to fetch assignment data for a specific subject and semester
+app.get('/fetchStudentsAssignment', async (req, res) => {
+    const { subject, semester } = req.query;
+
+    try {
+        const students = await StudentModel.find({
+            [`sem${semester}`]: {
+                $elemMatch: { subject_name: subject }
+            }
+        });
+
+        // Debugging output
+        console.log(`Query: { 'sem${semester}.subject_name': '${subject}' }`);
+        console.log('Query Result:', students); // Log the query result
+
+        // Check if students is undefined or not an array
+        if (!students || !Array.isArray(students)) {
+            return res.status(404).json({ success: false, message: 'No data found.' });
+        }
+
+        // Check the length
+        console.log('Number of students found:', students.length);
+
+        return res.status(200).json({ success: true, data: students });
+    } catch (error) {
+        console.error('Error fetching data from MongoDB:', error);
+        return res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+

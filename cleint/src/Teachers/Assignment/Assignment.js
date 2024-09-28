@@ -12,45 +12,11 @@ const StudentMarksEntryAssignment = () => {
 
     const [numAssignments, setNumAssignments] = useState(0);
     const [coSelections, setCoSelections] = useState([]); // Default CO selection
-    const [coOptions] = useState(["CO1", "CO2", "CO3", "CO4"]); // Example CO options
+    const [coOptions] = useState(["CO1", "CO2", "CO3", "CO4", "CO5", "CO6"]); // Example CO options
     const [tableData, setTableData] = useState([]); // State to hold table data
 
-    // Fetch existing data when component mounts
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3001/studentsAssignment`, {
-                    params: {
-                        subject: subject,
-                        semester: semester
-                    }
-                });
-
-                if (response.data && response.data.length > 0) {
-                    const existingData = response.data;
-
-                    // Calculate number of assignments from existing data
-                    const numAssignmentsFromDB = Object.keys(existingData[0][`sem${semester}`].Assignment).length;
-
-                    const rows = existingData.map(student => ({
-                        rollNo: student.rollno,
-                        name: student.studentname,
-                        assignments: Object.values(student[`sem${semester}`].Assignment).map(a => a.marks)
-                    }));
-
-                    setNumAssignments(numAssignmentsFromDB);
-                    setTableData(rows);
-
-                    // Set the CO selections from the first student's assignments (assuming all have same COs)
-                    const coValues = Object.values(existingData[0][`sem${semester}`].Assignment).map(a => a.co);
-                    setCoSelections(coValues);
-                }
-            } catch (error) {
-                console.error('Error fetching existing data:', error);
-            }
-        };
-
-        fetchData();
+        fetchAndPopulateAssignmentData();
     }, [subject, semester]);
 
     // Function to handle file upload and fetch data
@@ -149,6 +115,57 @@ const StudentMarksEntryAssignment = () => {
             alert('Submission failed. Please try again.');
         }
     };
+
+    const fetchAndPopulateAssignmentData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/fetchStudentsAssignment', {
+                params: { subject, semester }
+            });
+    
+            if (response.data.success) {
+                const studentsData = response.data.data;
+                console.log("Fetched Students Data:", studentsData); // Log for debugging
+    
+                if (studentsData.length === 0) {
+                    console.log("No students found.");
+                    return;
+                }
+    
+                const rows = studentsData.map(student => {
+                    const semesterData = student[`sem${semester}`];
+                    if (semesterData && semesterData.length > 0 && semesterData[0].Assignment) {
+                        const assignments = semesterData[0].Assignment;
+                        setNumAssignments(assignments.length); // Set number of assignments
+    
+                        // Populate CO selections based on assignment data
+                        const coValues = assignments.map(a => a.AssignmentCo || "CO1"); // Default to CO1 if undefined
+                        setCoSelections(coValues); // Set CO selections for dropdowns
+    
+                        return {
+                            rollNo: student.roll,
+                            name: student.studentname,
+                            assignments: assignments.map(a => a.AssignmentMarks),
+                        };
+                    } else {
+                        setNumAssignments(0); // No assignments found
+                        setCoSelections([]); // Reset CO selections
+                        return {
+                            rollNo: student.roll,
+                            name: student.studentname,
+                            assignments: Array(numAssignments).fill(0), // Default to zero if no assignments
+                        };
+                    }
+                });
+    
+                console.log("Processed Rows:", rows); // Log the processed rows
+                setTableData(rows);
+            }
+        } catch (error) {
+            console.error("Error fetching assignment data:", error);
+        }
+    };
+    
+
 
     if (!user) {
         return <p>Please log in to access this page.</p>;
