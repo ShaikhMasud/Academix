@@ -19,6 +19,7 @@ import Subjectpagehod from './HOD/2.subj hod/subject.js';
 import Subjectpageprin from './principal/2.subj hod/subject.js';
 import Co_po_prin from './principal/co-po rating/co-po.js';
 import StudentMarksEntryAssignment from './Teachers/Assignment/Assignment.js';
+import Studdashboard from './students/studdb/studdb.js';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='/co-po/:subject/:semester' element={<CO_PO_HOD/>}></Route>
         <Route path='/subjects' element={<Subjects/>}></Route>
         <Route path='/IA_marks_entry/:subject/:semester/:ia' element={<StudentMarksEntryHOD/>}></Route>
+	      <Route path='/Studdb' element={<Studdashboard/>}></Route>
 
         {/* Principal routes */}
         <Route path='/principaldashboard' element={<SelectStream/>}></Route>
