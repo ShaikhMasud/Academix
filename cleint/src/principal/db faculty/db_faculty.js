@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './db_faculty.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bgImage from './bg img/b.JPG';
 import graphIcon from './bg img/graph.png';
 import coIcon from './bg img/co.png';
 import profPic from './bg img/prof.jpeg';
+import { Chart } from 'chart.js';
+import axios from 'axios'; // Import Axios
 
-function Prin_sub() {
+function Prinsub() {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     const [showGraph, setShowGraph] = useState(false);
+    const chartRef = useRef(null);
+    const navigate = useNavigate();
 
     const Allsubject = {
         "departments": [
@@ -327,6 +331,7 @@ function Prin_sub() {
         ]
     }
 
+
     const findSemester = (departmentName, subjectName) => {
         const department = Allsubject.departments.find(dep => dep.name === departmentName);
         if (department) {
@@ -339,8 +344,177 @@ function Prin_sub() {
         return null; // Return null if not found
     };
 
-    const toggleGraph = () => {
+    const toggleGraph = async (subject, semester) => {
+        // Toggle the graph visibility state
         setShowGraph(prevShowGraph => !prevShowGraph);
+    
+        try {
+            // Make an API request to the /coAttainment endpoint with subject and semester in the body
+            const response = await axios.post('http://localhost:3001/coAttainment', {
+                subject,   // Pass subject from function arguments
+                semester   // Pass semester from function arguments
+            });
+    
+            // Assuming the response contains the calculated CO attainment values as an array [co1, co2, co3, co4, co5, co6]
+            const {coAttainments} = response.data;
+            // Check if the response data exists and has the expected structure
+            if (Array.isArray(coAttainments) && coAttainments.length === 6) {
+                // Update the state for each CO based on the response values
+                setco1attain(coAttainments[0] || 1);
+                setco2attain(coAttainments[1] || 0);
+                setco3attain(coAttainments[2] || 0);
+                setco4attain(coAttainments[3] || 0);
+                setco5attain(coAttainments[4] || 0);
+                setco6attain(coAttainments[5] || 0);
+            } else {
+                // If the response does not contain the expected array, handle this case
+                console.error("Unexpected response format:", response.data);
+            }
+
+            const responsePo = await axios.post('http://localhost:3001/poAttainment', {
+                subject,   
+                semester   
+            });
+            const {poAttainments} = responsePo.data;
+            // Check if the response data exists and has the expected structure
+            if (Array.isArray(poAttainments) && poAttainments.length === 12) {
+                // Update the state for each CO based on the response values
+                setpo1attain(poAttainments[0] || 0);
+                setpo2attain(poAttainments[1] || 0);
+                setpo3attain(poAttainments[2] || 0);
+                setpo4attain(poAttainments[3] || 0);
+                setpo5attain(poAttainments[4] || 0);
+                setpo6attain(poAttainments[5] || 0);
+                setpo7attain(poAttainments[6] || 0);
+                setpo8attain(poAttainments[7] || 0);
+                setpo9attain(poAttainments[8] || 0);
+                setpo10attain(poAttainments[9] || 0);
+                setpo11attain(poAttainments[10] || 0);
+                setpo12attain(poAttainments[11] || 0);
+            } else {
+                // If the response does not contain the expected array, handle this case
+                console.error("Unexpected response format:", response.data);
+            }
+        } catch (error) {
+            // Log any errors if the request fails
+            console.error("Error fetching CO and PO attainment data:", error);
+        }
+    };
+    useEffect(() => {
+        if (showGraph && chartRef.current) {
+            const ctx = chartRef.current.getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Level 0', 'Level 1', 'Level 2', 'Level 3'],
+                    datasets: [{
+                        label: 'Level Distribution',
+                        data: [10, 20, 30, 40], // Example data
+                        backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }, [showGraph, user]);
+
+    const [levelia1, setLevelia1] = useState("Show level");
+    const [levelia2, setLevelia2] = useState("Show level");
+    const [levelend, setLevelend] = useState("Show level");
+    const [levelassign, setLevelassign] = useState("Show level");
+
+    const [co1attain,setco1attain]=useState(0);
+    const [co2attain,setco2attain]=useState(0);
+    const [co3attain,setco3attain]=useState(0);
+    const [co4attain,setco4attain]=useState(0);
+    const [co5attain,setco5attain]=useState(0);
+    const [co6attain,setco6attain]=useState(0);
+
+    const [po1attain,setpo1attain]=useState(0);
+    const [po2attain,setpo2attain]=useState(0);
+    const [po3attain,setpo3attain]=useState(0);
+    const [po4attain,setpo4attain]=useState(0);
+    const [po5attain,setpo5attain]=useState(0);
+    const [po6attain,setpo6attain]=useState(0);
+    const [po7attain,setpo7attain]=useState(0);
+    const [po8attain,setpo8attain]=useState(0);
+    const [po9attain,setpo9attain]=useState(0);
+    const [po10attain,setpo10attain]=useState(0);
+    const [po11attain,setpo11attain]=useState(0);
+    const [po12attain,setpo12attain]=useState(0);
+
+
+    const calculatelevelend = async (subject, semester) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/LevelCalculationEnd`, {
+                params: {
+                    subject: subject,
+                    semester: semester,
+                }
+            });
+
+            // Update the levelia1 based on the response from the server
+            setLevelend(response.data);
+            }
+         catch (error) {
+            console.error('Error fetching level data:', error);
+            setLevelia1("Error fetching level");
+        }
+    };
+
+    const calculatelevelia = async (subject, semester, ia) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/LevelCalculationIA`, {
+                params: {
+                    subject: subject,
+                    semester: semester,
+                    ia: ia
+                }
+            });
+
+            // Update the levelia1 based on the response from the server
+            if(ia===1){
+                setLevelia1(response.data);
+            } else if(ia===2){
+                setLevelia2(response.data)
+            }
+        } catch (error) {
+            console.error('Error fetching level data:', error);
+            setLevelia1("Error fetching level");
+        }
+    };
+
+    const calculatelevelassign = async (subject, semester) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/LevelCalculationAssign`, {
+                params: {
+                    subject: subject,
+                    semester: semester,
+                }
+            });
+
+            // Update the levelia1 based on the response from the server
+            setLevelassign(response.data);
+            }
+         catch (error) {
+            console.error('Error fetching level data:', error);
+            setLevelia1("Error fetching level");
+        }
     };
 
     const toggleLogoutMenu = () => {
@@ -353,23 +527,23 @@ function Prin_sub() {
         // Add your logout logic here
     };
 
-    useEffect(() => {
-        // Initialize Chart.js or other required setup here if needed
-    }, []);
-
     if (!user) {
         return <p>Please log in to access this page.</p>;
     }
 
     const subjectsAssigned = user.Subjects_assigned || [];
 
+    const handleIAClick = (subject, semester, ia) => {
+        navigate(`/iamarks_entry/${subject}/${semester}`); // Navigate to the new page
+    };
+    const handleAssignmentClick = (subject, semester) => {
+        navigate(`/assignmentprin/${subject}/${semester}`); // Navigate to the new page
+    };
+
     return user.role === 'Principal' ? (
         <>
             <nav className="curved-nav">
                 <div className="nav-content">
-                    <Link to="/principaldashboard">
-                        <button className="nav-btn">Home</button>
-                    </Link>
                     <div className="profile-menu">
                         <div className="profile-circle" onClick={toggleLogoutMenu}>
                             <i className="fas fa-user" />
@@ -384,7 +558,7 @@ function Prin_sub() {
             <div className="card-container">
                 {subjectsAssigned.length > 0 ? (
                     subjectsAssigned.map((subject, index) => {
-                        const semester = findSemester(user.department, subject); // Assuming user has a department property
+                        const semester = findSemester(user.department, subject);
                         return (
                             <article className="skill-card" key={index} data-aos="zoom-in" data-aos-delay={350}>
                                 <img
@@ -396,24 +570,36 @@ function Prin_sub() {
                                 />
                                 <div className="skill-card__content | flow">
                                     <div className="skill-card__content--container | flow">
-                                        <button className="icon-button" onClick={toggleGraph}>
+                                        <button className="icon-button" onClick={()=>toggleGraph(subject,semester)}>
                                             <img src={graphIcon} alt="Graph Icon" />
                                         </button>
-                                        <Link to={`/co_po/${subject}/${semester}`}>                                            
-                                                <button className="icon-button">
+                                        <Link to={`/co_po/${subject}/${semester}`}>
+                                            <button className="icon-button">
                                                 <img src={coIcon} alt="CO Icon" />
                                             </button>
                                         </Link>
                                         <h2 className="skill-card__title">{subject}</h2>
                                         <pre className="skill-card__description">
-                                        <Link to={`/iamarks_entry/${subject}/${semester}/${1}`}>                                                
-                                                <button className="btn">IA 1</button> - LEVEL 2{"\n"}
-                                                </Link>
-                                                <Link to={`/iamarks_entry/${subject}/${semester}/${2}`}>                                                
-                                                <button className="btn">IA 2</button> - LEVEL 1{"\n"}
-                                            </Link>
-                                            <button className="btn">INTERNAL</button> - LEVEL 2{"\n"}
-                                            <button className="btn">ESE</button> - LEVEL 1{"\n"}
+                                            <div>
+                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 1</button>
+                                                 - <button className="btn" onClick={() => calculatelevelia(subject, semester, 1)}>{levelia1}</button>
+                                            </div>
+
+                                            <div>
+                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 2</button>
+                                                 - <button className="btn" onClick={() => calculatelevelia(subject, semester, 2)}>{levelia2}</button>
+                                            </div>
+                                            
+                                            <div>
+                                                <button className="btn" onClick={() => handleAssignmentClick(subject, semester)}>Assignment</button>
+                                                 - <button className="btn" onClick={() => calculatelevelassign(subject, semester)}>{levelassign}</button>
+                                            </div>
+
+                                            <div>
+                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>End</button>
+                                                 - <button className="btn" onClick={() => calculatelevelend(subject, semester)}>{levelend}</button>
+                                            </div>
+
                                             <p>Semester: {semester !== null ? semester : 'Not Found'}</p>
                                         </pre>
                                     </div>
@@ -426,15 +612,99 @@ function Prin_sub() {
                 )}
 
                 <div className="profile">
-                    
                     <img className="profile-pic" src={profPic} alt="Profile" />
                     <p className='name'>Hello! {user.name}</p>
                 </div>
+
+                {/* Conditionally render the graph and table */}
+                {showGraph && (
+                    <div id="graphAndTableContainer">
+                        <div id="tableContainer">
+                            <h3>CO Attainment Table</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>CO1</th>
+                                        <th>CO2</th>
+                                        <th>CO3</th>
+                                        <th>CO4</th>
+                                        <th>CO5</th>
+                                        <th>CO6</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Co Attainment Values</td>
+                                        <td>{co1attain}</td>
+                                        <td>{co2attain}</td>
+                                        <td>{co3attain}</td>
+                                        <td>{co4attain}</td>
+                                        <td>{co5attain}</td>
+                                        <td>{co6attain}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="tableContainer">
+                            <h3>PO Attainment Table</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>PO1</th>
+                                        <th>PO2</th>
+                                        <th>PO3</th>
+                                        <th>PO4</th>
+                                        <th>PO5</th>
+                                        <th>PO6</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Po Attainment Values</td>
+                                        <td>{po1attain}</td>
+                                        <td>{po2attain}</td>
+                                        <td>{po3attain}</td>
+                                        <td>{po4attain}</td>
+                                        <td>{po5attain}</td>
+                                        <td>{po6attain}</td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>PO7</th>
+                                        <th>PO8</th>
+                                        <th>PO9</th>
+                                        <th>PO10</th>
+                                        <th>PO11</th>
+                                        <th>PO12</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{po7attain}</td>
+                                        <td>{po8attain}</td>
+                                        <td>{po9attain}</td>
+                                        <td>{po10attain}</td>
+                                        <td>{po11attain}</td>
+                                        <td>{po12attain}</td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     ) : (
-        <p>Access Denied. This page is only for Principal Only.</p>
+        <p>Access Denied. This page is only for HODs Only.</p>
     );
 }
 
-export default Prin_sub;
+export default Prinsub;

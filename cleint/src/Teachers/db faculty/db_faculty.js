@@ -8,7 +8,7 @@ import profPic from './bg img/prof.jpeg';
 import { Chart } from 'chart.js';
 import axios from 'axios'; // Import Axios
 
-function Subjects() {
+function Appfa() {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     const [showGraph, setShowGraph] = useState(false);
@@ -703,8 +703,8 @@ function Subjects() {
             </div>
         </>
     ) : (
-        <p>Access Denied. This page is only for HODs Only.</p>
+        <p>Access Denied. This page is only for Teachers Only.</p>
     );
 }
 
-export default Subjects;
+export default Appfa;

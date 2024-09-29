@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
-
-const Co_po_prin = () => {
+const Appco = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -180,4 +179,4 @@ const Co_po_prin = () => {
     );
 };
 
-export default Co_po_prin;
+export default Appco;

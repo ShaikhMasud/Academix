@@ -124,7 +124,6 @@ app.post('/updateSubjects', async (req, res) => {
 
 app.post('/submitCoPo', async (req, res) => {
     const { semester, subject_name, CO1, CO2, CO3, CO4, CO5, CO6 } = req.body;
-    console.log("Received data:", { semester, subject_name, CO1, CO2, CO3, CO4, CO5, CO6 });
     try {
         const existingRecord = await CO_POModel.findOne({ semester, subject_name });
 
@@ -158,6 +157,23 @@ app.post('/submitCoPo', async (req, res) => {
         res.status(500).json({ success: false, message: 'Error saving CO-PO data', error: error.message });
     }
 });
+
+app.get('/getCoPo/:semester/:subject', async (req, res) => {
+    const { semester, subject } = req.params;
+    try {
+        const record = await CO_POModel.findOne({ semester, subject_name: subject });
+
+        if (record) {
+            return res.json({ success: true, record });
+        }
+
+        return res.json({ success: false, message: 'Record not found' });
+    } catch (error) {
+        console.error("Error fetching CO-PO data:", error);
+        res.status(500).json({ success: false, message: 'Error fetching CO-PO data', error: error.message });
+    }
+});
+
 
 app.post('/students', async (req, res) => {
     const studentData = req.body;

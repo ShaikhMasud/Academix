@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
-
-const CO_PO_HOD = () => {
+const Appco = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
-    
 
     const poStatements = {
         PO1: "Engineering Knowledge: Graduates should have a deep understanding of the fundamental principles, theories, and concepts in their chosen engineering field.",
@@ -176,9 +174,9 @@ const CO_PO_HOD = () => {
                 )}
             </>
         ) : (
-            <p>Access denied. This page is for HODs only.</p>
+            <p>Access denied. This page is for Teachers only.</p>
         )
     );
 };
 
-export default CO_PO_HOD;
+export default Appco;
