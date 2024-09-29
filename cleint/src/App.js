@@ -19,7 +19,9 @@ import Subjectpagehod from './HOD/2.subj hod/subject.js';
 import Subjectpageprin from './principal/2.subj hod/subject.js';
 import Co_po_prin from './principal/co-po rating/co-po.js';
 import StudentMarksEntryAssignment from './Teachers/Assignment/Assignment.js';
-import Studdashboard from './students/studdb/studentdb.js'
+import Studdashboard from './students/studdb/studdb.js';
+import StudentMarksAnalysis from './students/studmrk/studmrk.js';
+import StudSem from './students/studsem/studsem.js';
 
 
 
@@ -38,6 +40,8 @@ function App() {
         <Route path='/subjects' element={<Subjects/>}></Route>
         <Route path='/IA_marks_entry/:subject/:semester/:ia' element={<StudentMarksEntryHOD/>}></Route>
 	      <Route path='/Studdb' element={<Studdashboard/>}></Route>
+        <Route path='/studmrk' element={<StudentMarksAnalysis/>}></Route>
+        <Route path='/studsem' element={<StudSem/>}></Route>
 
         {/* Principal routes */}
         <Route path='/principaldashboard' element={<SelectStream/>}></Route>

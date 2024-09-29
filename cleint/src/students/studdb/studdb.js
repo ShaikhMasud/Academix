@@ -1,17 +1,16 @@
-
-import React, { useState, useEffect } from 'react';
-import { Chart, registerables } from 'chart.js';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './studdb.css';
-import { Link } from 'react-router-dom';
 
 const Studdashboard = () => {
+  const navigate = useNavigate();
 
   // Function to handle viewing a semester
   const viewSemester = (semester) => {
     if (semester === 'Honours') {
-      alert('Viewing Honours details...');
+      navigate('/honours'); // Navigate to Honours page
     } else {
-      alert('Viewing details for Semester ' + semester);
+      navigate(`/studsem`); // Navigate to specific semester page
     }
   };
 
@@ -65,4 +64,3 @@ const Studdashboard = () => {
 };
 
 export default Studdashboard;
-
