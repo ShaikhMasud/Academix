@@ -14,6 +14,7 @@ const StudentMarksEntryAssignment = () => {
     const [coSelections, setCoSelections] = useState([]); // Default CO selection
     const [coOptions] = useState(["CO1", "CO2", "CO3", "CO4", "CO5", "CO6"]); // Example CO options
     const [tableData, setTableData] = useState([]); // State to hold table data
+    const [percentageAssignments, setpercentageAssignments] = useState(0);
 
     useEffect(() => {
         fetchAndPopulateAssignmentData();
@@ -71,6 +72,10 @@ const StudentMarksEntryAssignment = () => {
         });
         setTableData(newTableData);
     };
+    const handlepercentageAssignmentsChange = (event) => {
+        const newPercentageAssignments = parseInt(event.target.value);
+        setpercentageAssignments(newPercentageAssignments);
+    }
 
     const handleCoChange = (assignmentIndex, value) => {
         const newSelections = [...coSelections];
@@ -104,7 +109,7 @@ const StudentMarksEntryAssignment = () => {
         });
 
         try {
-            const response = await axios.post('http://localhost:3001/studentsAssignment', { studentData, semester });
+            const response = await axios.post('http://localhost:3001/studentsAssignment', { studentData, semester,percentageAssignments });
             if (response.data.success) {
                 alert('Student data submitted successfully!');
             } else {
@@ -189,6 +194,17 @@ const StudentMarksEntryAssignment = () => {
                             onChange={handleNumAssignmentsChange} 
                         />
                     </div>
+                    <div>
+                        <label htmlFor="numAssignments">Enter the percentage of the Assignment:</label>
+                        <input 
+                            type="number" 
+                            id="percentageAssignments" 
+                            min="1" 
+                            value={percentageAssignments} 
+                            onChange={handlepercentageAssignmentsChange} 
+                        />
+                    </div>
+
 
                     <h2>Upload Excel File to Add Data</h2>
 

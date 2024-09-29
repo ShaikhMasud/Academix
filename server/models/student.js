@@ -25,7 +25,8 @@ const Subject_SubSchema = new mongoose.Schema({
     IA1: IA_SubSchema,
     IA2: IA_SubSchema,
     ESE: ESE_SubSchema,
-    Assignment: [Assignment_SubSchema]
+    Assignment: [Assignment_SubSchema],
+    PercentageOfAssignment: { type:Number }
 });
 
 const StudentSchema = new mongoose.Schema({

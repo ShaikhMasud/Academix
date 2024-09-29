@@ -344,10 +344,62 @@ function Subjects() {
         return null; // Return null if not found
     };
 
-    const toggleGraph = () => {
+    const toggleGraph = async (subject, semester) => {
+        // Toggle the graph visibility state
         setShowGraph(prevShowGraph => !prevShowGraph);
-    };
+    
+        try {
+            // Make an API request to the /coAttainment endpoint with subject and semester in the body
+            const response = await axios.post('http://localhost:3001/coAttainment', {
+                subject,   // Pass subject from function arguments
+                semester   // Pass semester from function arguments
+            });
+    
+            // Assuming the response contains the calculated CO attainment values as an array [co1, co2, co3, co4, co5, co6]
+            const {coAttainments} = response.data;
+            // Check if the response data exists and has the expected structure
+            if (Array.isArray(coAttainments) && coAttainments.length === 6) {
+                // Update the state for each CO based on the response values
+                setco1attain(coAttainments[0] || 1);
+                setco2attain(coAttainments[1] || 0);
+                setco3attain(coAttainments[2] || 0);
+                setco4attain(coAttainments[3] || 0);
+                setco5attain(coAttainments[4] || 0);
+                setco6attain(coAttainments[5] || 0);
+            } else {
+                // If the response does not contain the expected array, handle this case
+                console.error("Unexpected response format:", response.data);
+            }
 
+            const responsePo = await axios.post('http://localhost:3001/poAttainment', {
+                subject,   
+                semester   
+            });
+            const {poAttainments} = responsePo.data;
+            // Check if the response data exists and has the expected structure
+            if (Array.isArray(poAttainments) && poAttainments.length === 12) {
+                // Update the state for each CO based on the response values
+                setpo1attain(poAttainments[0] || 0);
+                setpo2attain(poAttainments[1] || 0);
+                setpo3attain(poAttainments[2] || 0);
+                setpo4attain(poAttainments[3] || 0);
+                setpo5attain(poAttainments[4] || 0);
+                setpo6attain(poAttainments[5] || 0);
+                setpo7attain(poAttainments[6] || 0);
+                setpo8attain(poAttainments[7] || 0);
+                setpo9attain(poAttainments[8] || 0);
+                setpo10attain(poAttainments[9] || 0);
+                setpo11attain(poAttainments[10] || 0);
+                setpo12attain(poAttainments[11] || 0);
+            } else {
+                // If the response does not contain the expected array, handle this case
+                console.error("Unexpected response format:", response.data);
+            }
+        } catch (error) {
+            // Log any errors if the request fails
+            console.error("Error fetching CO and PO attainment data:", error);
+        }
+    };
     useEffect(() => {
         if (showGraph && chartRef.current) {
             const ctx = chartRef.current.getContext('2d');
@@ -385,6 +437,26 @@ function Subjects() {
     const [levelia2, setLevelia2] = useState("Show level");
     const [levelend, setLevelend] = useState("Show level");
     const [levelassign, setLevelassign] = useState("Show level");
+
+    const [co1attain,setco1attain]=useState(0);
+    const [co2attain,setco2attain]=useState(0);
+    const [co3attain,setco3attain]=useState(0);
+    const [co4attain,setco4attain]=useState(0);
+    const [co5attain,setco5attain]=useState(0);
+    const [co6attain,setco6attain]=useState(0);
+
+    const [po1attain,setpo1attain]=useState(0);
+    const [po2attain,setpo2attain]=useState(0);
+    const [po3attain,setpo3attain]=useState(0);
+    const [po4attain,setpo4attain]=useState(0);
+    const [po5attain,setpo5attain]=useState(0);
+    const [po6attain,setpo6attain]=useState(0);
+    const [po7attain,setpo7attain]=useState(0);
+    const [po8attain,setpo8attain]=useState(0);
+    const [po9attain,setpo9attain]=useState(0);
+    const [po10attain,setpo10attain]=useState(0);
+    const [po11attain,setpo11attain]=useState(0);
+    const [po12attain,setpo12attain]=useState(0);
 
 
     const calculatelevelend = async (subject, semester) => {
@@ -498,7 +570,7 @@ function Subjects() {
                                 />
                                 <div className="skill-card__content | flow">
                                     <div className="skill-card__content--container | flow">
-                                        <button className="icon-button" onClick={toggleGraph}>
+                                        <button className="icon-button" onClick={()=>toggleGraph(subject,semester)}>
                                             <img src={graphIcon} alt="Graph Icon" />
                                         </button>
                                         <Link to={`/co-po-map/${subject}/${semester}`}>
@@ -547,9 +619,6 @@ function Subjects() {
                 {/* Conditionally render the graph and table */}
                 {showGraph && (
                     <div id="graphAndTableContainer">
-                        <div id="graphContainer">
-                            <canvas id="levelChart" ref={chartRef}></canvas>
-                        </div>
                         <div id="tableContainer">
                             <h3>CO Attainment Table</h3>
                             <table>
@@ -566,42 +635,67 @@ function Subjects() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>IA - 1</td>
-                                        <td>2</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>IA - 2</td>
-                                        <td></td>
-                                        <td>3</td>
-                                        <td></td>
-                                        <td>3</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Average</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td>1</td>
-                                        <td>2.5</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ASSGT</td>
-                                        <td></td>
-                                        <td>2</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td></td>
+                                        <td>Co Attainment Values</td>
+                                        <td>{co1attain}</td>
+                                        <td>{co2attain}</td>
+                                        <td>{co3attain}</td>
+                                        <td>{co4attain}</td>
+                                        <td>{co5attain}</td>
+                                        <td>{co6attain}</td>
                                     </tr>
                                 </tbody>
+                            </table>
+                        </div>
+                        <div id="tableContainer">
+                            <h3>PO Attainment Table</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>PO1</th>
+                                        <th>PO2</th>
+                                        <th>PO3</th>
+                                        <th>PO4</th>
+                                        <th>PO5</th>
+                                        <th>PO6</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Po Attainment Values</td>
+                                        <td>{po1attain}</td>
+                                        <td>{po2attain}</td>
+                                        <td>{po3attain}</td>
+                                        <td>{po4attain}</td>
+                                        <td>{po5attain}</td>
+                                        <td>{po6attain}</td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>PO7</th>
+                                        <th>PO8</th>
+                                        <th>PO9</th>
+                                        <th>PO10</th>
+                                        <th>PO11</th>
+                                        <th>PO12</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{po7attain}</td>
+                                        <td>{po8attain}</td>
+                                        <td>{po9attain}</td>
+                                        <td>{po10attain}</td>
+                                        <td>{po11attain}</td>
+                                        <td>{po12attain}</td>
+                                    </tr>
+                                </tbody>
+                                
                             </table>
                         </div>
                     </div>
