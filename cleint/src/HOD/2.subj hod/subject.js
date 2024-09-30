@@ -206,6 +206,12 @@ const handleLogout = () => {
     sessionStorage.removeItem('currentUser'); // Clear user session
     navigate('/'); // Redirect to login
 };
+// const [levelia1, setLevelia1] = useState("Show level");
+// const [levelia2, setLevelia2] = useState("Show level");
+// const [levelend, setLevelend] = useState("Show level");
+// const [levelassign, setLevelassign] = useState("Show level");
+
+
 
   const subjectImages = [bgImg1, bgImg2, bgImg3, bgImg4, bgImg5];
 
@@ -243,7 +249,8 @@ const handleLogout = () => {
                     <br />
                   </h2>
                   <pre className="skill-card__description">
-                    IA 1 - LEVEL 2
+                    IA 1 
+                    {/* - <button className="btn" onClick={() => calculatelevelia(subject, semester, 1)}>{levelia1}</button> */}
                     <br />
                     IA 2 - LEVEL 1
                     <br />

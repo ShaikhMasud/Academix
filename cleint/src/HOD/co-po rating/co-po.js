@@ -1,10 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './co-po.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
 
-const Appco = () => {
+const SubjectsHOD = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -25,10 +24,31 @@ const Appco = () => {
 
     const { subject, semester } = useParams();
 
+    const [coPoData, setCoPoData] = useState({
+        CO1: { PoValues: Array(12).fill(0), description: "Description for CO" },
+        CO2: { PoValues: Array(12).fill(0), description: "Description for CO" },
+        CO3: { PoValues: Array(12).fill(0), description: "Description for CO" },
+        CO4: { PoValues: Array(12).fill(0), description: "Description for CO" },
+        CO5: { PoValues: Array(12).fill(0), description: "Description for CO" },
+        CO6: { PoValues: Array(12).fill(0), description: "Description for CO" },
+    });
+
     const [tooltipText, setTooltipText] = useState('');
     const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
     const tooltipRef = useRef(null);
-    const [logoutMenuVisible, setLogoutMenuVisible] = useState(false);
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`)
+            .then(response => {
+                if (response.data.success && response.data.record) {
+                    setCoPoData(response.data.record);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching CO-PO data:", error);
+                alert("Failed to load CO-PO data. Please try again later.");
+            });
+    }, [semester, subject]);
 
     const handleMouseEnter = (event) => {
         const po = event.target.dataset.po;
@@ -43,59 +63,52 @@ const Appco = () => {
         setTooltipText('');
     };
 
-    const toggleLogoutMenu = () => {
-        setLogoutMenuVisible(!logoutMenuVisible);
-    };
-
-    const logout = () => {
-        alert('Logging out...');
-        // Add your logout logic here
-    };
-
     const handleSubmit = () => {
         const data = [];
-    
-        // Iterate through the COs
+
         for (const co of [1, 2, 3, 4, 5, 6]) {
             const selectElements = document.querySelectorAll(`tr[data-co="${co}"] select`);
             const description = document.querySelector(`tr[data-co="${co}"] textarea`).value;
-    
-            // Collect PO values
+
             const poValues = Array.from(selectElements).map(select => select.value);
-    
-            // Ensure poValues has exactly 12 entries
+
             if (poValues.length === 12) {
                 data.push({
                     poValues,
                     description
                 });
-            } 
+            }
         }
-        axios.post('http://localhost:3001/submitCoPo', { 
-            semester:semester,
-            subject_name:subject,
-            CO1:data[0],
-            CO2:data[1],
-            CO3:data[2],
-            CO4:data[3],
-            CO5:data[4],
-            CO6:data[5]
-        })
-        console.log(data);
+
+        axios.post('http://localhost:3001/submitCoPo', {
+            semester: semester,
+            subject_name: subject,
+            CO1: data[0],
+            CO2: data[1],
+            CO3: data[2],
+            CO4: data[3],
+            CO5: data[4],
+            CO6: data[5]
+        }).then(response => {
+            if (response.data.success) {
+                alert('CO-PO data submitted successfully!');
+            } else {
+                alert('Failed to submit CO-PO data.');
+            }
+        }).catch(error => {
+            console.error("Error submitting CO-PO data:", error);
+            alert('An error occurred while submitting data. Please try again.');
+        });
     };
-    
 
     if (!user) {
+        alert('Please log in to access this page.');
         return <p>Please log in to access this page.</p>;
     }
 
     return (
         user.role === "HOD" ? (
             <>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>CO-PO Attainment Table</title>
-                <link rel="stylesheet" href="style.css" />
                 <h2>CO-PO Correlation Table</h2>
                 <div className="table-container">
                     <table>
@@ -117,12 +130,19 @@ const Appco = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {[1,2,3,4,5,6].map(co => (
+                            {[1, 2, 3, 4, 5, 6].map(co => (
                                 <tr key={co} data-co={co}>
                                     <td>{co}</td>
-                                    {Object.keys(poStatements).map(po => (
+                                    {Object.keys(poStatements).map((po, index) => (
                                         <td key={po}>
-                                            <select>
+                                            <select
+                                                value={coPoData[`CO${co}`].PoValues[index]}
+                                                onChange={(e) => {
+                                                    const newCoPoData = { ...coPoData };
+                                                    newCoPoData[`CO${co}`].PoValues[index] = parseInt(e.target.value);
+                                                    setCoPoData(newCoPoData);
+                                                }}
+                                            >
                                                 <option value={0}>0</option>
                                                 <option value={1}>1</option>
                                                 <option value={2}>2</option>
@@ -131,17 +151,26 @@ const Appco = () => {
                                         </td>
                                     ))}
                                     <td>
-                                        <textarea className="co-description" defaultValue="Description for CO" />
+                                        <textarea
+                                            className="co-description"
+                                            value={coPoData[`CO${co}`].description || ""}
+                                            onChange={(e) => {
+                                                const newCoPoData = { ...coPoData };
+                                                newCoPoData[`CO${co}`].description = e.target.value;
+                                                setCoPoData(newCoPoData);
+                                            }}
+                                        />
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                     <Link to="/subjects">
-                        <button>back</button>
+                        <button>Back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>
                 </div>
+
                 {tooltipText && (
                     <div
                         id="po-tooltip"
@@ -158,9 +187,9 @@ const Appco = () => {
                 )}
             </>
         ) : (
-            <p>Access denied. This page is for Teachers only.</p>
+            <p>Access denied. This page is for HOD only.</p>
         )
     );
 };
 
-export default Appco;
+export default SubjectsHOD;
