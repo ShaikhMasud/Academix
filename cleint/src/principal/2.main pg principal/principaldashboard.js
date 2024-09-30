@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import './principaldash.css';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
 // Register Chart.js components
 Chart.register(...registerables);
 
 const PrincipalMainPage = () => {
+  const navigate = useNavigate();
+
   const {stream}=useParams();
   const storedUser = sessionStorage.getItem('currentUser');
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -82,6 +84,16 @@ const PrincipalMainPage = () => {
   if (!user) {
     return <p>Please log in to access this page.</p>;
   }
+  const toggleLogoutMenu = () => {
+    const logoutMenu = document.getElementById('logoutMenu');
+    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+};
+
+const handleLogout = () => {
+    sessionStorage.removeItem('currentUser'); // Clear user session
+    navigate('/'); // Redirect to login
+};
+
 
   return (
     user.role === "Principal" ? (
@@ -91,7 +103,14 @@ const PrincipalMainPage = () => {
           <div className="nav-bar-content">
             <Link to="/principaldashboard"><button className="nav-btn">Home</button></Link>
             <Link to="/sub"><button className="nav-btn">Subjects</button></Link>
-            <button className="nav-btn">Profile Picture</button>
+            <div className="profile-menu">
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
+                        </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
             <button className="nav-btn">{stream}</button>
             <div className="user-icon">
               <i className="fas fa-user"></i>

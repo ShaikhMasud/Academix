@@ -523,7 +523,7 @@ function SubjectsHOD() {
     };
 
     const handleLogout = () => {
-        alert('Logging out...');
+        navigate('/')
         // Add your logout logic here
     };
 

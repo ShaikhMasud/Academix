@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './IA.css'; 
 import * as XLSX from 'xlsx'; 
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import axios from 'axios'; 
 
 const StudentMarksEntryHOD = () => {
+    const navigate = useNavigate();
+
     useEffect(() => {
         const examSelect = document.getElementById("examSelect");
     
@@ -306,19 +308,30 @@ const StudentMarksEntryHOD = () => {
     if (!user) {
         return <p>Please log in to access this page.</p>;
     }
+    const toggleLogoutMenu = () => {
+        const logoutMenu = document.getElementById('logoutMenu');
+        logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+    };
+
+    const handleLogout = () => {
+        navigate('/')
+        // Add your logout logic here
+    };
+    
 
     return (
         user.role === "HOD" ? (
             <div>
                 <nav className="curved-nav">
                     <div className="nav-content">
-                        <button className="nav-btn">CO</button>
-                        <button className="nav-btn">PO</button>
-                        <div className="profile-menu">
-                            <div className="profile-circle" onClick={() => { /* Toggle profile menu */ }}>
-                                <i className="fas fa-user"></i>
-                            </div>
+                    <div className="profile-menu">
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
                         </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
                     </div>
                 </nav>
 
@@ -365,7 +378,7 @@ const StudentMarksEntryHOD = () => {
                         <tbody></tbody>
                     </table>
 
-                    <Link to="/facultydashboard">
+                    <Link to="/subjects">
                         <button>Back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>

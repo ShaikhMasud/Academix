@@ -523,7 +523,7 @@ function Prinsub() {
     };
 
     const handleLogout = () => {
-        alert('Logging out...');
+        navigate('/'); // Redirect to login
         // Add your logout logic here
     };
 

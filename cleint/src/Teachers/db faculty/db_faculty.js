@@ -523,8 +523,8 @@ function Appfa() {
     };
 
     const handleLogout = () => {
-        alert('Logging out...');
-        // Add your logout logic here
+        sessionStorage.removeItem('currentUser'); // Clear user session
+        navigate('/'); // Redirect to login
     };
 
     if (!user) {

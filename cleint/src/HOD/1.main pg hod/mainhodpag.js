@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
 import './mainhod.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Register Chart.js components
 Chart.register(...registerables);
@@ -13,6 +13,8 @@ const Hodmainpage = () => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedLevel, setSelectedLevel] = useState('SE');  // Default to SE
   const [semesters, setSemesters] = useState({ sem1: 'Sem 3', sem2: 'Sem 4' }); // Set to Sem 3 and Sem 4 by default
+  const navigate = useNavigate();
+
 
   // Update semester display based on selected level
   const updateSemesterDisplay = (level) => {
@@ -91,6 +93,16 @@ const Hodmainpage = () => {
   if (user.role !== "HOD") {
     return <p>Access denied. This page is for HODs only.</p>;
   }
+  const toggleLogoutMenu = () => {
+    const logoutMenu = document.getElementById('logoutMenu');
+    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+};
+
+const handleLogout = () => {
+    sessionStorage.removeItem('currentUser'); // Clear user session
+    navigate('/'); // Redirect to login
+};
+
 
   return (
     <div className="containerpd">
@@ -98,7 +110,14 @@ const Hodmainpage = () => {
       <div className="nav-bar">
         <div className="nav-bar-content">
           <Link to="/subjects"><button className="nav-btn">Subjects</button></Link>
-          <button className="nav-btn">Profile Picture</button>
+          <div className="profile-menu">
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
+                        </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
           <div className="user-icon">
             <i className="fas fa-user"></i>
           </div>

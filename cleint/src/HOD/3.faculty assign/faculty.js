@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import './faculty.css'; 
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const FacultyAssignment = () => {
+    const navigate = useNavigate();
+
 
     const Allsubject = {
         "departments": [
@@ -555,6 +557,15 @@ const FacultyAssignment = () => {
     if (!user) {
         return <p>Please log in to access this page.</p>
     }
+    const toggleLogoutMenu = () => {
+        const logoutMenu = document.getElementById('logoutMenu');
+        logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+    };
+    
+    const handleLogout = () => {
+        sessionStorage.removeItem('currentUser'); // Clear user session
+        navigate('/'); // Redirect to login
+    };
 
     return (
         user.role === "HOD" ? (
@@ -565,7 +576,14 @@ const FacultyAssignment = () => {
                         <Link to="/subjects">
                             <button className="nav-btn">Subjects</button>
                         </Link>
-                        <button className="nav-btn">Profile Picture</button>
+                        <div className="profile-menu">
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
+                        </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
                         <div>
                             <div className="user-icon">
                                 <i className="fas fa-user"></i>

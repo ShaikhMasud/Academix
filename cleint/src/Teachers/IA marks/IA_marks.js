@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './IA.css'; 
 import * as XLSX from 'xlsx'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import axios from 'axios'; 
 
@@ -296,7 +296,17 @@ const StudentMarksEntry = () => {
         } catch (error) {
             console.error("Error fetching student data:", error);
         }
-    };    
+    };  
+    const navigate = useNavigate();
+    const toggleLogoutMenu = () => {
+        const logoutMenu = document.getElementById('logoutMenu');
+        logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('currentUser'); // Clear user session
+        navigate('/'); // Redirect to login
+    }; 
             
     
 
@@ -312,10 +322,13 @@ const StudentMarksEntry = () => {
                         <button className="nav-btn">CO</button>
                         <button className="nav-btn">PO</button>
                         <div className="profile-menu">
-                            <div className="profile-circle" onClick={() => { /* Toggle profile menu */ }}>
-                                <i className="fas fa-user"></i>
-                            </div>
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
                         </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
                     </div>
                 </nav>
 

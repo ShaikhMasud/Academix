@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './stream.css'; // Ensure this is the path to your CSS file
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 
 
 const StreamPage = () => {
+  const navigate = useNavigate();
+
   const storedUser = sessionStorage.getItem('currentUser');
   const user = storedUser ? JSON.parse(storedUser) : null;
 
   const [isMenuVisible, setMenuVisible] = useState(false);
   const cardRefs = useRef([]);
-
-  const toggleLogoutMenu = () => {
-    setMenuVisible(!isMenuVisible);
-  };
 
   const logout = () => {
     alert('Logging out...');
@@ -93,23 +92,30 @@ const StreamPage = () => {
   if (!user) {
     return <p>Please log in to access this page.</p>;
   }
+  const toggleLogoutMenu = () => {
+    const logoutMenu = document.getElementById('logoutMenu');
+    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+};
+
+const handleLogout = () => {
+    sessionStorage.removeItem('currentUser'); // Clear user session
+    navigate('/'); // Redirect to login
+};
+
   return (
     user.role==="Principal"?(
     <div>
       <nav className="curved-nav">
         <div className="nav-content">
-          <button className="nav-btn">CO</button>
           <Link to="/sub"><button className="nav-btn">Subjects</button></Link>
           <div className="profile-menu">
-            <div className="profile-circle" onClick={toggleLogoutMenu}>
-              <i className="fas fa-user"></i>
-            </div>
-            {isMenuVisible && (
-              <div id="logoutMenu" className="logout-menu">
-                <button onClick={logout}>Logout</button>
-              </div>
-            )}
-          </div>
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
+                        </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
         </div>
       </nav>
 

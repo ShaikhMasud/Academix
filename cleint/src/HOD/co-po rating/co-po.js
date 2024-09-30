@@ -96,22 +96,6 @@ const Appco = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>CO-PO Attainment Table</title>
                 <link rel="stylesheet" href="style.css" />
-                <nav className="curved-nav">
-                    <div className="nav-content">
-                        <button className="nav-btn">CO</button>
-                        <button className="nav-btn">PO</button>
-                        <div className="profile-menu">
-                            <div className="profile-circle" onClick={toggleLogoutMenu}>
-                                <i className="fas fa-user" />
-                            </div>
-                            {logoutMenuVisible && (
-                                <div id="logoutMenu" className="logout-menu">
-                                    <button onClick={logout}>Logout</button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </nav>
                 <h2>CO-PO Correlation Table</h2>
                 <div className="table-container">
                     <table>

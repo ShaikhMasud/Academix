@@ -5,9 +5,11 @@ import bgImg2 from './bg img/b2.JPG';
 import bgImg3 from './bg img/b3.JPG'; 
 import bgImg4 from './bg img/b4.JPG'; 
 import bgImg5 from './bg img/b5.JPG'; 
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 const Subjectpageprin = () => {
+  const navigate = useNavigate();
+
   const Allsubject = {
     "departments": [
         {
@@ -146,15 +148,6 @@ const Subjectpageprin = () => {
   const storedUser = sessionStorage.getItem('currentUser');
   const user = storedUser ? JSON.parse(storedUser) : null;
 
-  const toggleLogoutMenu = () => {
-    const logoutMenu = document.getElementById('logoutMenu');
-    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
-  };
-
-  const logout = () => {
-    alert('Logging out...');
-    // Add your logout logic here
-  };
 
   if (!user) {
     return <p>Please log in to access this page.</p>;
@@ -170,6 +163,15 @@ const Subjectpageprin = () => {
   if (!semesterObj) {
     return <p>Semester not found.</p>;
   }
+  const toggleLogoutMenu = () => {
+    const logoutMenu = document.getElementById('logoutMenu');
+    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+};
+
+const handleLogout = () => {
+    sessionStorage.removeItem('currentUser'); // Clear user session
+    navigate('/'); // Redirect to login
+};
 
   const subjectImages = [bgImg1, bgImg2, bgImg3, bgImg4, bgImg5];
 
@@ -178,16 +180,15 @@ const Subjectpageprin = () => {
       <div className="App">
         <nav className="curved-nav">
           <div className="nav-content">
-            <button className="nav-btn">CO</button>
-            <button className="nav-btn">PO</button>
-            <div className="profile-menu">
-              <div className="profile-circle" onClick={toggleLogoutMenu}>
-                <i className="fas fa-user"></i>
-              </div>
-              <div id="logoutMenu" className="logout-menu">
-                <button onClick={logout}>Logout</button>
-              </div>
-            </div>
+
+          <div className="profile-menu">
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
+                        </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
           </div>
         </nav>
 

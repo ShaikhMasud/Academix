@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './co-po.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
@@ -28,8 +28,8 @@ const Appco = () => {
     const [tooltipText, setTooltipText] = useState('');
     const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
     const tooltipRef = useRef(null);
-    const [logoutMenuVisible, setLogoutMenuVisible] = useState(false);
 
+    // Show tooltip on mouse enter
     const handleMouseEnter = (event) => {
         const po = event.target.dataset.po;
         setTooltipText(poStatements[po]);
@@ -39,19 +39,12 @@ const Appco = () => {
         });
     };
 
+    // Hide tooltip on mouse leave
     const handleMouseLeave = () => {
         setTooltipText('');
     };
 
-    const toggleLogoutMenu = () => {
-        setLogoutMenuVisible(!logoutMenuVisible);
-    };
-
-    const logout = () => {
-        alert('Logging out...');
-        // Add your logout logic here
-    };
-
+    // Submit CO-PO data
     const handleSubmit = () => {
         const data = [];
     
@@ -69,25 +62,30 @@ const Appco = () => {
                     poValues,
                     description
                 });
-            } 
+            }
         }
+
+        // Send data to backend via axios
         axios.post('http://localhost:3001/submitCoPo', { 
-            semester:semester,
-            subject_name:subject,
-            CO1:data[0],
-            CO2:data[1],
-            CO3:data[2],
-            CO4:data[3],
-            CO5:data[4],
-            CO6:data[5]
-        })
+            semester: semester,
+            subject_name: subject,
+            CO1: data[0],
+            CO2: data[1],
+            CO3: data[2],
+            CO4: data[3],
+            CO5: data[4],
+            CO6: data[5]
+        });
         console.log(data);
     };
-    
 
+    // Redirect if not logged in
     if (!user) {
         return <p>Please log in to access this page.</p>;
     }
+
+    // Toggle logout menu visibility
+    
 
     return (
         user.role === "Teacher" ? (
@@ -96,22 +94,7 @@ const Appco = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>CO-PO Attainment Table</title>
                 <link rel="stylesheet" href="style.css" />
-                <nav className="curved-nav">
-                    <div className="nav-content">
-                        <button className="nav-btn">CO</button>
-                        <button className="nav-btn">PO</button>
-                        <div className="profile-menu">
-                            <div className="profile-circle" onClick={toggleLogoutMenu}>
-                                <i className="fas fa-user" />
-                            </div>
-                            {logoutMenuVisible && (
-                                <div id="logoutMenu" className="logout-menu">
-                                    <button onClick={logout}>Logout</button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </nav>
+
                 <h2>CO-PO Correlation Table</h2>
                 <div className="table-container">
                     <table>
@@ -154,10 +137,11 @@ const Appco = () => {
                         </tbody>
                     </table>
                     <Link to="/facultydashboard">
-                        <button>back</button>
+                        <button>Back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>
                 </div>
+
                 {tooltipText && (
                     <div
                         id="po-tooltip"

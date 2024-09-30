@@ -263,7 +263,7 @@ const StudentMarksEntryAssignment = () => {
                         </tbody>
                     </table>
 
-                    <Link to="/subjects">
+                    <Link to="/facultydashboard">
                         <button>Back</button>
                     </Link>
                     <button onClick={handleSubmit}>Submit</button>

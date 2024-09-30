@@ -6,9 +6,12 @@ import bgImg3 from './bg img/b3.JPG';
 import bgImg4 from './bg img/b4.JPG'; 
 import bgImg5 from './bg img/b5.JPG'; 
 import { useParams } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Subjectpagehod = () => {
+
+  const navigate = useNavigate();
+
   const Allsubject = {
     "departments": [
       {
@@ -174,10 +177,6 @@ const Subjectpagehod = () => {
   const storedUser = sessionStorage.getItem('currentUser');
   const user = storedUser ? JSON.parse(storedUser) : null;
   const stream =user.department;
-  const toggleLogoutMenu = () => {
-    const logoutMenu = document.getElementById('logoutMenu');
-    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
-  };
 
   const logout = () => {
     alert('Logging out...');
@@ -198,6 +197,15 @@ const Subjectpagehod = () => {
   if (!semesterObj) {
     return <p>Semester not found.</p>;
   }
+  const toggleLogoutMenu = () => {
+    const logoutMenu = document.getElementById('logoutMenu');
+    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+};
+
+const handleLogout = () => {
+    sessionStorage.removeItem('currentUser'); // Clear user session
+    navigate('/'); // Redirect to login
+};
 
   const subjectImages = [bgImg1, bgImg2, bgImg3, bgImg4, bgImg5];
 
@@ -209,15 +217,14 @@ const Subjectpagehod = () => {
             <Link to="/managefaculty">
               <button className="nav-btn">Manage Faculty</button>
             </Link>
-            <button className="nav-btn">PO</button>
             <div className="profile-menu">
-              <div className="profile-circle" onClick={toggleLogoutMenu}>
-                <i className="fas fa-user"></i>
-              </div>
-              <div id="logoutMenu" className="logout-menu">
-                <button onClick={logout}>Logout</button>
-              </div>
-            </div>
+                        <div className="profile-circle" onClick={toggleLogoutMenu}>
+                            <i className="fas fa-user" />
+                        </div>
+                        <div id="logoutMenu" className="logout-menu">
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    </div>
           </div>
         </nav>
 
