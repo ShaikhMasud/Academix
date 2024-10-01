@@ -161,22 +161,235 @@ body {
 
 /*  Skill Ups Card Start */
 
+.card-container-facdb {
+  width: 1270px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between cards */
+  padding: 20px;  /* Ensure enough space below the navbar */
+  min-height: 655px;
+  padding-top: 80px;
+  position: relative; /* Avoid any absolute positioning issues */
+  overflow: visible; /* Prevent overflow issues */
+  max-height: 80vh; /* The card container will not grow beyond 80% of the viewport height */
+  overflow-y: auto;
+  position: relative;
+  transition: all 0.3s ease;
+}
 
+.skill-card-facdb {
+  max-width: 600px; /* Restrict card width */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add some shadow */
+  margin: 0 auto; /* Center the card */
+  position: relative; /* Ensure no unintended overlap */
+}
 
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap");
+.skill-card__content-facdb {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f8f9fa; /* You can adjust this as per your design */
+}
 
-:root {
-/* Colors */
---brand-color: hsl(46, 100%, 50%);
---black: hsl(0, 0%, 0%);
---white: hsl(0, 0%, 100%);
-/* Fonts */
---font-title: "Montserrat", sans-serif;
---font-text: "Lato", sans-serif;
+.skill-card__content--container-facdb {
+  text-align: left; /* Align the text to the left */
+  transition: all 0.3s ease; /* Smooth transition for positioning */
+}
+
+.details-btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* start  EXPAND */
+
+.skill-card-facdb.expand {
+  min-width: 650px; /* New width when expanded */
+}
+
+.skill-card-facdb.expand .skill-card__content--container-facdb .skill-card__title-facdb {
+  transform: translateX(-10px); /* Shift content to the left */
 }
 
 
-.skill-card__title {
+.skill-card__title-facdb {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.skill-card__description-facdb {
+  font-size: 1rem;
+  color: black;
+}
+
+.btn {
+  margin: 5px 0;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+pre {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .card-container-facdb {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .skill-card-facdb {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+
+/* end */
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px; /* Adjust spacing */
+}
+
+.ia-info {
+  display: flex;
+  flex-direction: column; /* Stack the buttons vertically */
+}
+
+.qa-info {
+  text-align: right;
+  margin-left: 20px; /* Adds some space between the button and QA info */
+}
+
+.profile{
+box-shadow: 0px 10px 15px;
+border: 1px #000000;
+margin-left: 20px;
+height: 600px;
+width: 570px;
+}
+
+.profile-pic{
+position: relative;
+left: 30%;
+mix-blend-mode: multiply;
+}
+
+.icon-button {
+
+background: none;
+border: none;
+padding: 0;
+cursor: pointer;
+}
+
+.icon-button img {
+width: 30px; /* Adjust size as needed */
+height: 30px; /* Adjust size as needed */
+}
+
+
+
+/* Graph Container */
+.graph-container {
+mix-blend-mode: multiply;
+position: relative;
+left: 25%;
+width: 50%;
+height: 350px;
+display: none; /* Initially hidden */
+}
+
+/* Ensure the graph container has a background to make it visible */
+.graph-container canvas {
+background-color: #fff;
+}
+
+
+.name{
+position: relative;
+font-size: 50px;
+bottom: 30px;
+text-align: center;
+}
+
+/* Style for the button */
+.btn {
+padding: 4px 8px; /* Adjust padding for a compact button size */
+font-size: 14px; /* Font size for readability */
+color: #ffffff; /* Button text color */
+background-color: #007bff; /* Initial button background color */
+border: none; /* Remove border */
+border-radius: 5px; /* Rounded corners */
+cursor: pointer; /* Pointer cursor on hover */
+transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover effects */
+.btn:hover {
+background-color: #0056b3; /* Darker blue on hover */
+transform: translateY(-3px); /* Lift the button slightly */
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+/* Active state (when button is pressed) */
+.btn:active {
+transform: translateY(0); /* Return button to its original position */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Return shadow to its original state */
+}
+
+/* Button animation when it first loads */
+.btn {
+animation: fadeIn 0.6s ease-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+0% {
+  opacity: 0;
+  transform: scale(0.9);
+}
+100% {
+  opacity: 1;
+  transform: scale(1);
+}
+}
+
+/* 
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap");
+
+:root {
+--brand-color: hsl(46, 100%, 50%);
+--black: hsl(0, 0%, 0%);
+--white: hsl(0, 0%, 100%);
+--font-title: "Montserrat", sans-serif;
+--font-text: "Lato", sans-serif;
+} */
+
+
+/* .skill-card__title {
 font-size: 25px;
 font-family: var(--font-title);
 color: var(--white);
@@ -192,11 +405,11 @@ color: var(--white);
 
 .flow>*+* {
 margin-top: var(--flow-space, 1em);
-}
+} */
 
-/* CARD COMPONENT */
+/* CARD COMPONENT
 
-.card-container {
+.card-container-facdb {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
@@ -217,12 +430,12 @@ margin-top: var(--flow-space, 1em);
   margin-left: 25px;
 margin-top: 100px;
   /* Removed margins that affect the card’s placement */
-}
+/* } */
 
 
 
 
-.skill-card>* {
+/* .skill-card>* {
 grid-column: 1 / 2;
 grid-row: 1 / 2;
 }
@@ -351,101 +564,4 @@ outline-offset: -5px;
   transition: opacity 500ms ease-in, transform 500ms ease-in;
   transition-delay: 500ms;
 }
-}
-
-
-.profile{
-box-shadow: 0px 10px 15px;
-border: 1px #000000;
-margin-left: 20px;
-height: 600px;
-width: 570px;
-}
-
-.profile-pic{
-position: relative;
-left: 30%;
-mix-blend-mode: multiply;
-}
-
-.icon-button {
-
-background: none;
-border: none;
-padding: 0;
-cursor: pointer;
-}
-
-.icon-button img {
-width: 30px; /* Adjust size as needed */
-height: 30px; /* Adjust size as needed */
-}
-
-
-
-/* Graph Container */
-.graph-container {
-mix-blend-mode: multiply;
-position: relative;
-left: 25%;
-width: 50%;
-height: 350px;
-display: none; /* Initially hidden */
-}
-
-/* Ensure the graph container has a background to make it visible */
-.graph-container canvas {
-background-color: #fff;
-}
-
-
-.name{
-position: relative;
-font-size: 50px;
-bottom: 30px;
-text-align: center;
-}
-
-/* Style for the button */
-.btn {
-padding: 4px 8px; /* Adjust padding for a compact button size */
-font-size: 14px; /* Font size for readability */
-color: #ffffff; /* Button text color */
-background-color: #007bff; /* Initial button background color */
-border: none; /* Remove border */
-border-radius: 5px; /* Rounded corners */
-cursor: pointer; /* Pointer cursor on hover */
-transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-/* Hover effects */
-.btn:hover {
-background-color: #0056b3; /* Darker blue on hover */
-transform: translateY(-3px); /* Lift the button slightly */
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
-}
-
-/* Active state (when button is pressed) */
-.btn:active {
-transform: translateY(0); /* Return button to its original position */
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Return shadow to its original state */
-}
-
-/* Button animation when it first loads */
-.btn {
-animation: fadeIn 0.6s ease-out;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-0% {
-  opacity: 0;
-  transform: scale(0.9);
-}
-100% {
-  opacity: 1;
-  transform: scale(1);
-}
-}
-
+/* } */

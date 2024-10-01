@@ -523,13 +523,9 @@ function Appfa() {
     };
 
     const handleLogout = () => {
-        sessionStorage.removeItem('currentUser'); // Clear user session
-        navigate('/'); // Redirect to login
+        alert('Logging out...');
+        // Add your logout logic here
     };
-
-    if (!user) {
-        return <p>Please log in to access this page.</p>;
-    }
 
     const subjectsAssigned = user.Subjects_assigned || [];
 
@@ -539,6 +535,35 @@ function Appfa() {
     const handleAssignmentClick = (subject, semester) => {
         navigate(`/assignment/${subject}/${semester}`); // Navigate to the new page
     };
+
+    // Select the details button
+    // const details = () => {
+    //     const detailsBtn = document.querySelectorAll('.details-btn');
+    //     detailsBtn.forEach(btn => {
+    //         btn.addEventListener('click', function() {
+    //             // Find the parent card of the clicked button
+    //             const card = this.closest('.skill-card-facdb');
+
+    //             // Toggle the "expand" class on the card
+    //             card.classList.toggle('expand');
+    //         });
+    //     });
+    // };
+
+    const [expandedIndices, setExpandedIndices] = useState([]);
+
+// Toggle the expansion state
+    const toggleDetails = (index) => {
+        if (expandedIndices.includes(index)) {
+            setExpandedIndices(expandedIndices.filter(i => i !== index)); // Collapse if already expanded
+        } else {
+            setExpandedIndices([...expandedIndices, index]); // Expand the selected card
+        }
+    };
+    
+    if (!user) {
+        return <p>Please log in to access this page.</p>;
+    }
 
     return user.role === 'Teacher' ? (
         <>
@@ -554,157 +579,175 @@ function Appfa() {
                     </div>
                 </div>
             </nav>
-
-            <div className="card-container">
+    
+            <div className="card-container-facdb">
                 {subjectsAssigned.length > 0 ? (
                     subjectsAssigned.map((subject, index) => {
                         const semester = findSemester(user.department, subject);
+                        const isExpanded = expandedIndices.includes(index); // Check if the current index is expanded
+    
                         return (
-                            <article className="skill-card" key={index} data-aos="zoom-in" data-aos-delay={350}>
-                                <img
-                                    className="skill-card__background"
-                                    src={bgImage}
-                                    alt="Background"
-                                    width={1920}
-                                    height={2193}
-                                />
-                                <div className="skill-card__content | flow">
-                                    <div className="skill-card__content--container | flow">
-                                        <button className="icon-button" onClick={()=>toggleGraph(subject,semester)}>
+                            <article
+                                className={`skill-card-facdb ${isExpanded ? 'expand' : ''}`}
+                                key={index}
+                                data-aos="zoom-in"
+                                data-aos-delay={350}
+                            >
+                                <div className="skill-card__content-facdb | flow">
+                                    <div className="skill-card__content--container-facdb | flow">
+                                        {/* <button className="icon-button" onClick={() => toggleGraph(subject, semester)}>
                                             <img src={graphIcon} alt="Graph Icon" />
-                                        </button>
+                                        </button> */}
                                         <Link to={`/co-po-map/${subject}/${semester}`}>
                                             <button className="icon-button">
                                                 <img src={coIcon} alt="CO Icon" />
                                             </button>
                                         </Link>
-                                        <h2 className="skill-card__title">{subject}</h2>
-                                        <pre className="skill-card__description">
-                                            <div>
-                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 1</button>
-                                                 - <button className="btn" onClick={() => calculatelevelia(subject, semester, 1)}>{levelia1}</button>
+                                        <h2 className="skill-card__title-facdb">{subject}</h2>
+    
+                                        {/* Only show this section when expanded */}
+                                        {isExpanded && (
+                                            <div className="skill-card__description-facdb">
+                                            <div className="details-row">
+                                                <div className="ia-info">
+                                                    <div>
+                                                        <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 1</button>
+                                                        - <button className="btn" onClick={() => calculatelevelia(subject, semester, 1)}>{levelia1}</button>
+                                                    </div>
+                                                </div>
+                                                <div className="qa-info">
+                                                    <p>IA - 1</p>
+                                                    <p>Q1: CO1 - Level 2</p>
+                                                    <p>Q2: CO3 - Level 1</p>
+                                                    <p>Q3: CO5 - Level 2</p>
+                                                    <p>Average CO - Level 2</p>
+                                                </div>
                                             </div>
-
-                                            <div>
-                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 2</button>
-                                                 - <button className="btn" onClick={() => calculatelevelia(subject, semester, 2)}>{levelia2}</button>
+                                        
+                                            <div className="details-row">
+                                                <div className="ia-info">
+                                                    <div>
+                                                        <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 2</button>
+                                                        - <button className="btn" onClick={() => calculatelevelia(subject, semester, 2)}>{levelia2}</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            
+                                        
                                             <div>
                                                 <button className="btn" onClick={() => handleAssignmentClick(subject, semester)}>Assignment</button>
-                                                 - <button className="btn" onClick={() => calculatelevelassign(subject, semester)}>{levelassign}</button>
+                                                - <button className="btn" onClick={() => calculatelevelassign(subject, semester)}>{levelassign}</button>
                                             </div>
-
+                                        
                                             <div>
                                                 <button className="btn" onClick={() => handleIAClick(subject, semester)}>End</button>
-                                                 - <button className="btn" onClick={() => calculatelevelend(subject, semester)}>{levelend}</button>
+                                                - <button className="btn" onClick={() => calculatelevelend(subject, semester)}>{levelend}</button>
                                             </div>
-
+                                        
                                             <p>Semester: {semester !== null ? semester : 'Not Found'}</p>
-                                        </pre>
+                                        </div>
+                                        )}
+                                        <button className="details-btn" onClick={() => {
+                                            toggleGraph(subject, semester); // Call toggleGraph with subject and semester
+                                            toggleDetails(index); // Then toggle the details
+                                        }}>
+                                            {isExpanded ? 'Collapse' : 'Details'}
+                                        </button>
                                     </div>
                                 </div>
+    
+                                {/* Tables Container - Only show if expanded */}
+                                {isExpanded && (
+                                    <div id="graphAndTableContainer">
+                                        <div id="tableContainer">
+                                            <h3>CO Attainment Values</h3>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        {/* <th></th> */}
+                                                        <th>CO1</th>
+                                                        <th>CO2</th>
+                                                        <th>CO3</th>
+                                                        <th>CO4</th>
+                                                        <th>CO5</th>
+                                                        <th>CO6</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        {/* <td>Co Attainment Values</td> */}
+                                                        <td>{co1attain}</td>
+                                                        <td>{co2attain}</td>
+                                                        <td>{co3attain}</td>
+                                                        <td>{co4attain}</td>
+                                                        <td>{co5attain}</td>
+                                                        <td>{co6attain}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+    
+                                        <div id="tableContainer">
+                                            <h3>PO Attainment Values</h3>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        {/* <th></th> */}
+                                                        <th>PO1</th>
+                                                        <th>PO2</th>
+                                                        <th>PO3</th>
+                                                        <th>PO4</th>
+                                                        <th>PO5</th>
+                                                        <th>PO6</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        {/* <td>Po Attainment Values</td> */}
+                                                        <td>{po1attain}</td>
+                                                        <td>{po2attain}</td>
+                                                        <td>{po3attain}</td>
+                                                        <td>{po4attain}</td>
+                                                        <td>{po5attain}</td>
+                                                        <td>{po6attain}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>PO7</th>
+                                                        <th>PO8</th>
+                                                        <th>PO9</th>
+                                                        <th>PO10</th>
+                                                        <th>PO11</th>
+                                                        <th>PO12</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{po7attain}</td>
+                                                        <td>{po8attain}</td>
+                                                        <td>{po9attain}</td>
+                                                        <td>{po10attain}</td>
+                                                        <td>{po11attain}</td>
+                                                        <td>{po12attain}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                )}
                             </article>
                         );
                     })
                 ) : (
                     <p>No subjects assigned.</p>
                 )}
-
-                <div className="profile">
-                    <img className="profile-pic" src={profPic} alt="Profile" />
-                    <p className='name'>Hello! {user.name}</p>
-                </div>
-
-                {/* Conditionally render the graph and table */}
-                {showGraph && (
-                    <div id="graphAndTableContainer">
-                        <div id="tableContainer">
-                            <h3>CO Attainment Table</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>CO1</th>
-                                        <th>CO2</th>
-                                        <th>CO3</th>
-                                        <th>CO4</th>
-                                        <th>CO5</th>
-                                        <th>CO6</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Co Attainment Values</td>
-                                        <td>{co1attain}</td>
-                                        <td>{co2attain}</td>
-                                        <td>{co3attain}</td>
-                                        <td>{co4attain}</td>
-                                        <td>{co5attain}</td>
-                                        <td>{co6attain}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="tableContainer">
-                            <h3>PO Attainment Table</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>PO1</th>
-                                        <th>PO2</th>
-                                        <th>PO3</th>
-                                        <th>PO4</th>
-                                        <th>PO5</th>
-                                        <th>PO6</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Po Attainment Values</td>
-                                        <td>{po1attain}</td>
-                                        <td>{po2attain}</td>
-                                        <td>{po3attain}</td>
-                                        <td>{po4attain}</td>
-                                        <td>{po5attain}</td>
-                                        <td>{po6attain}</td>
-                                    </tr>
-                                </tbody>
-                                
-                            </table>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        
-                                        <th>PO7</th>
-                                        <th>PO8</th>
-                                        <th>PO9</th>
-                                        <th>PO10</th>
-                                        <th>PO11</th>
-                                        <th>PO12</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{po7attain}</td>
-                                        <td>{po8attain}</td>
-                                        <td>{po9attain}</td>
-                                        <td>{po10attain}</td>
-                                        <td>{po11attain}</td>
-                                        <td>{po12attain}</td>
-                                    </tr>
-                                </tbody>
-                                
-                            </table>
-                        </div>
-                    </div>
-                )}
             </div>
         </>
     ) : (
         <p>Access Denied. This page is only for Teachers Only.</p>
-    );
+    );   
 }
 
 export default Appfa;

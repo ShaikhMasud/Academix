@@ -751,6 +751,7 @@ app.post('/coAttainment', async (req, res) => {
             }
         );
         // Return the CO attainments for all COs
+        console.log(coLevels);
         res.json({ coAttainments });
         
 
@@ -825,3 +826,187 @@ app.post('/poAttainment', async (req, res) => {
         res.status(500).json({ success: false, message: 'Error calculating PO attainment' });
     }
 });
+
+app.post('/getSemData', async (req, res) => {
+    const { semester } = req.body; 
+    console.log("Semester Value being passed:", semester); // Log the received semester
+    try {
+        const students = await StudentModel.find({});
+        // console.log("Full student data:", students);
+
+
+        if (!students || students.length === 0) {
+            console.error('No students found');
+            return res.status(404).json({ message: 'No students found' });
+        }
+
+
+        const semData = students.map(student => student[`sem${semester}`] || []);
+        // console.log("Semester data:", semData);
+
+        const flattenedSemData = semData.flat().filter(subject => subject); // Filter out undefined subjects
+
+        const { level1, level2 } = calculateIALevel(flattenedSemData);
+        const eselevel = calculateESELevel(flattenedSemData);
+        const assign = calculateAssignmentLevel(flattenedSemData);
+        console.log("Here bro", level1, " ", level2,eselevel,assign);
+        res.json({ IA1: level1, IA2: level2, ESE: eselevel, Assignment: assign});
+    } catch (error) {
+        console.error('Error fetching IA data:', error);
+        res.status(500).send('Server Error');
+    }
+});
+
+const calculateIALevel = (semData) => {
+    let counter1 = 0;
+    let counter2 = 0;
+    const threshold = 8; // 40% of 20 marks
+    const semLength = semData.length; // Total number of subjects
+
+    if (semLength === 0 || semData.every(subject => subject.length === 0)) {
+        return { level1: 'N/A', level2: 'N/A' };
+    }
+
+    let level1, level2;
+
+    // Traverse through each subject in the semester
+    semData.forEach((subject) => {
+        // Check if IA1 exists and has required properties
+        if (subject.IA1 && subject.IA1.Q1 !== undefined && subject.IA1.Q2 !== undefined && subject.IA1.Q3 !== undefined) {
+            const totalQ = (subject.IA1.Q1 || 0) + (subject.IA1.Q2 || 0) + (subject.IA1.Q3 || 0);
+            
+            // If the total marks for IA1 > threshold, increment the counter
+            if (totalQ > threshold) {
+                counter1++;
+            }
+        } else {
+            level1 = 'N/A';
+        }
+
+        // Check if IA2 exists and has required properties
+        if (subject.IA2 && subject.IA2.Q1 !== undefined && subject.IA2.Q2 !== undefined && subject.IA2.Q3 !== undefined) {
+            const totalQ = (subject.IA2.Q1 || 0) + (subject.IA2.Q2 || 0) + (subject.IA2.Q3 || 0);
+            
+            // If the total marks for IA2 > threshold, increment the counter
+            if (totalQ > threshold) {
+                counter2++;
+            }
+        } else {
+            level2 = 'N/A';
+        }
+    });
+
+    // Calculate the percentage of subjects where totalQ exceeds threshold
+    const percentage1 = (counter1 / semLength) * 100;
+    const percentage2 = (counter2 / semLength) * 100;
+
+    if (percentage1 >= 70) {
+        level1 = 'Level 3';
+    } else if (percentage1 >= 60) {
+        level1 = 'Level 2';
+    } else if (percentage1 >= 50) {
+        level1 = 'Level 1';
+    } else {
+        level1 = 'Level 0';
+    }
+
+    if (percentage2 >= 70) {
+        level2 = 'Level 3';
+    } else if (percentage2 >= 60) {
+        level2 = 'Level 2';
+    } else if (percentage2 >= 50) {
+        level2 = 'Level 1';
+    } else {
+        level2 = 'Level 0';
+    }
+
+    // Return both levels in an object
+    return {
+        level1,
+        level2
+    };
+};
+
+const calculateESELevel = (semData) => {
+    let counter = 0;
+    const threshold = 32; // 40% of 80 marks
+    const semLength = semData.length;
+
+    if (semLength === 0 || semData.every(subject => subject.length === 0)) {
+        return 'N/A';
+    }
+
+    semData.forEach((subject) => {
+        if(subject.ESE && subject.ESE.total !== undefined){
+            const total = (subject.ESE.total || 0);
+            if(total > threshold){
+                counter++;
+            }
+        }
+    });
+    console.log(semLength,counter)
+
+     const percentage = (counter/semLength) * 100;
+
+     let level;
+
+     if (percentage >= 70) {
+        level = 'Level 3';
+    } else if (percentage >= 60) {
+        level = 'Level 2';
+    } else if (percentage >= 50) {
+        level = 'Level 1';
+    } else {
+        level = 'Level 0';
+    }
+    return level;
+};
+
+const calculateAssignmentLevel = (semData) => {
+    let assignmentCounter = 0;
+    const thresholdPercentage = 40; // 40% threshold
+    const maxMarksPerAssignment = 10; // Maximum marks per assignment
+
+    // Traverse through each subject in the semester
+    semData.forEach((subject) => {
+        // Check if Assignment array exists and has elements
+        if (subject.Assignment && Array.isArray(subject.Assignment) && subject.Assignment.length > 0) {
+            // Calculate total marks for all assignments
+            const totalAssignmentMarks = subject.Assignment.reduce((acc, assignment) => {
+                return acc + (assignment.AssignmentMarks || 0); // Add up assignment marks, default to 0 if not defined
+            }, 0);
+
+            // Calculate the maximum possible marks (number of assignments * max marks per assignment)
+            const maxPossibleMarks = subject.Assignment.length * maxMarksPerAssignment;
+
+            // Check if total marks exceed the threshold (40% of max possible marks)
+            if (totalAssignmentMarks >= (thresholdPercentage / 100) * maxPossibleMarks) {
+                assignmentCounter++;
+            }
+        }
+    });
+
+    // Calculate the percentage of subjects where assignment marks exceed the threshold
+    const semLength = semData.length; // Total number of subjects
+    const percentage = (assignmentCounter / semLength) * 100;
+
+    if (semLength === 0 || semData.every(subject => subject.length === 0)) {
+        return 'N/A';
+    }
+
+    let assignmentLevel;
+
+    // Determine the level based on the percentage
+    if (percentage >= 70) {
+        assignmentLevel = 'Level 3';
+    } else if (percentage >= 60) {
+        assignmentLevel = 'Level 2';
+    } else if (percentage >= 50) {
+        assignmentLevel = 'Level 1';
+    } else {
+        assignmentLevel = 'Level 0';
+    }
+
+    // Return the calculated assignment level
+    return assignmentLevel;
+};
