@@ -169,7 +169,7 @@ const FacultyAssignment = () => {
                     {
                         "semester": 8,
                         "subjects": [
-                            "Quantum Computing",
+                            "Quantum Computing Fundamentals",
                             "IoT Security",
                             "Robotics",
                             "Software Testing",

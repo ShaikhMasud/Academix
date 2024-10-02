@@ -484,6 +484,7 @@ app.get('/LevelCalculationEnd', async (req, res) => {
                 }
             }
         });
+    
 
         // Calculate the percentage of students who scored above 40%
         let percentageAbove40 = totalStudents > 0 ? (studentsAbove40 / totalStudents) * 100 : 0;
@@ -829,7 +830,6 @@ app.post('/poAttainment', async (req, res) => {
 
 app.post('/getSemData', async (req, res) => {
     const { semester } = req.body; 
-    console.log("Semester Value being passed:", semester); // Log the received semester
     try {
         const students = await StudentModel.find({});
         // console.log("Full student data:", students);
@@ -849,7 +849,6 @@ app.post('/getSemData', async (req, res) => {
         const { level1, level2 } = calculateIALevel(flattenedSemData);
         const eselevel = calculateESELevel(flattenedSemData);
         const assign = calculateAssignmentLevel(flattenedSemData);
-        console.log("Here bro", level1, " ", level2,eselevel,assign);
         res.json({ IA1: level1, IA2: level2, ESE: eselevel, Assignment: assign});
     } catch (error) {
         console.error('Error fetching IA data:', error);
@@ -939,7 +938,7 @@ const calculateESELevel = (semData) => {
     semData.forEach((subject) => {
         if(subject.ESE && subject.ESE.total !== undefined){
             const total = (subject.ESE.total || 0);
-            if(total > threshold){
+            if(total >= threshold){
                 counter++;
             }
         }
@@ -1010,3 +1009,71 @@ const calculateAssignmentLevel = (semData) => {
     // Return the calculated assignment level
     return assignmentLevel;
 };
+
+
+app.get('/getAttainmentData', async (req, res) => {
+    const { subject, semester } = req.query;
+    console.log("passed params: ", subject, semester);
+  
+    try {
+      const attainmentData = await CO_PO_AttainmentModel.findOne({ subject, semester });
+      if (attainmentData) {
+        res.json(attainmentData);
+      } else {
+        res.status(404).json({ message: 'Data not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+});
+
+app.post('/questionComap', async (req, res) => {
+    const { semester, subject } = req.body;
+  
+    try {
+      // Fetch students who have the given subject in the specified semester
+      const students = await StudentModel.find({
+        [`sem${semester}`]: {
+          $elemMatch: { subject_name: subject }
+        }
+      });
+  
+      // Define the questionmap object
+      const questionmap = {
+        ai1: { q1: null, q2: null, q3: null },
+        ai2: { q1: null, q2: null, q3: null }
+      };
+  
+      // Iterate through students
+      for (const student of students) {
+        // Find the subject in the corresponding semester
+        const subjectData = student[`sem${semester}`].find(sub => sub.subject_name === subject);
+  
+        if (subjectData) {
+          // Map the CO values for IA1
+          if (subjectData.IA1) {
+            questionmap.ai1.q1 = subjectData.IA1.Q1_co;
+            questionmap.ai1.q2 = subjectData.IA1.Q2_co;
+            questionmap.ai1.q3 = subjectData.IA1.Q3_co;
+          }
+  
+          // Map the CO values for IA2
+          if (subjectData.IA2) {
+            questionmap.ai2.q1 = subjectData.IA2.Q1_co;
+            questionmap.ai2.q2 = subjectData.IA2.Q2_co;
+            questionmap.ai2.q3 = subjectData.IA2.Q3_co;
+          }
+  
+          // Once the desired data is found, break out of the loop
+          break;
+        }
+      }
+      console.log(questionmap);
+  
+      // Send the response with the mapped question data
+      res.status(200).json(questionmap);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });

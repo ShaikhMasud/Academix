@@ -79,7 +79,7 @@ const Subjectpageprin = () => {
                 },
                 {
                     "semester": 8,
-                    "subjects": ["Quantum Computing", "IoT Security", "Robotics", "Software Testing", "Project Development"]
+                    "subjects": ["Quantum Computing Fundamentals", "IoT Security", "Robotics", "Software Testing", "Project Development"]
                 }
             ]
         },

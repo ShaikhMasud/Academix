@@ -14,6 +14,8 @@ function Appfa() {
     const [showGraph, setShowGraph] = useState(false);
     const chartRef = useRef(null);
     const navigate = useNavigate();
+    const [currentExam,setSelectedExam]=useState('IA1');
+
 
     const Allsubject = {
         "departments": [
@@ -331,6 +333,47 @@ function Appfa() {
         ]
     }
 
+    const [ass1,setass1]=useState("");
+    const [ass2,setass2]=useState("");
+    const [ass3,setass3]=useState("");
+    const [ass4,setass4]=useState("");
+    const [ass5,setass5]=useState("");
+    const [ass6,setass6]=useState("");
+
+    const [des1ass,setdes1ass]=useState("")
+    const [des2ass,setdes2ass]=useState("")
+    const [des3ass,setdes3ass]=useState("")
+    const [des4ass,setdes4ass]=useState("")
+    const [des5ass,setdes5ass]=useState("")
+    const [des6ass,setdes6ass]=useState("")
+
+
+    
+
+    const [q1ia1,setq1ia1]=useState("");
+    const [q2ia1,setq2ia1]=useState("");
+    const [q3ia1,setq3ia1]=useState("");
+    const [q1ia2,setq1ia2]=useState("");
+    const [q2ia2,setq2ia2]=useState("");
+    const [q3ia2,setq3ia2]=useState("");
+
+    const [q1ia1level,setq1ia1level]=useState("");
+    const [q2ia1level,setq2ia1level]=useState("");
+    const [q3ia1level,setq3ia1level]=useState("");
+    const [q1ia2level,setq1ia2level]=useState("");
+    const [q2ia2level,setq2ia2level]=useState("");
+    const [q3ia2level,setq3ia2level]=useState("");
+
+    const [desai1q1,setdesai1q1]=useState("");
+    const [desai1q2,setdesai1q2]=useState("");
+    const [desai1q3,setdesai1q3]=useState("");
+    const [desai2q1,setdesai2q1]=useState("");
+    const [desai2q2,setdesai2q2]=useState("");
+    const [desai2q3,setdesai2q3]=useState("");
+
+
+    const [endl,setendl]=useState("");
+
 
     const findSemester = (departmentName, subjectName) => {
         const department = Allsubject.departments.find(dep => dep.name === departmentName);
@@ -349,14 +392,39 @@ function Appfa() {
         setShowGraph(prevShowGraph => !prevShowGraph);
     
         try {
+
+            const responseComap = await axios.post('http://localhost:3001/questionComap',{subject,semester})
+            setq1ia1(responseComap.data.ai1.q1)
+            setq2ia1(responseComap.data.ai1.q2)
+            setq3ia1(responseComap.data.ai1.q3)
+            setq1ia2(responseComap.data.ai2.q1)
+            setq2ia2(responseComap.data.ai2.q2)
+            setq3ia2(responseComap.data.ai2.q3)
+            console.log(q1ia1)
+
             // Make an API request to the /coAttainment endpoint with subject and semester in the body
             const response = await axios.post('http://localhost:3001/coAttainment', {
                 subject,   // Pass subject from function arguments
                 semester   // Pass semester from function arguments
             });
-    
             // Assuming the response contains the calculated CO attainment values as an array [co1, co2, co3, co4, co5, co6]
-            const {coAttainments} = response.data;
+            const {coAttainments,coLevels} = response.data;
+            console.log(coLevels)
+            setass1(coLevels.co1.Assignment.level >=0 ? coLevels.co1.Assignment.level : "pending" )
+            setass2(coLevels.co2.Assignment.level >=0 ? coLevels.co2.Assignment.level : "pending" )
+            setass3(coLevels.co3.Assignment.level >=0 ? coLevels.co3.Assignment.level : "pending" )
+            setass4(coLevels.co4.Assignment.level >=0 ? coLevels.co4.Assignment.level : "pending" )
+            setass5(coLevels.co5.Assignment.level >=0 ? coLevels.co5.Assignment.level : "pending" )
+            setass6(coLevels.co6.Assignment.level >=0 ? coLevels.co6.Assignment.level : "pending" )
+            setendl(coLevels.co1.ESE.level >=0 ? coLevels.co1.ESE.level : "pending" )
+
+            setq1ia1level(coLevels[q1ia1.toLowerCase()].IA1.level >= 0 ? coLevels[q1ia1.toLowerCase()].IA1.level : "pending");
+            setq2ia1level(coLevels[q2ia1.toLowerCase()].IA1.level >= 0 ? coLevels[q2ia1.toLowerCase()].IA1.level : "pending");
+            setq3ia1level(coLevels[q3ia1.toLowerCase()].IA1.level >= 0 ? coLevels[q3ia1.toLowerCase()].IA1.level : "pending");
+            setq1ia2level(coLevels[q1ia2.toLowerCase()].IA2.level >= 0 ? coLevels[q1ia2.toLowerCase()].IA2.level : "pending");
+            setq2ia2level(coLevels[q2ia2.toLowerCase()].IA2.level >= 0 ? coLevels[q2ia2.toLowerCase()].IA2.level : "pending");
+            setq3ia2level(coLevels[q3ia2.toLowerCase()].IA2.level >= 0 ? coLevels[q3ia2.toLowerCase()].IA2.level : "pending");
+
             // Check if the response data exists and has the expected structure
             if (Array.isArray(coAttainments) && coAttainments.length === 6) {
                 // Update the state for each CO based on the response values
@@ -366,10 +434,32 @@ function Appfa() {
                 setco4attain(coAttainments[3] || 0);
                 setco5attain(coAttainments[4] || 0);
                 setco6attain(coAttainments[5] || 0);
+
             } else {
                 // If the response does not contain the expected array, handle this case
                 console.error("Unexpected response format:", response.data);
             }
+
+            
+
+            axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`)
+            .then(res=>{
+                console.log(res.data.record)
+                setdes1ass(res.data.record.CO1.description)
+                setdes2ass(res.data.record.CO2.description)
+                setdes3ass(res.data.record.CO3.description)
+                setdes4ass(res.data.record.CO4.description)
+                setdes5ass(res.data.record.CO5.description)
+                setdes6ass(res.data.record.CO6.description)
+                console.log(q1ia1)
+                setdesai1q1(res.data.record[q1ia1].description);
+                setdesai1q2(res.data.record[q2ia1].description);
+                setdesai1q3(res.data.record[q3ia1].description);
+                setdesai2q1(res.data.record[q1ia2].description);
+                setdesai2q2(res.data.record[q2ia2].description);
+                setdesai2q3(res.data.record[q3ia2].description);
+
+            })
 
             const responsePo = await axios.post('http://localhost:3001/poAttainment', {
                 subject,   
@@ -536,20 +626,6 @@ function Appfa() {
         navigate(`/assignment/${subject}/${semester}`); // Navigate to the new page
     };
 
-    // Select the details button
-    // const details = () => {
-    //     const detailsBtn = document.querySelectorAll('.details-btn');
-    //     detailsBtn.forEach(btn => {
-    //         btn.addEventListener('click', function() {
-    //             // Find the parent card of the clicked button
-    //             const card = this.closest('.skill-card-facdb');
-
-    //             // Toggle the "expand" class on the card
-    //             card.classList.toggle('expand');
-    //         });
-    //     });
-    // };
-
     const [expandedIndices, setExpandedIndices] = useState([]);
 
 // Toggle the expansion state
@@ -564,7 +640,10 @@ function Appfa() {
     if (!user) {
         return <p>Please log in to access this page.</p>;
     }
-
+    const toggleExam = (subject, exam) => {
+        setSelectedExam((prev) => (prev === exam ? null : exam)); // Toggle between exam and null
+      };
+    
     return user.role === 'Teacher' ? (
         <>
             <nav className="curved-nav">
@@ -615,12 +694,21 @@ function Appfa() {
                                                         - <button className="btn" onClick={() => calculatelevelia(subject, semester, 1)}>{levelia1}</button>
                                                     </div>
                                                 </div>
-                                                <div className="qa-info">
-                                                    <p>IA - 1</p>
-                                                    <p>Q1: CO1 - Level 2</p>
-                                                    <p>Q2: CO3 - Level 1</p>
-                                                    <p>Q3: CO5 - Level 2</p>
-                                                    <p>Average CO - Level 2</p>
+                                                <div>
+                                                    <button
+                                                    className="btn"
+                                                    onClick={() => toggleExam(subject, 'IA1')}
+                                                    >
+                                                    IA 1 {currentExam === 'IA1' ? '▼' : '▶'}
+                                                    </button>
+                                                    {currentExam === 'IA1' && (
+                                                    <div className="qa-info">
+                                                        <p>IA - 1</p>
+                                                        <p>Q1: {q1ia1} - Description of this CO - {desai1q1} - {q1ia1level}</p>
+                                                        <p>Q2: {q2ia1} - Description of this CO - {desai1q2} - {q2ia1level}</p>
+                                                        <p>Q3: {q3ia1} - Description of this CO - {desai1q3} - {q3ia1level}</p>
+                                                    </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         
@@ -631,16 +719,68 @@ function Appfa() {
                                                         - <button className="btn" onClick={() => calculatelevelia(subject, semester, 2)}>{levelia2}</button>
                                                     </div>
                                                 </div>
+                                                <div>
+                                                    <button
+                                                    className="btn"
+                                                    onClick={() => toggleExam(subject, 'IA2')}
+                                                    >
+                                                    IA 2 {currentExam === 'IA2' ? '▼' : '▶'}
+                                                    </button>
+                                                    {currentExam === 'IA2' && (
+                                                    <div className="qa-info">
+                                                        <p>IA - 2</p>
+                                                        <p>Q1: {q1ia2} - Description of this CO - {desai2q1} - {q1ia2level}</p>
+                                                        <p>Q2: {q2ia2} - Description of this CO - {desai2q2} - {q2ia2level}</p>
+                                                        <p>Q3: {q3ia2} - Description of this CO - {desai2q3} - {q3ia2level}</p>
+                                                    </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         
                                             <div>
                                                 <button className="btn" onClick={() => handleAssignmentClick(subject, semester)}>Assignment</button>
                                                 - <button className="btn" onClick={() => calculatelevelassign(subject, semester)}>{levelassign}</button>
+                                                <div>
+                                                    <button
+                                                    className="btn"
+                                                    onClick={() => toggleExam(subject, 'Assignment')}
+                                                    >
+                                                    Assignment {currentExam === 'Assignment' ? '▼' : '▶'}
+                                                    </button>
+                                                    {currentExam === 'Assignment' && (
+                                                    <div className="qa-info">
+                                                        <p>Assignment</p>
+                                                        <p> Description: {des1ass} - CO1 - {ass1}</p>
+                                                        <p> Description: {des2ass} - CO2 - {ass2}</p>
+                                                        <p> Description: {des3ass} - CO3 - {ass3}</p>
+                                                        <p> Description: {des4ass} - CO4 - {ass4}</p>
+                                                        <p> Description: {des5ass} - CO5 - {ass5}</p>
+                                                        <p> Description: {des6ass} - CO6 - {ass6}</p>
+                                                    </div>
+                                                    )}
+                                                </div>
                                             </div>
+                                            
                                         
                                             <div>
                                                 <button className="btn" onClick={() => handleIAClick(subject, semester)}>End</button>
                                                 - <button className="btn" onClick={() => calculatelevelend(subject, semester)}>{levelend}</button>
+                                                <button
+                                                    className="btn"
+                                                    onClick={() => toggleExam(subject, 'ESE')}
+                                                    >
+                                                    ESE {currentExam === 'ESE' ? '▼' : '▶'}
+                                                    </button>
+                                                    {currentExam === 'ESE' && (
+                                                    <div className="qa-info">
+                                                        <p> ESE </p>
+                                                        <p> Description: {des1ass} - CO1 - {endl}</p>
+                                                        <p> Description: {des2ass} - CO2 - {endl}</p>
+                                                        <p> Description: {des3ass} - CO3 - {endl}</p>
+                                                        <p> Description: {des4ass} - CO4 - {endl}</p>
+                                                        <p> Description: {des5ass} - CO5 - {endl}</p>
+                                                        <p> Description: {des6ass} - CO6 - {endl}</p>                                                    </div>
+                                                    )}
                                             </div>
                                         
                                             <p>Semester: {semester !== null ? semester : 'Not Found'}</p>

@@ -94,7 +94,7 @@ const Subjectpagehod = () => {
           },
           {
             "semester": 8,
-            "subjects": ["Quantum Computing", "IoT Security", "Robotics", "Software Testing", "Project Development"],
+            "subjects": ["Quantum Computing Fundamentals", "IoT Security", "Robotics", "Software Testing", "Project Development"],
             "codes": ["COMPS801", "COMPS802", "COMPS803", "COMPS804", "COMPS805"]
           }
         ]
