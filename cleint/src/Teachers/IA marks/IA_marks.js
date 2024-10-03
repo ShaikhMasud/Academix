@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './IA.css'; 
 import * as XLSX from 'xlsx'; 
 import { Link, useNavigate } from 'react-router-dom';
@@ -30,10 +30,41 @@ const StudentMarksEntry = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     const [selectedExam, setSelectedExam] = useState("Select Exam");
+    const fileInputRef = useRef(null);
+
+    const handleButtonClick = () => {
+      // Trigger the click on the hidden file input
+      fileInputRef.current.click();
+    };
+  
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        uploadExcel(file); // Call the uploadExcel function with the selected file
+      }
+    };
 
     // Function to handle file upload and fetch data
     function uploadExcel() {
         const fileUpload = document.getElementById("fileUpload");
+
+        const file = fileUpload.files[0]; // Get the first (and only) file
+
+        if (!file) {
+            alert("Please upload an Excel file.");
+            return;
+        }
+
+        // Check if the file has an appropriate extension (.xlsx, .xls, or .ods)
+        const validExtensions = [".xlsx", ".xls"];
+        const fileName = file.name.toLowerCase();
+        const fileExtension = fileName.substring(fileName.lastIndexOf("."));
+
+        if (!validExtensions.includes(fileExtension)) {
+            alert("Invalid file type. Please upload a .xlsx or .xls file.");
+            return;
+        }
+
         const reader = new FileReader();
 
         reader.onload = function (e) {
@@ -72,6 +103,7 @@ const StudentMarksEntry = () => {
             row.appendChild(totalCell);
             tableBody.appendChild(row);
         }
+
     }
 
     const handleSubmit = async () => {
@@ -316,8 +348,8 @@ const StudentMarksEntry = () => {
 
     return (
         user.role === "Teacher" ? (
-            <div>
-                <nav className="curved-nav">
+            <div className='ia-marks'>
+                {/* <nav className="curved-nav">
                     <div className="nav-content">
                         <button className="nav-btn">CO</button>
                         <button className="nav-btn">PO</button>
@@ -330,15 +362,16 @@ const StudentMarksEntry = () => {
                         </div>
                     </div>
                     </div>
-                </nav>
+                </nav> */}
 
-                <div className="container">
-                    <h2>Student IA Marks Entry</h2>
-
+                <div className="marks_container">
+                    <div className='heading-div'>
+                        <h2 className='heading'>Student Marks Entry</h2>
+                    </div>
                     {/* Conditionally render co-max-marks table based on selected exam */}
                     {selectedExam !== 'End-Sem' && (
                         <div className="co-max-marks">
-                            <table>
+                            <table className='co-table'>
                                 <tbody id="co-max-table-body">
                                     {/* This will be populated dynamically based on the selected exam */}
                                 </tbody>
@@ -346,22 +379,30 @@ const StudentMarksEntry = () => {
                         </div>
                     )}
 
-                    <h2>Upload Excel File to Add Data</h2>
-
                     <div className="upload-container">
-                        <label htmlFor="fileUpload" className="custom-file-upload">Choose Excel File</label>
-                        <input type="file" id="fileUpload" />
-                        <button onClick={uploadExcel}>Fetch Data</button>
+                        <h2 className='upload'>Upload Excel File to Add Data</h2>
+                        <div className='upload-controls'>
+                            <select id="examSelect" className='examSelect' onChange={handleExamSelect} defaultValue="Select Exam">
+                                <option value="Select Exam" disabled>Select Exam</option>
+                                <option value="IA-1">IA-1</option>
+                                <option value="IA-2">IA-2</option>
+                                <option value="End-Sem">End-Sem</option>
+                            </select>
+                        
+                            <button className='fetch-button' onClick={handleButtonClick}>Upload Excel file</button>
+                            <input
+                              type="file"
+                              id="fileUpload"
+                              accept=".xlsx, .xls"
+                              ref={fileInputRef}
+                              style={{ display: "none" }} // Hide the input element
+                              onChange={handleFileChange}
+                            />
+                        </div>
                     </div>
-
-                    <select id="examSelect" onChange={handleExamSelect} defaultValue="Select Exam">
-                        <option value="Select Exam" disabled>Select Exam</option>
-                        <option value="IA-1">IA-1</option>
-                        <option value="IA-2">IA-2</option>
-                        <option value="End-Sem">End-Sem</option>
-                    </select>
-
-                    <table id="studentTable">
+                </div>
+                <div className='table_container'>
+                    <table id="studentTable" className='student-marks-table'>
                         <thead>
                             <tr>
                             <th>Roll No.</th>
@@ -376,9 +417,9 @@ const StudentMarksEntry = () => {
                     </table>
 
                     <Link to="/facultydashboard">
-                        <button>Back</button>
+                        <button className='backbutton'>Back</button>
                     </Link>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button className='submitbutton' onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
         ) : (

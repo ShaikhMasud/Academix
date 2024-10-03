@@ -1,225 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    
+    box-sizing: border-box;
+    overflow-x: hidden;  /* Prevent horizontal scrolling */
 }
 
-.curved-nav {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     width: 100%;
-    height: 70px;
-    background-color: #007bff;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgb(0, 0, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0px;
-    z-index: 1000;
+    box-sizing: border-box;
+    margin-top: 50px;
 }
 
-.nav-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
+/* Marks Container */
+.marks_container {
+    width: 95%;            
+    max-width: 1200px;      
+    padding-left: 20px;
+    padding-right: 20px;     
+    padding-bottom: 10px;             
+    background-color: #fff;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 0 auto;           
+    margin-bottom: 20px; 
+    box-sizing: border-box;
+    margin-top: 450px;
+}
+
+/* Table Container */
+.table_container {
+    width: 95%;
     max-width: 1200px;
-}
-
-.nav-btn {
-    background-color: white;
-    border: none;
-    color: #007bff;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
-    cursor: pointer;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgb(0, 0, 0);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nav-btn:hover {
-    background-color: #0056b3;
-    color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.profile-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.profile-circle {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.profile-circle:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.profile-circle i {
-    color: #007bff;
-    font-size: 1.5rem;
-}
-
-.logout-menu {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.logout-menu button {
-    background-color: #ff4d4d;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.logout-menu button:hover {
-    background-color: #ff1a1a;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-
-
-
-
-
-
-/* table css */
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-.container {
-    
-    width: 1440px;
-    
-    background: #f4f4f4;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;             /* Allow horizontal scroll for small screens */
+    box-sizing: border-box;
 }
 
-h2 {
-    text-align: center;
-    color: #007bff;
-}
-
-.co-max-marks table {
+/* Table Styles */
+.student-marks-table {
     width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+    color: rgb(159 28 51);
+  }
+  
+  .student-marks-table th,
+  .student-marks-table td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .student-marks-table th {
+    background-color: #fbf3f3;
+    font-weight: 600;
+    color: rgb(159 28 51);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  
+  
+  .student-marks-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .student-marks-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .co-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+    color: rgb(159 28 51);
+  }
+  
+  .co-table th,
+  .co-table td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .co-table th {
+    background-color: #fbf3f3;
+    font-weight: 600;
+    color: rgb(159 28 51);;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  
+  .co-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .co-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .co-select{
+    color: rgb(159 28 51);
+  }
+
+
+  /* table styles end */
+
+.heading {
+    font-weight: bold;
+    font-size: 27px;                  /* Remove margin to align with the container */
+    text-align: left;                  /* Make the width equal to the marks_container */
+    border-radius: 10px 10px 0 0;    /* Ensure padding is included in the width */
+    color: rgb(159 28 51);        /* Optional: Color for the text */
 }
 
-.co-max-marks th, .co-max-marks td {
+.heading-div {
+    background-color: #fbf3f3;
+    font-weight: bold;
+    font-size: 27px;
     padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
+    padding-left: 30px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin: 0px; 
+    margin-bottom: 20px; 
+    margin-left: -20px;                 /* Remove margin to align with the container */
+    text-align: left;             /* Align text to the left */
+    width: 103.5%;                 /* Make the width equal to the marks_container */
+    border-radius: 10px 10px 0 0;    /* Ensure padding is included in the width */
+    color: black;        /* Optional: Color for the text */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+
+.upload-container{
+    padding: 10px;
+    padding-top: 20px;
+    border: solid 1px #c7cdd1;
+    margin: 30px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 7px; /* Space between the select and button */
+}
+
+.upload-controls {
+    display: flex; /* Enable Flexbox for select and button */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Space between select and button */
+    margin-top: 10px; /* Space between heading and controls */
+}
+
+.upload{
+    font-weight: bold;
+    font-size: 27px;
+    text-align: left;
+    color: rgb(159 28 51);  
+    padding-left: 15px;
+}
+
+/* Select and Upload Button Styles */
+
+.examSelect{
+    margin-top: 25px;
+    margin-right: 15px;
+    margin-left: 10px;
+    height: 40px;
+    width: 200px;
+    padding-left: 3px;
+    color: rgb(159 28 51);
+}
+
+.fetch-button {
+    height: 40px;
+    background-color: rgb(159 28 51);
+    color: #fbf3f3;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s ease;
+    margin-top: 25px;
+    padding-top: 7px;
+}
+
+.fetch-button:hover {
+    background-color: #fbf3f3;
+    color: rgb(159 28 51);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Upload button alignment */
+.upload-container {
+    text-align: center;
     margin: 20px 0;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 12px;
-    text-align: center;
-}
-
-th {
-    background-color: #007bff;
-    color: white;
-}
-
-input[type="number"] {
-    width: 60px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-select {
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.total {
-    font-weight: bold;
-    color: green;
-}
-
-
-
-
-.upload-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.custom-file-upload:hover {
-    background-color: #45a049;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+.backbutton, .submitbutton{
+    height: 40px;
+    background-color: rgb(159 28 51);
+    color: #fbf3f3;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.4s ease;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-top: 7px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.backbutton:hover, .submitbutton:hover{
+    background-color: #fbf3f3;
+    color: rgb(159 28 51);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Logout and other buttons
+button.logout, .profile-menu button {
+    background-color: red;
+    color: white;
+    margin-left: 10px;
+}
+
+.profile-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+} */
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .marks_container, .table_container {
+        width: 95%;                /* Allow a bit more space on smaller screens */
+        padding: 15px;             /* Reduce padding */
+    }
+
+    th, td {
+        padding: 8px;              /* Reduce padding in table cells */
+    }
+
+    button {
+        padding: 8px 16px;         /* Smaller buttons on smaller screens */
+    }
 }
