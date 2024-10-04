@@ -559,7 +559,7 @@ function Subjectpageprin() {
     console.log(sem)
     const semesterObj = department.semesters.find(semObj => semObj.semester === parseInt(sem)); 
     const handleIAClick = (subject, semester, ia) => {
-        navigate(`/iamarks_entry/${subject}/${semester}/${ia}`); // Navigate to the new page
+        navigate(`/iamarks_entry/${subject}/${semester}`); // Navigate to the new page
     };
     const handleAssignmentClick = (subject, semester) => {
         navigate(`/assignmentprin/${subject}/${semester}`); // Navigate to the new page

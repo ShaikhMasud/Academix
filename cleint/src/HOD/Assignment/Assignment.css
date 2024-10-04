@@ -1,4 +1,8 @@
 body {
+  font-family: 'CustomFont', sans-serif; /* Custom font with a fallback */
+}
+
+body {
     background-color: #fbf3f3;
     font-family: Arial, sans-serif;
     margin: 0;
