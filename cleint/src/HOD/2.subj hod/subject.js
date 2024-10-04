@@ -772,11 +772,6 @@ function Subjectpagehod() {
                                         {/* <button className="icon-button" onClick={() => toggleGraph(subject, semester)}>
                                             <img src={graphIcon} alt="Graph Icon" />
                                         </button> */}
-                                        <Link to={`/co-po/${subject}/${semester}`}>
-                                            <button className="icon-button">
-                                                CO-PO Mapping Table
-                                            </button>
-                                        </Link>
                                         <h2 className="skill-card__title-facdb">{displayText}</h2>
     
                                         {/* Only show this section when expanded */}
