@@ -755,9 +755,8 @@ app.post('/coAttainment', async (req, res) => {
         );
         // Return the CO attainments for all COs
         console.log({coLevels, coLevels});
-        res.json({ coAttainments });
+        res.json({ coAttainments ,coLevels});
         
-
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });

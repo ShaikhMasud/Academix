@@ -583,7 +583,6 @@ function Appfa() {
             // Step 1: Fetch question comparison data (ai1, ai2)
             const responseComap = await axios.post('http://localhost:3001/questionComap', { subject, semester });
             const { ai1 } = responseComap?.data || {}; // Fallback to empty object if responseComap.data is null/undefined
-            
             if (!ai1) {
                 alert('AI1 data is missing. Setting all questions and levels to "pending".');
                 setq1ia1("pending");
@@ -606,8 +605,8 @@ function Appfa() {
     
             // Step 2: Fetch CO attainment data
             const responseCo = await axios.post('http://localhost:3001/coAttainment', { subject, semester });
-            const { coLevels } = responseCo?.data || {}; // Fallback to empty object if coLevels is missing
-    
+            const { coAttainments,coLevels } = responseCo.data; // Fallback to empty object if coLevels is missing
+            console.log(coLevels)
             // Set levels, defaulting to "pending" if data is missing or invalid
             const q1Level = coLevels?.[q1?.toLowerCase()]?.IA1?.level >= 0 ? coLevels[q1.toLowerCase()].IA1.level : "pending";
             const q2Level = coLevels?.[q2?.toLowerCase()]?.IA1?.level >= 0 ? coLevels[q2.toLowerCase()].IA1.level : "pending";
