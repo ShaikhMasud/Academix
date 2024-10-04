@@ -507,6 +507,35 @@ const handleLogout = () => {
     navigate('/'); // Redirect to login
 };
 
+const deleteall = () => {
+  // Ask if they need a CO-PO report
+  const needReport = window.confirm("Do you need a CO-PO report for the data?");
+  
+  if (needReport) {
+    // If yes, call the generatePdf() function
+    generatePDF();
+  }
+  
+  // Ask if they are sure about deleting the data
+  const confirmDelete = window.confirm("Are you sure you want to delete all data?");
+  
+  if (confirmDelete) {
+    // If confirmed, make the API call to delete all data
+    axios.post('http://localhost:3001/deleteall')
+      .then(() => {
+        alert("Deleted all data");
+      })
+      .catch((error) => {
+        console.error("Error deleting data: ", error);
+        alert("Error deleting data");
+      });
+  } else {
+    // If not confirmed, do nothing
+    alert("Deletion cancelled");
+  }
+}
+
+
   return (
     user.role==="Principal"?(
     <div>
@@ -523,7 +552,12 @@ const handleLogout = () => {
       </div> */}
 
       <div className="container">
-      <h1 className="maintitle">Department Dashboard</h1>
+      <div className="header-container">
+        <h1 className="maintitle">Department Dashboard</h1>
+        <button className="dashboard-btn" onClick={() => generatePDF()}>Generate Report</button>
+        <button className="dashboard-btn2" onClick={() => deleteall()}>Start New Semester</button>
+      </div>
+
       <div className="card-container">
         {departments.map((dept) => (
           <div key={dept.shortName} className="card" style={{ borderColor: dept.color }}>

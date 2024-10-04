@@ -754,7 +754,7 @@ app.post('/coAttainment', async (req, res) => {
             }
         );
         // Return the CO attainments for all COs
-        console.log(coLevels);
+        console.log({coLevels, coLevels});
         res.json({ coAttainments });
         
 
@@ -1079,3 +1079,19 @@ app.post('/questionComap', async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   });
+
+  app.post('/deleteall', async (req, res) => {
+    try {
+        // Delete all documents from each collection
+        await CO_POModel.deleteMany({});
+        await CO_PO_AttainmentModel.deleteMany({});
+        await StudentModel.deleteMany({});
+        await UserModel.updateMany({}, { $set: { 'Subjects_assigned': [] } });
+        
+        console.log("All data deleted from collections");
+        res.status(200).send('All data deleted successfully');
+    } catch (err) {
+        console.error("Error deleting data: ", err);
+        res.status(500).send('Error deleting data');
+    }
+});

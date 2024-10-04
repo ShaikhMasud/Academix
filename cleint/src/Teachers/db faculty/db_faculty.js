@@ -367,10 +367,6 @@ function Appfa() {
     const [desai2q2,setdesai2q2]=useState("");
     const [desai2q3,setdesai2q3]=useState("");
 
-
-    const [endl,setendl]=useState("");
-
-
     const findSemester = (departmentName, subjectName) => {
         const department = Allsubject.departments.find(dep => dep.name === departmentName);
         if (department) {
@@ -586,130 +582,217 @@ function Appfa() {
         try {
             // Step 1: Fetch question comparison data (ai1, ai2)
             const responseComap = await axios.post('http://localhost:3001/questionComap', { subject, semester });
-            const { ai1, ai2 } = responseComap.data;
+            const { ai1 } = responseComap?.data || {}; // Fallback to empty object if responseComap.data is null/undefined
             
+            if (!ai1) {
+                alert('AI1 data is missing. Setting all questions and levels to "pending".');
+                setq1ia1("pending");
+                setq2ia1("pending");
+                setq3ia1("pending");
+                setq1ia1level("pending");
+                setq2ia1level("pending");
+                setq3ia1level("pending");
+                setdesai1q1("pending");
+                setdesai1q2("pending");
+                setdesai1q3("pending");
+                return; // Exit early since no valid data
+            }
+    
             // Assign values directly to variables (to avoid relying on state updates)
             const q1 = ai1.q1;
             const q2 = ai1.q2;
             const q3 = ai1.q3;
+            console.log(subject, semester);
     
             // Step 2: Fetch CO attainment data
             const responseCo = await axios.post('http://localhost:3001/coAttainment', { subject, semester });
-            const { coAttainments, coLevels } = responseCo.data;
+            const { coLevels } = responseCo?.data || {}; // Fallback to empty object if coLevels is missing
     
-            // Manually extract levels using the question IDs (not using setState yet)
-            const q1Level = coLevels[q1.toLowerCase()].IA1.level >= 0 ? coLevels[q1.toLowerCase()].IA1.level : "pending";
-            const q2Level = coLevels[q2.toLowerCase()].IA1.level >= 0 ? coLevels[q2.toLowerCase()].IA1.level : "pending";
-            const q3Level = coLevels[q3.toLowerCase()].IA1.level >= 0 ? coLevels[q3.toLowerCase()].IA1.level : "pending";
+            // Set levels, defaulting to "pending" if data is missing or invalid
+            const q1Level = coLevels?.[q1?.toLowerCase()]?.IA1?.level >= 0 ? coLevels[q1.toLowerCase()].IA1.level : "pending";
+            const q2Level = coLevels?.[q2?.toLowerCase()]?.IA1?.level >= 0 ? coLevels[q2.toLowerCase()].IA1.level : "pending";
+            const q3Level = coLevels?.[q3?.toLowerCase()]?.IA1?.level >= 0 ? coLevels[q3.toLowerCase()].IA1.level : "pending";
     
-            // Step 3: Fetch CO descriptions using question IDs (directly, without waiting for setState)
+            // Step 3: Fetch CO descriptions using question IDs
             const coDescriptionResponse = await axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`);
-            const coRecords = coDescriptionResponse.data.record;
+            const coRecords = coDescriptionResponse?.data?.record || {}; // Fallback to empty object if records are missing
+            
+            // Set descriptions, defaulting to "pending" if data is missing or invalid
+            const q1Description = coRecords?.[q1]?.description || "pending";
+            const q2Description = coRecords?.[q2]?.description || "pending";
+            const q3Description = coRecords?.[q3]?.description || "pending";
     
-            // Extract descriptions manually
-            const q1Description = coRecords[q1].description;
-            const q2Description = coRecords[q2].description;
-            const q3Description = coRecords[q3].description;
-    
-            // Once all the data is ready, update the state in one go
-            setq1ia1(q1);
-            setq2ia1(q2);
-            setq3ia1(q3);
+            // Once all the data is ready, update the state
+            setq1ia1(q1 || "pending");
+            setq2ia1(q2 || "pending");
+            setq3ia1(q3 || "pending");
             setq1ia1level(q1Level);
             setq2ia1level(q2Level);
             setq3ia1level(q3Level);
             setdesai1q1(q1Description);
             setdesai1q2(q2Description);
             setdesai1q3(q3Description);
-    
         } catch (error) {
             console.error("Error in toggleia1level:", error);
+            alert("An unexpected error occurred. Please try again later.");
+            // Set all values to "pending" if an error occurs
+            setq1ia1("pending");
+            setq2ia1("pending");
+            setq3ia1("pending");
+            setq1ia1level("pending");
+            setq2ia1level("pending");
+            setq3ia1level("pending");
+            setdesai1q1("pending");
+            setdesai1q2("pending");
+            setdesai1q3("pending");
         }
     };
+    
 
     const toggleia2level = async (subject, semester) => {
         try {
             // Step 1: Fetch question comparison data (ai1, ai2)
             const responseComap = await axios.post('http://localhost:3001/questionComap', { subject, semester });
-            const { ai1, ai2 } = responseComap.data;
-            
+            const { ai2 } = responseComap?.data || {}; // Fallback to empty object if responseComap.data is null/undefined
+    
+            if (!ai2) {
+                alert('AI2 data is missing. Setting all questions and levels to "pending".');
+                setq1ia2("pending");
+                setq2ia2("pending");
+                setq3ia2("pending");
+                setq1ia2level("pending");
+                setq2ia2level("pending");
+                setq3ia2level("pending");
+                setdesai2q1("pending");
+                setdesai2q2("pending");
+                setdesai2q3("pending");
+                return; // Exit early since no valid data
+            }
+    
             // Assign values directly to variables (to avoid relying on state updates)
             const q1 = ai2.q1;
             const q2 = ai2.q2;
             const q3 = ai2.q3;
+            console.log(subject, semester);
     
             // Step 2: Fetch CO attainment data
             const responseCo = await axios.post('http://localhost:3001/coAttainment', { subject, semester });
-            const { coAttainments, coLevels } = responseCo.data;
+            const { coLevels } = responseCo?.data || {}; // Fallback to empty object if coLevels is missing
     
-            // Manually extract levels using the question IDs (not using setState yet)
-            const q1Level = coLevels[q1.toLowerCase()].IA2.level >= 0 ? coLevels[q1.toLowerCase()].IA2.level : "pending";
-            const q2Level = coLevels[q2.toLowerCase()].IA2.level >= 0 ? coLevels[q2.toLowerCase()].IA2.level : "pending";
-            const q3Level = coLevels[q3.toLowerCase()].IA2.level >= 0 ? coLevels[q3.toLowerCase()].IA2.level : "pending";
+            // Set levels, defaulting to "pending" if data is missing or invalid
+            const q1Level = coLevels?.[q1?.toLowerCase()]?.IA2?.level >= 0 ? coLevels[q1.toLowerCase()].IA2.level : "pending";
+            const q2Level = coLevels?.[q2?.toLowerCase()]?.IA2?.level >= 0 ? coLevels[q2.toLowerCase()].IA2.level : "pending";
+            const q3Level = coLevels?.[q3?.toLowerCase()]?.IA2?.level >= 0 ? coLevels[q3.toLowerCase()].IA2.level : "pending";
     
-            // Step 3: Fetch CO descriptions using question IDs (directly, without waiting for setState)
+            // Step 3: Fetch CO descriptions using question IDs
             const coDescriptionResponse = await axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`);
-            const coRecords = coDescriptionResponse.data.record;
+            const coRecords = coDescriptionResponse?.data?.record || {}; // Fallback to empty object if records are missing
+            
+            // Set descriptions, defaulting to "pending" if data is missing or invalid
+            const q1Description = coRecords?.[q1]?.description || "pending";
+            const q2Description = coRecords?.[q2]?.description || "pending";
+            const q3Description = coRecords?.[q3]?.description || "pending";
     
-            // Extract descriptions manually
-            const q1Description = coRecords[q1].description;
-            const q2Description = coRecords[q2].description;
-            const q3Description = coRecords[q3].description;
-    
-            // Once all the data is ready, update the state in one go
-            setq1ia2(q1);
-            setq2ia2(q2);
-            setq3ia2(q3);
+            // Once all the data is ready, update the state
+            setq1ia2(q1 || "pending");
+            setq2ia2(q2 || "pending");
+            setq3ia2(q3 || "pending");
             setq1ia2level(q1Level);
             setq2ia2level(q2Level);
             setq3ia2level(q3Level);
             setdesai2q1(q1Description);
             setdesai2q2(q2Description);
             setdesai2q3(q3Description);
-    
         } catch (error) {
-            console.error("Error in toggleia1level:", error);
+            console.error("Error in toggleia2level:", error);
+            alert("An unexpected error occurred. Please try again later.");
+            // Set all values to "pending" if an error occurs
+            setq1ia2("pending");
+            setq2ia2("pending");
+            setq3ia2("pending");
+            setq1ia2level("pending");
+            setq2ia2level("pending");
+            setq3ia2level("pending");
+            setdesai2q1("pending");
+            setdesai2q2("pending");
+            setdesai2q3("pending");
         }
     };
-
-    const toggleass =async (subject,semester)=>{
-        const response = await axios.post('http://localhost:3001/coAttainment', { subject, semester });
-        const { coAttainments, coLevels } = response.data;
-        setass1(coLevels.co1.Assignment.level >= 0 ? coLevels.co1.Assignment.level : "pending");
-        setass2(coLevels.co2.Assignment.level >= 0 ? coLevels.co2.Assignment.level : "pending");
-        setass3(coLevels.co3.Assignment.level >= 0 ? coLevels.co3.Assignment.level : "pending");
-        setass4(coLevels.co4.Assignment.level >= 0 ? coLevels.co4.Assignment.level : "pending");
-        setass5(coLevels.co5.Assignment.level >= 0 ? coLevels.co5.Assignment.level : "pending");
-        setass6(coLevels.co6.Assignment.level >= 0 ? coLevels.co6.Assignment.level : "pending");
-
-        const coDescriptionResponse = await axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`);
-        const coRecords = coDescriptionResponse.data.record;
     
-            // Safely access the record
-        setdes1ass(coRecords.CO1.description);
-        setdes2ass(coRecords.CO2.description);
-        setdes3ass(coRecords.CO3.description);
-        setdes4ass(coRecords.CO4.description);
-        setdes5ass(coRecords.CO5.description);
-        setdes6ass(coRecords.CO6.description);
-
-    }
-
-    const toggleEnd = async (subject,semester)=>{
-        
-    const coDescriptionResponse = await axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`);
-    const coRecords = coDescriptionResponse.data.record;
-
-        // Safely access the record
-    setdes1ass(coRecords.CO1.description);
-    setdes2ass(coRecords.CO2.description);
-    setdes3ass(coRecords.CO3.description);
-    setdes4ass(coRecords.CO4.description);
-    setdes5ass(coRecords.CO5.description);
-    setdes6ass(coRecords.CO6.description);
-
-
-    }
+    const toggleass = async (subject, semester) => {
+        try {
+            // Step 1: Fetch CO attainment data
+            const response = await axios.post('http://localhost:3001/coAttainment', { subject, semester });
+            const { coLevels } = response?.data || {}; // Fallback to an empty object if response or data is null/undefined
+            
+            // Safely access assignment levels, default to "pending" if data is missing or invalid
+            setass1(coLevels?.co1?.Assignment?.level >= 0 ? coLevels.co1.Assignment.level : "pending");
+            setass2(coLevels?.co2?.Assignment?.level >= 0 ? coLevels.co2.Assignment.level : "pending");
+            setass3(coLevels?.co3?.Assignment?.level >= 0 ? coLevels.co3.Assignment.level : "pending");
+            setass4(coLevels?.co4?.Assignment?.level >= 0 ? coLevels.co4.Assignment.level : "pending");
+            setass5(coLevels?.co5?.Assignment?.level >= 0 ? coLevels.co5.Assignment.level : "pending");
+            setass6(coLevels?.co6?.Assignment?.level >= 0 ? coLevels.co6.Assignment.level : "pending");
+    
+            // Step 2: Fetch CO descriptions
+            const coDescriptionResponse = await axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`);
+            const coRecords = coDescriptionResponse?.data?.record || {}; // Fallback to an empty object if records are missing
+    
+            // Safely access descriptions, default to "pending" if data is missing or invalid
+            setdes1ass(coRecords?.CO1?.description || "pending");
+            setdes2ass(coRecords?.CO2?.description || "pending");
+            setdes3ass(coRecords?.CO3?.description || "pending");
+            setdes4ass(coRecords?.CO4?.description || "pending");
+            setdes5ass(coRecords?.CO5?.description || "pending");
+            setdes6ass(coRecords?.CO6?.description || "pending");
+    
+        } catch (error) {
+            console.error("Error in toggleass:", error);
+            alert("An unexpected error occurred. Please try again later.");
+    
+            // Fallback: Set all levels and descriptions to "pending" if an error occurs
+            setass1("pending");
+            setass2("pending");
+            setass3("pending");
+            setass4("pending");
+            setass5("pending");
+            setass6("pending");
+            setdes1ass("pending");
+            setdes2ass("pending");
+            setdes3ass("pending");
+            setdes4ass("pending");
+            setdes5ass("pending");
+            setdes6ass("pending");
+        }
+    };
+    
+    const toggleEnd = async (subject, semester) => {
+        try {
+            // Step 1: Fetch CO descriptions
+            const coDescriptionResponse = await axios.get(`http://localhost:3001/getCoPo/${semester}/${subject}`);
+            const coRecords = coDescriptionResponse?.data?.record || {}; // Fallback to an empty object if data or record is missing
+    
+            // Safely access descriptions, default to "pending" if data is missing or invalid
+            setdes1ass(coRecords?.CO1?.description || "pending");
+            setdes2ass(coRecords?.CO2?.description || "pending");
+            setdes3ass(coRecords?.CO3?.description || "pending");
+            setdes4ass(coRecords?.CO4?.description || "pending");
+            setdes5ass(coRecords?.CO5?.description || "pending");
+            setdes6ass(coRecords?.CO6?.description || "pending");
+    
+        } catch (error) {
+            console.error("Error in toggleEnd:", error);
+            alert("An unexpected error occurred. Please try again later.");
+    
+            // Fallback: Set all descriptions to "pending" if an error occurs
+            setdes1ass("pending");
+            setdes2ass("pending");
+            setdes3ass("pending");
+            setdes4ass("pending");
+            setdes5ass("pending");
+            setdes6ass("pending");
+        }
+    };
+    
 
     function getSubjectCode(department, semester, subject) {
         const departmentData = Allsubject.departments.find(dep => dep.name === department);
