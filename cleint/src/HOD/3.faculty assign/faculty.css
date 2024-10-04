@@ -5,54 +5,94 @@ body {
     padding: 0;
 }
 
-/* Navigation Bar Styles */
-.nav-bar {
-    right: 160px;
-    width: 100vw;
-      height: 70px;
-      background-color: #007bff;
-      border-radius: 30px;
-      box-shadow: 0 4px 8px rgb(0, 0, 0);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      
-      z-index: 1000;
-    }
+.nav-bar_hoddb {
+    top: 0; /* Position the navbar at the top */
+    left: 0;
+    right: 0;
+    width: 100%; /* Make sure it spans the whole width */
+    height: 80px;
+    background-color: rgb(159 28 51);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Fix it to the top */
+    z-index: 1000;
+    padding: 0 20px;
+    padding-left: 0;
+  }
+  
+  .nav-btn-group {
+    margin-left: auto; /* Pushes the button group to the right */
+    display: flex;
+    align-items: center;
+  }
     
-    .nav-bar-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 90%;
-      max-width: 1200px;
-    }
+  .nav-bar-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Space between title and buttons */
+    align-items: center;
+  }
+  
+  .navbar-title {
+    font-size: 2rem; /* Large font for Academix */
+    color: white;
+    margin-left: 0; /* Move it to the left */
+    padding-left: 10px;
+    font-weight: bold;
+  }
     
-    .nav-btn {
-      background-color: white;
-      border: none;
-      color: #007bff;
-      padding: 0.5rem 1rem;
-      margin: 0 1rem;
-      cursor: pointer;
-      border-radius: 20px;
-      box-shadow: 0 4px 8px rgb(0, 0, 0);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .nav-btn:hover {
-      background-color: #e9ecef;
-    }
-.profile {
-    position: relative;
+  .nav-btn-hoddb {
+    background-color: white;
+    color: rgb(159 28 51);
+    padding: 0.5rem 1rem;
+    margin-left: 20px; /* Add space between buttons */
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  }
+  
+  .nav-btn-hoddb:hover {
+    background-color: rgb(159 28 51);
+    color: #fbf3f3;
+    border-color: #fbf3f3;
+  }
+
+  .assign-table {
+    width: 98%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+    color: rgb(159 28 51);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .assign-table th,
+  .assign-table td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .assign-table th {
+    background-color: #fbf3f3;
+    font-weight: 600;
+    color: rgb(159 28 51);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+
+.semester-dropdown{
+    margin-top: 100px;
 }
 
-#profile-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
+.semdropdown, .tableselect{
+    color: rgb(159 28 51);
+    background-color: #fbf3f3;
 }
 
 .dropdown-content {

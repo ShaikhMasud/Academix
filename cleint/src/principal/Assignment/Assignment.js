@@ -101,6 +101,7 @@ const StudentMarksEntryAssignmentprin = () => {
             return {
                 studentname: row.name,
                 rollno: row.rollNo,
+                depart: user.department,
                 [`sem${semester}`]: {
                     subject_name: subject,
                     Assignment: assignmentData

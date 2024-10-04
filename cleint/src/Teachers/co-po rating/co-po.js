@@ -114,9 +114,9 @@ const Appco = () => {
                 <title>CO-PO Attainment Table</title>
                 <link rel="stylesheet" href="style.css" />
 
-                <h2>CO-PO Correlation Table</h2>
+                <h2 className='header'>CO-PO Correlation Table</h2>
                 <div className="table-container">
-                    <table>
+                    <table className='co-po-table'>
                         <thead>
                             <tr>
                                 <th>CO</th>
@@ -140,7 +140,7 @@ const Appco = () => {
                                     <td>{co}</td>
                                     {Object.keys(poStatements).map((po, index) => (
                                         <td key={po}>
-                                            <select
+                                            <select className='co-po-selects'
                                                 value={coPoData[`CO${co}`].PoValues[index]}
                                                 onChange={(e) => {
                                                     const newCoPoData = { ...coPoData };
@@ -171,9 +171,9 @@ const Appco = () => {
                         </tbody>
                     </table>
                     <Link to="/facultydashboard">
-                        <button>Back</button>
+                        <button className='backbutton2'>Back</button>
                     </Link>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={handleSubmit} className='submitbutton2'>Submit</button>
                 </div>
 
                 {tooltipText && (

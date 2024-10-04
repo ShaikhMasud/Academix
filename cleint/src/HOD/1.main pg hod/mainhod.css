@@ -4,9 +4,10 @@ body {
   font-family: 'Inter', Arial, sans-serif;
 }
 
-body {
-  font-family: 'Inter', Arial, sans-serif;
+#root{
+  background-color: #fbf3f3;
 }
+
 
 .containerpd {
   width: 95%; /* Keep it at 95% of the viewport width */
@@ -83,60 +84,60 @@ body {
   color: white;
 }
 
-.year-selection-hoddb {
+/* .year-selection-hoddb {
   display: flex;
-  justify-content: space-between; /* Keep this to maintain equal spacing */
+  justify-content: space-between;
   margin-top: 100px;
   padding: 20px;
 }
 
 .year-box-hoddb {
-  flex: 1; /* Allow boxes to take equal width */
-  margin: 0 30px; /* Increase horizontal spacing between boxes */
+  flex: 1; 
+  margin: 0 30px; 
   padding: 20px;
-  background-color: rgb(159 28 51); /* Set background color to rgb(159 28 51) */
+  background-color: rgb(159 28 51); 
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid transparent;
   box-sizing: border-box;
-  color: white; /* Set text color to white */
-  text-align: center; /* Center the text */
+  color: white; 
+  text-align: center;
 }
 
 .year-box-hoddb:hover {
-  background-color: #fbf3f3; /* Change background to #fbf3f3 on hover */
-  color: rgb(159 28 51); /* Ensure text remains white on hover */
+  background-color: #fbf3f3; 
+  color: rgb(159 28 51);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-color: rgb(159 28 51);
 }
 
-  /* new */
 .selected-year-box-hoddb {
-  background-color: #fbf3f3; /* Change the background color for the selected box */
+  background-color: #fbf3f3;
   color: rgb(159 28 51);
-  flex: 1; /* Allow boxes to take equal width */
-  margin: 0 30px; /* Increase horizontal spacing between boxes */
+  flex: 1;
+  margin: 0 30px; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
-  text-align: center; /* Center the text */
+  text-align: center; 
 }
 
 .selected-year-box-hoddb:hover{
-  background-color: #fbf3f3; /* Change background to #fbf3f3 on hover */
-  color: rgb(159 28 51); /* Ensure text remains white on hover */
+  background-color: #fbf3f3;
+  color: rgb(159 28 51); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
+} */
 
 
 /* Level Selection Styles */
-.level-selection-hoddb {
+.level-selection-hoddb2 {
   display: flex;
   justify-content: center;
   margin: 20px 0;
+  margin-top: 100px;
 }
 
 .level-btn-hoddb {

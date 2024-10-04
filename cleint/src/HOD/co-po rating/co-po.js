@@ -109,9 +109,9 @@ const SubjectsHOD = () => {
     return (
         user.role === "HOD" ? (
             <>
-                <h2>CO-PO Correlation Table</h2>
+                <h2 className='header2'>CO-PO Correlation Table</h2>
                 <div className="table-container">
-                    <table>
+                    <table className='co-po-table-hod'>
                         <thead>
                             <tr>
                                 <th>CO</th>
@@ -135,7 +135,7 @@ const SubjectsHOD = () => {
                                     <td>{co}</td>
                                     {Object.keys(poStatements).map((po, index) => (
                                         <td key={po}>
-                                            <select
+                                            <select className='co-po-selects-hod'
                                                 value={coPoData[`CO${co}`].PoValues[index]}
                                                 onChange={(e) => {
                                                     const newCoPoData = { ...coPoData };
@@ -152,7 +152,7 @@ const SubjectsHOD = () => {
                                     ))}
                                     <td>
                                         <textarea
-                                            className="co-description"
+                                            className="co-description-hod"
                                             value={coPoData[`CO${co}`].description || ""}
                                             onChange={(e) => {
                                                 const newCoPoData = { ...coPoData };
@@ -166,9 +166,9 @@ const SubjectsHOD = () => {
                         </tbody>
                     </table>
                     <Link to="/subjects">
-                        <button>Back</button>
+                        <button className='backbutton2'>Back</button>
                     </Link>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={handleSubmit} className='submitbutton2'>Submit</button>
                 </div>
 
                 {tooltipText && (

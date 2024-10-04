@@ -230,6 +230,7 @@ app.post('/students', async (req, res) => {
                 const newStudent = new StudentModel({
                     studentname: student.studentname,
                     roll: student.rollno,
+                    dept: student.depart,
                     sem1: student.sem1 ? [student.sem1] : [],
                     sem2: student.sem2 ? [student.sem2] : [],
                     sem3: student.sem3 ? [student.sem3] : [],
@@ -289,7 +290,7 @@ app.post('/studentsAssignment', async (req, res) => {
     const { studentData, semester, percentageAssignments } = req.body;
     try {
         for (const student of studentData) {
-            const { studentname, rollno } = student;
+            const { studentname, rollno, depart } = student;
 
             // Find or create student by roll number
             let studentRecord = await StudentModel.findOne({ roll: rollno });
@@ -297,6 +298,7 @@ app.post('/studentsAssignment', async (req, res) => {
                 studentRecord = new StudentModel({
                     studentname,
                     roll: rollno,
+                    dept: depart,
                     sem1: [], sem2: [], sem3: [],
                     sem4: [], sem5: [], sem6: [],
                     sem7: [], sem8: []
@@ -829,9 +831,9 @@ app.post('/poAttainment', async (req, res) => {
 });
 
 app.post('/getSemData', async (req, res) => {
-    const { semester } = req.body; 
+    const { semester, depart } = req.body; 
     try {
-        const students = await StudentModel.find({});
+        const students = await StudentModel.find({ dept: depart });
         // console.log("Full student data:", students);
 
 

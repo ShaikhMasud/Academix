@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './IA.css'; 
 import * as XLSX from 'xlsx'; 
 import { Link,useNavigate } from 'react-router-dom';
@@ -35,10 +35,40 @@ const StudentMarksEntryHOD = () => {
     const storedUser = sessionStorage.getItem('currentUser');
     const user = storedUser ? JSON.parse(storedUser) : null;
     const [selectedExam, setSelectedExam] = useState("Select Exam");
+    const fileInputRef = useRef(null);
+
+    const handleButtonClick = () => {
+      // Trigger the click on the hidden file input
+      fileInputRef.current.click();
+    };
+  
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        uploadExcel(file); // Call the uploadExcel function with the selected file
+      }
+    };
 
     // Function to handle file upload and fetch data
     function uploadExcel() {
         const fileUpload = document.getElementById("fileUpload");
+
+        const file = fileUpload.files[0]; // Get the first (and only) file
+
+        if (!file) {
+            alert("Please upload an Excel file.");
+            return;
+        }
+
+        // Check if the file has an appropriate extension (.xlsx, .xls, or .ods)
+        const validExtensions = [".xlsx", ".xls"];
+        const fileName = file.name.toLowerCase();
+        const fileExtension = fileName.substring(fileName.lastIndexOf("."));
+
+        if (!validExtensions.includes(fileExtension)) {
+            alert("Invalid file type. Please upload a .xlsx or .xls file.");
+            return;
+        }
         const reader = new FileReader();
 
         reader.onload = function (e) {
@@ -108,6 +138,7 @@ const StudentMarksEntryHOD = () => {
             const cells = row.querySelectorAll("td");
             const rollNo = cells[0].textContent;
             const name = cells[1].textContent;
+            const department = user.department;
     
             if (examType === "ESE") {
                 // For End-Sem, only send total marks
@@ -115,6 +146,7 @@ const StudentMarksEntryHOD = () => {
                 return {
                     studentname: name,
                     rollno: rollNo,
+                    depart: department,
                     [`sem${semester}`]: {
                         subject_name: subject,
                         [examType]: {
@@ -131,6 +163,7 @@ const StudentMarksEntryHOD = () => {
                 return {
                     studentname: name,
                     rollno: rollNo,
+                    depart: department,
                     [`sem${semester}`]: {
                         subject_name: subject,
                         [examType]: {
@@ -302,7 +335,6 @@ const StudentMarksEntryHOD = () => {
             console.error("Error fetching student data:", error);
         }
     };    
-            
     
 
     if (!user) {
@@ -321,27 +353,15 @@ const StudentMarksEntryHOD = () => {
 
     return (
         user.role === "HOD" ? (
-            <div>
-                <nav className="curved-nav">
-                    <div className="nav-content">
-                    <div className="profile-menu">
-                        <div className="profile-circle" onClick={toggleLogoutMenu}>
-                            <i className="fas fa-user" />
-                        </div>
-                        <div id="logoutMenu" className="logout-menu">
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
+            <div className='ia-marks'>
+                <div className="marks_container-hod">
+                    <div className='heading-div'>
+                        <h2 className='heading'>Student Marks Entry</h2>
                     </div>
-                    </div>
-                </nav>
-
-                <div className="container">
-                    <h2>Student IA Marks Entry</h2>
-
                     {/* Conditionally render co-max-marks table based on selected exam */}
                     {selectedExam !== 'End-Sem' && (
                         <div className="co-max-marks">
-                            <table>
+                            <table className='co-table'>
                                 <tbody id="co-max-table-body">
                                     {/* This will be populated dynamically based on the selected exam */}
                                 </tbody>
@@ -349,22 +369,30 @@ const StudentMarksEntryHOD = () => {
                         </div>
                     )}
 
-                    <h2>Upload Excel File to Add Data</h2>
-
                     <div className="upload-container">
-                        <label htmlFor="fileUpload" className="custom-file-upload">Choose Excel File</label>
-                        <input type="file" id="fileUpload" />
-                        <button onClick={uploadExcel}>Fetch Data</button>
+                        <h2 className='upload'>Upload Excel File to Add Data</h2>
+                        <div className='upload-controls'>
+                            <select id="examSelect" className='examSelect' onChange={handleExamSelect} defaultValue="Select Exam">
+                                <option value="Select Exam" disabled>Select Exam</option>
+                                <option value="IA-1">IA-1</option>
+                                <option value="IA-2">IA-2</option>
+                                <option value="End-Sem">End-Sem</option>
+                            </select>
+                        
+                            <button className='fetch-button' onClick={handleButtonClick}>Upload Excel file</button>
+                            <input
+                              type="file"
+                              id="fileUpload"
+                              accept=".xlsx, .xls"
+                              ref={fileInputRef}
+                              style={{ display: "none" }} // Hide the input element
+                              onChange={handleFileChange}
+                            />
+                        </div>
                     </div>
-
-                    <select id="examSelect" onChange={handleExamSelect} defaultValue="Select Exam">
-                        <option value="Select Exam" disabled>Select Exam</option>
-                        <option value="IA-1">IA-1</option>
-                        <option value="IA-2">IA-2</option>
-                        <option value="End-Sem">End-Sem</option>
-                    </select>
-
-                    <table id="studentTable">
+                </div>
+                <div className='table_container'>
+                    <table id="studentTable" className='student-marks-table'>
                         <thead>
                             <tr>
                             <th>Roll No.</th>
@@ -379,9 +407,9 @@ const StudentMarksEntryHOD = () => {
                     </table>
 
                     <Link to="/subjects">
-                        <button>Back</button>
+                        <button className='backbutton'>Back</button>
                     </Link>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button className='submitbutton' onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
         ) : (

@@ -424,7 +424,7 @@ const FacultyAssignment = () => {
                 <td>{subject.code}</td>
                 <td>{subject.course}</td>
                 <td>
-                    <select 
+                    <select className='tableselect' 
                         value={subject.faculty} 
                         onChange={(e) => {
                             const newFaculty = e.target.value;
@@ -571,30 +571,24 @@ const FacultyAssignment = () => {
         user.role === "HOD" ? (
             <div className="containerpd">
                 {/* Navigation Bar */}
-                <div className="nav-bar">
-                    <div className="nav-bar-content">
-                        <Link to="/subjects">
-                            <button className="nav-btn">Subjects</button>
-                        </Link>
-                        <div className="profile-menu">
-                        <div className="profile-circle" onClick={toggleLogoutMenu}>
-                            <i className="fas fa-user" />
-                        </div>
-                        <div id="logoutMenu" className="logout-menu">
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
+            <div className="nav-bar_hoddb">
+                <div className="nav-bar-content">
+                  <h1 className="navbar-title">Academix</h1>
+                  <div className="nav-btn-group">
+                    <Link to="/subjects">
+                      <button className="nav-btn-hoddb">Subjects</button>
+                    </Link>
+                    {/* <button className="nav-btn-hoddb">!!!!!!</button> */}
+                    <div className="user-icon">
+                      <i className="fas fa-user"></i>
                     </div>
-                        <div>
-                            <div className="user-icon">
-                                <i className="fas fa-user"></i>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+            </div>
     
                 {/* Semester Selection Dropdown */}
                 <div className="semester-dropdown">
-                    <select value={selectedSemester} onChange={handleSemesterChange}>
+                    <select value={selectedSemester} onChange={handleSemesterChange} className='semdropdown'>
                         <option value="" disabled>Select Semester</option>
                         {department && Allsubject.departments.find(dep => dep.name === department).semesters.map(sem => (
                             <option key={sem.semester} value={sem.semester}>
@@ -603,23 +597,10 @@ const FacultyAssignment = () => {
                         ))}
                     </select>
                 </div>
-    
-                {/* Filter Buttons */}
-                <div className="filter-section">
-                    <button className="filter-btn" onClick={() => handleFilter('all')}>All Subjects</button>
-                    <button className="filter-btn" onClick={() => handleFilter('theory')}>Theory Subjects</button>
-                    <button className="filter-btn" onClick={() => handleFilter('lab')}>Lab Subjects</button>
-                </div>
-    
-                {/* File Upload Section */}
-                <div className="upload-section">
-                    <input type="file" id="excelUpload" accept=".xlsx" onChange={handleFileUpload} />
-                    <button id="uploadBtn" className="btn">Upload Excel</button>
-                </div>
-    
+                    
                 {/* Subjects Table */}
                 <div className="table-containers">
-                    <table>
+                    <table className='assign-table'>
                         <thead>
                             <tr>
                                 <th>Subject Code</th>

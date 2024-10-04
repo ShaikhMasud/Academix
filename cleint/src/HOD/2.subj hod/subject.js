@@ -716,30 +716,49 @@ function Subjectpagehod() {
     setdes4ass(coRecords.CO4.description);
     setdes5ass(coRecords.CO5.description);
     setdes6ass(coRecords.CO6.description);
+    }
 
-
+    function getSubjectCode(department, semester, subject) {
+        const departmentData = Allsubject.departments.find(dep => dep.name === department);
+        if (departmentData) {
+            const semesterData = departmentData.semesters.find(sem => sem.semester === semester);
+            if (semesterData) {
+                const subjectIndex = semesterData.subjects.indexOf(subject);
+                if (subjectIndex !== -1) {
+                    return semesterData.codes[subjectIndex];
+                }
+            }
+        }
+        return null;
     }
     
     return user.role === 'HOD' ? (
         <>
-            <nav className="curved-nav">
-                <div className="nav-content">
-                    <div className="profile-menu">
-                        <div className="profile-circle" onClick={toggleLogoutMenu}>
-                            <i className="fas fa-user" />
-                        </div>
-                        <div id="logoutMenu" className="logout-menu">
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <div className="nav-bar_hoddb">
+        <div className="nav-bar-content">
+          <h1 className="navbar-title">Academix</h1>
+          <div className="nav-btn2-group">
+            <Link to="/subjects">
+              <button className="nav-btn2-hoddb">HOD's Subjects</button>
+            </Link>
+            <Link to="/managefaculty">
+            <button className="nav-btn2-hoddb">Assign Subjects</button>
+            </Link>
+            <div className="user-icon">
+              <i className="fas fa-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     
-            <div className="card-container-facdb">
+      <div className="card-container-facdb">
                 {semesterObj.subjects.length > 0 ? (
                     semesterObj.subjects.map((subject, index) => {
                         const semester = findSemester(user.department, subject);
                         const isExpanded = expandedIndices.includes(index); // Check if the current index is expanded
+
+                        const subjectCode = getSubjectCode(user.department, semester, subject);
+                        const displayText = subjectCode ? `${subjectCode} - ${subject}` : subject
     
                         return (
                             <article
@@ -755,10 +774,10 @@ function Subjectpagehod() {
                                         </button> */}
                                         <Link to={`/co-po/${subject}/${semester}`}>
                                             <button className="icon-button">
-                                                <img src={coIcon} alt="CO Icon" />
+                                                CO-PO Mapping Table
                                             </button>
                                         </Link>
-                                        <h2 className="skill-card__title-facdb">{subject}</h2>
+                                        <h2 className="skill-card__title-facdb">{displayText}</h2>
     
                                         {/* Only show this section when expanded */}
                                         {isExpanded && (
@@ -766,27 +785,26 @@ function Subjectpagehod() {
                                             <div className="details-row">
                                                 <div className="ia-info">
                                                     <div>
-                                                        <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 1</button>
+                                                        <button className="btn2" onClick={() => handleIAClick(subject, semester)}>IA 1</button>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <button
-                                                    className="btn"
+                                                    className="btn2"
                                                     onClick={() => {
                                                         toggleExam(subject, 'IA1');
                                                         calculatelevelia(subject, semester, 1);
                                                         toggleia1level(subject,semester);
                                                     }}
                                                     >
-                                                    IA 1 {currentExam === 'IA1' ? '▼' : '▶'}
+                                                    {currentExam === 'IA1' ? '▲' : '▶'}
                                                     </button>
                                                     {currentExam === 'IA1' && (
                                                     <div className="qa-info">
-                                                        <p>IA - 1</p>
                                                         <p>Q1: {q1ia1} - Description of this CO - {desai1q1} - {q1ia1level}</p>
                                                         <p>Q2: {q2ia1} - Description of this CO - {desai1q2} - {q2ia1level}</p>
                                                         <p>Q3: {q3ia1} - Description of this CO - {desai1q3} - {q3ia1level}</p>
-                                                        <p>Total Level:{levelia1}</p>
+                                                        <p>Average:{levelia1}</p>
                                                     </div>
                                                     )}
                                                 </div>
@@ -795,12 +813,12 @@ function Subjectpagehod() {
                                             <div className="details-row">
                                                 <div className="ia-info">
                                                     <div>
-                                                        <button className="btn" onClick={() => handleIAClick(subject, semester)}>IA 2</button>
+                                                        <button className="btn2" onClick={() => handleIAClick(subject, semester)}>IA 2</button>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div className='togglediv'>
                                                     <button
-                                                    className="btn"
+                                                    className="btn2"
                                                     onClick={() => {
                                                         toggleExam(subject, 'IA2')
                                                         calculatelevelia(subject, semester, 2)
@@ -808,65 +826,65 @@ function Subjectpagehod() {
                                                     }
                                                     }
                                                     >
-                                                    IA 2 {currentExam === 'IA2' ? '▼' : '▶'}
+                                                    {currentExam === 'IA2' ? '▲' : '▶'}
                                                     </button>
                                                     {currentExam === 'IA2' && (
                                                     <div className="qa-info">
-                                                        <p>IA - 2</p>
                                                         <p>Q1: {q1ia2} - Description of this CO - {desai2q1} - {q1ia2level}</p>
                                                         <p>Q2: {q2ia2} - Description of this CO - {desai2q2} - {q2ia2level}</p>
                                                         <p>Q3: {q3ia2} - Description of this CO - {desai2q3} - {q3ia2level}</p>
-                                                        <p>Total Level:{levelia2}</p>
+                                                        <p>Average:{levelia2}</p>
                                                     </div>
                                                     )}
                                                 </div>
                                             </div>
                                         
-                                            <div>
-                                                <button className="btn" onClick={() => handleAssignmentClick(subject, semester)}>Assignment</button>
+                                            <div className='details-row'>
+                                                <button className="btn2" onClick={() => handleAssignmentClick(subject, semester)}>Assignment</button>
                                                 <div>
                                                     <button
-                                                    className="btn"
+                                                    className="btn2"
                                                     onClick={() => {
                                                         toggleExam(subject, 'Assignment');
                                                         calculatelevelassign(subject, semester)
                                                         toggleass(subject,semester)
                                                     }}
                                                     >
-                                                    Assignment {currentExam === 'Assignment' ? '▼' : '▶'}
+                                                    {currentExam === 'Assignment' ? '▲' : '▶'}
                                                     </button>
                                                     {currentExam === 'Assignment' && (
                                                     <div className="qa-info">
-                                                        <p>Assignment</p>
                                                         <p> Description: {des1ass} - CO1 - {ass1}</p>
                                                         <p> Description: {des2ass} - CO2 - {ass2}</p>
                                                         <p> Description: {des3ass} - CO3 - {ass3}</p>
                                                         <p> Description: {des4ass} - CO4 - {ass4}</p>
                                                         <p> Description: {des5ass} - CO5 - {ass5}</p>
                                                         <p> Description: {des6ass} - CO6 - {ass6}</p>
-                                                        <p>Total Level:{levelassign}</p>
+                                                        <p>Average:{levelassign}</p>
                                                     </div>
                                                     )}
                                                 </div>
                                             </div>
                                             
                                         
-                                            <div>
-                                                <button className="btn" onClick={() => handleIAClick(subject, semester)}>End</button>
+                                            <div className='details-row'>
+                                                <button className="btn2" onClick={() => {
+                                                    handleIAClick(subject, semester);
+
+                                                    }}>End-Sem</button>
+
                                                 <button
-                                                    className="btn"
-                                                    onClick={() => 
-                                                      {
+                                                    className="btn2"
+                                                    onClick={() => {
                                                         toggleExam(subject, 'ESE')
                                                         calculatelevelend(subject,semester)
                                                         toggleEnd(subject,semester)
-                                                      }}
+                                                    }}
                                                     >
-                                                    ESE {currentExam === 'ESE' ? '▼' : '▶'}
+                                                    {currentExam === 'ESE' ? '▲' : '▶'}
                                                     </button>
                                                     {currentExam === 'ESE' && (
                                                     <div className="qa-info">
-                                                        <p> ESE </p>
                                                         <p> Total Marks Level: {levelend}</p>
                                                         <p> Description: {des1ass} - CO1</p>
                                                         <p> Description: {des2ass} - CO2</p>
@@ -878,10 +896,10 @@ function Subjectpagehod() {
                                                     )}
                                             </div>
                                         
-                                            <p>Semester: {semester !== null ? semester : 'Not Found'}</p>
+                                            <p className='sem-line'>Semester: {semester !== null ? semester : 'Not Found'}</p>
                                         </div>
                                         )}
-                                        <button className="details-btn" onClick={() => {
+                                        <button className="submitbutton2" onClick={() => {
                                             toggleGraph(subject, semester); // Call toggleGraph with subject and semester
                                             toggleDetails(index); // Then toggle the details
                                         }}>
@@ -894,8 +912,8 @@ function Subjectpagehod() {
                                 {isExpanded && (
                                     <div id="graphAndTableContainer">
                                         <div id="tableContainer">
-                                            <h3>CO Attainment Values</h3>
-                                            <table>
+                                            <h3 className='value-head'>CO Attainment Values</h3>
+                                            <table className='co_po_table'>
                                                 <thead>
                                                     <tr>
                                                         {/* <th></th> */}
@@ -922,8 +940,8 @@ function Subjectpagehod() {
                                         </div>
     
                                         <div id="tableContainer">
-                                            <h3>PO Attainment Values</h3>
-                                            <table>
+                                            <h3 className='value-head'>PO Attainment Values</h3>
+                                            <table className='co_po_table'>
                                                 <thead>
                                                     <tr>
                                                         {/* <th></th> */}
@@ -947,7 +965,7 @@ function Subjectpagehod() {
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <table>
+                                            <table className='co_po_table'>
                                                 <thead>
                                                     <tr>
                                                         <th>PO7</th>

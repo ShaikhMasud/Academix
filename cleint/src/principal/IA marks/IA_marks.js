@@ -108,6 +108,7 @@ const StudentMarksEntryprin = () => {
             const cells = row.querySelectorAll("td");
             const rollNo = cells[0].textContent;
             const name = cells[1].textContent;
+            const department = "EXTC";
     
             if (examType === "ESE") {
                 // For End-Sem, only send total marks
@@ -115,6 +116,7 @@ const StudentMarksEntryprin = () => {
                 return {
                     studentname: name,
                     rollno: rollNo,
+                    depart: department,
                     [`sem${semester}`]: {
                         subject_name: subject,
                         [examType]: {
@@ -131,6 +133,7 @@ const StudentMarksEntryprin = () => {
                 return {
                     studentname: name,
                     rollno: rollNo,
+                    depart: department,
                     [`sem${semester}`]: {
                         subject_name: subject,
                         [examType]: {

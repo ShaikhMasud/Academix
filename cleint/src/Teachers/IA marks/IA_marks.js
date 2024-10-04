@@ -135,6 +135,7 @@ const StudentMarksEntry = () => {
             const cells = row.querySelectorAll("td");
             const rollNo = cells[0].textContent;
             const name = cells[1].textContent;
+            const department = user.department;
     
             if (examType === "ESE") {
                 // For End-Sem, only send total marks
@@ -142,6 +143,7 @@ const StudentMarksEntry = () => {
                 return {
                     studentname: name,
                     rollno: rollNo,
+                    depart: department,
                     [`sem${semester}`]: {
                         subject_name: subject,
                         [examType]: {
@@ -158,6 +160,7 @@ const StudentMarksEntry = () => {
                 return {
                     studentname: name,
                     rollno: rollNo,
+                    depart: department,
                     [`sem${semester}`]: {
                         subject_name: subject,
                         [examType]: {
@@ -349,21 +352,6 @@ const StudentMarksEntry = () => {
     return (
         user.role === "Teacher" ? (
             <div className='ia-marks'>
-                {/* <nav className="curved-nav">
-                    <div className="nav-content">
-                        <button className="nav-btn">CO</button>
-                        <button className="nav-btn">PO</button>
-                        <div className="profile-menu">
-                        <div className="profile-circle" onClick={toggleLogoutMenu}>
-                            <i className="fas fa-user" />
-                        </div>
-                        <div id="logoutMenu" className="logout-menu">
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
-                    </div>
-                    </div>
-                </nav> */}
-
                 <div className="marks_container">
                     <div className='heading-div'>
                         <h2 className='heading'>Student Marks Entry</h2>

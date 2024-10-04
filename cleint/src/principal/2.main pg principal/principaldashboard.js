@@ -1,25 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Chart, registerables } from 'chart.js';
+import React, { useState, useEffect } from 'react';
 import './principaldash.css';
-import { Link ,useNavigate} from 'react-router-dom';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
-// Register Chart.js components
-Chart.register(...registerables);
-
-const PrincipalMainPage = () => {
-  const navigate = useNavigate();
-
-  const {stream}=useParams();
+const Principalmainpage = () => {
   const storedUser = sessionStorage.getItem('currentUser');
   const user = storedUser ? JSON.parse(storedUser) : null;
 
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedLevel, setSelectedLevel] = useState('SE');
   const [semesters, setSemesters] = useState({ sem1: 'Sem 3', sem2: 'Sem 4' });
-  
-  const chart1Ref = useRef(null);
-  const chart2Ref = useRef(null);
+  const [sem1Levels, setSem1Levels] = useState({});
+  const [sem2Levels, setSem2Levels] = useState({});
+  const {stream}=useParams();
 
   const updateSemesterDisplay = (level) => {
     let semYear = 0;
@@ -44,126 +37,164 @@ const PrincipalMainPage = () => {
     updateSemesterDisplay(level);
   };
 
-  useEffect(() => {
-    if (chart1Ref.current && chart2Ref.current) {
-      const ctx1 = chart1Ref.current.getContext('2d');
-      const chart1 = new Chart(ctx1, {
-        type: 'pie',
-        data: {
-          labels: ['Level 0', 'Level 1', 'Level 2'],
-          datasets: [{
-            label: 'Level Distribution',
-            data: [30, 50, 20],
-            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
-            hoverOffset: 4
-          }]
-        }
-      });
+  const fetchExamData = async (semester) => {
+    try {
+      console.log(stream)
+      const response = await axios.post('http://localhost:3001/getSemData', { semester });
+      console.log(`Fetched data for ${semester}:`, response.data);
 
-      const ctx2 = chart2Ref.current.getContext('2d');
-      const chart2 = new Chart(ctx2, {
-        type: 'pie',
-        data: {
-          labels: ['Level 0', 'Level 1', 'Level 2'],
-          datasets: [{
-            label: 'Level Distribution',
-            data: [45, 25, 30],
-            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
-            hoverOffset: 4
-          }]
-        }
-      });
-
-      return () => {
-        chart1.destroy();
-        chart2.destroy();
-      };
+      if (response.data) {
+        return {
+          IA1: response.data.IA1 || 'Pending',
+          IA2: response.data.IA2 || 'Pending',
+          Assignment: response.data.Assignment || 'Pending',
+          ESE: response.data.ESE || 'Pending',
+        };
+      }
+    } catch (error) {
+      console.error('Error fetching exam data:', error);
     }
-  }, []);
+    return {
+      IA1: 'Pending',
+      IA2: 'Pending',
+      Assignment: 'Pending',
+      ESE: 'Pending',
+    };
+  };
+
+  useEffect(() => {
+
+    const fetchLevels = async () => {
+      let fetchedSem1Levels, fetchedSem2Levels;
+  
+      if (stream === 'FE') {
+        fetchedSem1Levels = await fetchExamData(1);
+        fetchedSem2Levels = await fetchExamData(2);
+      } else {
+        const sem1Number = semesters.sem1.slice(-1);
+        const sem2Number = semesters.sem2.slice(-1);
+        fetchedSem1Levels = await fetchExamData(sem1Number);
+        fetchedSem2Levels = await fetchExamData(sem2Number);
+      }
+  
+      // Only update if data has actually changed
+      if (JSON.stringify(fetchedSem1Levels) !== JSON.stringify(sem1Levels)) {
+        setSem1Levels(fetchedSem1Levels);
+      }
+  
+      if (JSON.stringify(fetchedSem2Levels) !== JSON.stringify(sem2Levels)) {
+        setSem2Levels(fetchedSem2Levels);
+      }
+    };
+  
+    fetchLevels();
+  }, [semesters, stream]); // Removed 'user' as a dependency
+  
 
   if (!user) {
     return <p>Please log in to access this page.</p>;
   }
-  const toggleLogoutMenu = () => {
-    const logoutMenu = document.getElementById('logoutMenu');
-    logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
-};
 
-const handleLogout = () => {
-    sessionStorage.removeItem('currentUser'); // Clear user session
-    navigate('/'); // Redirect to login
-};
-
+  if (user.role !== 'Principal') {
+    return <p>Access denied. This page is for HODs only.</p>;
+  }
 
   return (
-    user.role === "Principal" ? (
-      <div className="containerpd">
-        {/* Navigation Bar */}
-        <div className="nav-bar">
-          <div className="nav-bar-content">
-            <Link to="/principaldashboard"><button className="nav-btn">Home</button></Link>
-            <Link to="/sub"><button className="nav-btn">Subjects</button></Link>
-            <div className="profile-menu">
-                        <div className="profile-circle" onClick={toggleLogoutMenu}>
-                            <i className="fas fa-user" />
-                        </div>
-                        <div id="logoutMenu" className="logout-menu">
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
-                    </div>
-            <button className="nav-btn">{stream}</button>
+    <div className="containerpd">
+      <div className="nav-bar_prindb">
+        <div className="nav-bar-content">
+          <h1 className="navbar-title">Academix</h1>
+          <div className="nav-btn-group">
+            <Link to="/sub">
+              <button className="nav-btn-hoddb">Subjects</button>
+            </Link>
+            <button className="nav-btn-hoddb">Profile</button>
             <div className="user-icon">
               <i className="fas fa-user"></i>
             </div>
           </div>
         </div>
-
-        {/* Year Selection Section */}
-        <div className="year-selection">
-          {['2024', '2023', '2022', '2021', '2020'].map(year => (
-            <button 
-              key={year}
-              onClick={() => setSelectedYear(year)}
-              className={selectedYear === year ? 'selected-year-box' : 'year-box'}>
-              {year}
-            </button>
-          ))}
-        </div>
-
-        <hr className="hr-style" />
-
-        {/* Level Selection Section */}
-        <div className="level-selection">
-          {['SE', 'TE', 'BE'].map(level => (
-            <button 
-              key={level}
-              onClick={() => handleLevelChange(level)}
-              className={selectedLevel === level ? 'selected-level-btn' : 'level-btn'}>
-              {level}
-            </button>
-          ))}
-        </div>
-
-        <hr className="hr-style" />
-
-        {/* Semester and Graph Section */}
-        <div className="semester-section">
-          <Link to={`/SemSub/${semesters.sem1}/${stream}`}><button className="sem-box"><h3>{semesters.sem1}</h3></button></Link>
-          <Link to={`/SemSub/${semesters.sem2}/${stream}`}><button className="sem-box"><h3>{semesters.sem2}</h3></button></Link>
-        </div>
-
-        {/* Graphs */}
-        <div className="canvas-container">
-          <canvas ref={chart1Ref}></canvas>
-        </div>
-        <div className="canvas-container">
-          <canvas ref={chart2Ref}></canvas>
-        </div>
       </div>
-    ) : (
-      <p>Access denied. This page is for Principal only.</p>
-    )
+
+      {stream === 'FE' ? (
+        <div className="semester-section-hoddb-fe">
+          {/* Semester 1 */}
+          <div className="sem-box-hoddb">
+            <h4>Sem 1</h4>
+            <Link to={`/SemSub/${semesters.sem1.slice(-1)}/FE`}>
+              <button className="sem-btn-hoddb">View Subjects</button>
+            </Link>
+            <div className="sem-card">
+              <p>IA - 1 Level: {sem1Levels.IA1 || 'Loading...'}</p>
+              <p>IA - 2 Level: {sem1Levels.IA2 || 'Loading...'}</p>
+              <p>Assignment Level: {sem1Levels.Assignment || 'Loading...'}</p>
+              <p>ESE Level: {sem1Levels.ESE || 'Loading...'}</p>
+            </div>
+          </div>
+
+          {/* Semester 2 */}
+          <div className="sem-box-hoddb">
+            <h4>Sem 2</h4>
+            <Link to={`/SemSub/${semesters.sem2.slice(-1)}/FE`}>
+              <button className="sem-btn-hoddb">View Subjects</button>
+            </Link>
+            <div className="sem-card">
+              <p>IA - 1 Level: {sem2Levels.IA1 || 'Loading...'}</p>
+              <p>IA - 2 Level: {sem2Levels.IA2 || 'Loading...'}</p>
+              <p>Assignment Level: {sem2Levels.Assignment || 'Loading...'}</p>
+              <p>ESE Level: {sem2Levels.ESE || 'Loading...'}</p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="level-selection-hoddb">
+            {['SE', 'TE', 'BE'].map((level) => (
+              <button
+                key={level}
+                onClick={() => handleLevelChange(level)}
+                className={selectedLevel === level ? 'selected-level-btn-hoddb' : 'level-btn-hoddb'}
+              >
+                {level}
+              </button>
+            ))}
+          </div>
+
+          <hr className="hr-style" />
+
+          <div className="semester-section-hoddb">
+            {/* Semester 1 */}
+            <div className="sem-box-hoddb">
+              <h4>{semesters.sem1}</h4>
+              <Link to={`/SemSub/${semesters.sem1.slice(-1)}/${stream}`}>
+                <button className="sem-btn-hoddb">View Subjects</button>
+              </Link>
+              <div className="sem-card">
+                <p>IA - 1 Level: {sem1Levels.IA1 || 'Loading...'}</p>
+                <p>IA - 2 Level: {sem1Levels.IA2 || 'Loading...'}</p>
+                <p>Assignment Level: {sem1Levels.Assignment || 'Loading...'}</p>
+                <p>ESE Level: {sem1Levels.ESE || 'Loading...'}</p>
+              </div>
+            </div>
+
+            {/* Semester 2 */}
+            <div className="sem-box-hoddb">
+              <h4>{semesters.sem2}</h4>
+              <Link to={`/SemSub/${semesters.sem2.slice(-1)}/${stream}`}>
+                <button className="sem-btn-hoddb">View Subjects</button>
+              </Link>
+              <div className="sem-card">
+                <p>IA - 1 Level: {sem2Levels.IA1 || 'Loading...'}</p>
+                <p>IA - 2 Level: {sem2Levels.IA2 || 'Loading...'}</p>
+                <p>Assignment Level: {sem2Levels.Assignment || 'Loading...'}</p>
+                <p>ESE Level: {sem2Levels.ESE || 'Loading...'}</p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
-export default PrincipalMainPage;
+export default Principalmainpage;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Assignment.css';
 import * as XLSX from 'xlsx';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,19 @@ const StudentMarksEntryAssignment = () => {
     const [coOptions] = useState(["CO1", "CO2", "CO3", "CO4", "CO5", "CO6"]); // Example CO options
     const [tableData, setTableData] = useState([]); // State to hold table data
     const [percentageAssignments, setpercentageAssignments] = useState(0);
+    const fileInputRef = useRef(null);
+
+    const handleButtonClick = () => {
+      // Trigger the click on the hidden file input
+      fileInputRef.current.click();
+    };
+  
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        uploadExcel(file); // Call the uploadExcel function with the selected file
+      }
+    };
 
     useEffect(() => {
         fetchAndPopulateAssignmentData();
@@ -101,6 +114,7 @@ const StudentMarksEntryAssignment = () => {
             return {
                 studentname: row.name,
                 rollno: row.rollNo,
+                depart: user.department,
                 [`sem${semester}`]: {
                     subject_name: subject,
                     Assignment: assignmentData
@@ -181,22 +195,20 @@ const StudentMarksEntryAssignment = () => {
             <div>
                 {/* Navigation and other content */}
 
-                <div className="container">
-                    <h2>Student IA Marks Entry</h2>
+                <div className="assign-container">
+                    <h2 className='title-assign'>Assignment Marks Entry</h2>
 
-                    <div>
+                    <div className='enter-info'>
                         <label htmlFor="numAssignments">Number of Assignments:</label>
-                        <input 
+                        <input className='numassign'
                             type="number" 
                             id="numAssignments" 
                             min="1" 
                             value={numAssignments} 
                             onChange={handleNumAssignmentsChange} 
                         />
-                    </div>
-                    <div>
-                        <label htmlFor="numAssignments">Enter the percentage of the Assignment:</label>
-                        <input 
+                        <label htmlFor="numAssignments">Percentage of Weightage to Assignments:</label>
+                        <input className='percenassign'
                             type="number" 
                             id="percentageAssignments" 
                             min="1" 
@@ -206,22 +218,28 @@ const StudentMarksEntryAssignment = () => {
                     </div>
 
 
-                    <h2>Upload Excel File to Add Data</h2>
+                    <h2 className='upload-assign'>Upload Excel File to Add Data</h2>
 
-                    <div className="upload-container">
-                        <label htmlFor="fileUpload" className="custom-file-upload">Choose Excel File</label>
-                        <input type="file" id="fileUpload" />
-                        <button onClick={uploadExcel}>Fetch Data</button>
+                    <div className="upload-container1">
+                            <button className='fetch-button-assign' onClick={handleButtonClick}>Upload Excel file</button>
+                            <input
+                              type="file"
+                              id="fileUpload"
+                              accept=".xlsx, .xls"
+                              ref={fileInputRef}
+                              style={{ display: "none" }} // Hide the input element
+                              onChange={handleFileChange}
+                            />
                     </div>
 
                     {/* CO Dropdowns for each assignment */}
-                    <div id="co-dropdowns" className="co-dropdowns">
+                    <div id="co-dropdowns" className="co-dropdowns1">
                         {Array.from({ length: numAssignments }, (_, i) => (
-                            <div className="co-dropdown-container" key={i}>
-                                <label htmlFor={`co-select-${i}`}>Assign CO for Assignment {i + 1}:</label>
+                            <div className="co-dropdown-container1" key={i}>
+                                <label htmlFor={`co-select-${i}`} className='assignco'>Assign CO for Assignment {i + 1}:</label>
                                 <select 
                                     id={`co-select-${i}`} 
-                                    className="co-dropdown" 
+                                    className="co-dropdown1" 
                                     value={coSelections[i]} 
                                     onChange={(e) => handleCoChange(i, e.target.value)}
                                 >
@@ -234,7 +252,7 @@ const StudentMarksEntryAssignment = () => {
                     </div>
 
                     {/* Render table headers dynamically */}
-                    <table id="studentTable">
+                    <table id="studentTable1" className='studentTable1'>
                         <thead>
                             <tr>
                                 <th>Roll No.</th>
@@ -264,9 +282,9 @@ const StudentMarksEntryAssignment = () => {
                     </table>
 
                     <Link to="/facultydashboard">
-                        <button>Back</button>
+                        <button className='backbutton2'>Back</button>
                     </Link>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={handleSubmit} className='submitbutton2'>Submit</button>
                 </div>
             </div>
         ) : (

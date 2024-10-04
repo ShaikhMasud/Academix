@@ -32,6 +32,7 @@ const Subject_SubSchema = new mongoose.Schema({
 const StudentSchema = new mongoose.Schema({
     studentname: { type: String, required: true },
     roll: { type: String }, 
+    dept: { type: String },
     sem1: [Subject_SubSchema],
     sem2: [Subject_SubSchema],
     sem3: [Subject_SubSchema],

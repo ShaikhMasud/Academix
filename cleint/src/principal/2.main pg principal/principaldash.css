@@ -1,119 +1,260 @@
-/* General Container */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+#root{
+  background-color: #fbf3f3;
+}
+
+
 .containerpd {
-  top: 50px;
-  width: 1200px;
-  position: relative;
-  background: #ffffff; /* Light grey background */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  max-width: 90%; /* Ensure responsiveness */
-}
-
-/* Navigation Bar */
-.nav-bar {
-  background-color: #007bff;
-  padding: 10px;
-}
-
-.nav-bar-content {
+  width: 95%; /* Keep it at 95% of the viewport width */
+  max-width: 1270px; /* Optional: Set a max width for larger screens */
+  min-width: 1270px; /* Optional: Set a minimum width to avoid being too narrow */
+  margin: 0 auto; /* Center the container */
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  padding: 20px; /* Optional: Add some padding around the container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for depth */
+  border-radius: 4px; /* Optional: Add border radius for the container itself */
+}
+
+/* Navigation Bar Styles */
+.nav-bar_prindb {
+  top: 0; /* Position the navbar at the top */
+  left: 0;
+  right: 0;
+  width: 100%; /* Make sure it spans the whole width */
+  height: 80px;
+  background-color: rgb(159 28 51);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Fix it to the top */
+  z-index: 1000;
+  padding: 0 20px;
+  padding-left: 0;
+}
+
+.nav-btn-group {
+  margin-left: auto; /* Pushes the button group to the right */
+  display: flex;
+  align-items: center;
+}
+  
+.nav-bar-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Space between title and buttons */
   align-items: center;
 }
 
-.nav-btn {
-  background-color: transparent;
-  border: none;
+.navbar-title {
+  font-size: 2rem; /* Large font for Academix */
   color: white;
-  font-size: 16px;
+  margin-left: 0; /* Move it to the left */
+  padding-left: 0;
+  font-weight: bold;
+}
+  
+.nav-btn-hoddb {
+  background-color: white;
+  color: rgb(159 28 51);
+  padding: 0.5rem 1rem;
+  margin-left: 20px; /* Add space between buttons */
   cursor: pointer;
-  margin-right: 15px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.nav-btn-hoddb:hover {
+  background-color: rgb(159 28 51);
+  color: #fbf3f3;
+  border-color: #fbf3f3;
 }
 
 .user-icon {
-  font-size: 24px;
+  margin-left: 20px; /* Space between buttons and icon */
+  font-size: 1.5rem;
   color: white;
 }
 
-/* Year Selection */
-.year-selection {
+/* .year-selection-hoddb {
   display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-}
-
-.year-box {
-  padding: 10px;
-  cursor: pointer;
-  border: 1px solid #007bff;
-}
-
-.selected-year-box {
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-/* Level Selection */
-.level-selection {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-}
-
-.level-btn {
-  border: 1px solid;
-  color: black;
-  padding: 10px 20px;
-  border: 0.5px solid black;
-  cursor: pointer;
-  background-color: white;
-}
-
-.selected-level-btn {
-  background-color: #007bff;
-  color: white;
-}
-
-/* Semester Box */
-.semester-section {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-}
-
-.sem-box:hover{
-  color: white;
-}
-
-.sem-box {
-  color: black;
+  justify-content: space-between;
+  margin-top: 100px;
   padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+}
+
+.year-box-hoddb {
+  flex: 1; 
+  margin: 0 30px; 
+  padding: 20px;
+  background-color: rgb(159 28 51); 
+  border-radius: 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  color: white; 
+  text-align: center;
 }
 
-/* Canvas Containers */
-.canvas-container {
-  width: 50%;
-  margin: 20px auto;
+.year-box-hoddb:hover {
+  background-color: #fbf3f3; 
+  color: rgb(159 28 51);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-color: rgb(159 28 51);
 }
 
-canvas {
-  width: 100%;
-  height: 100%;
+.selected-year-box-hoddb {
+  background-color: #fbf3f3;
+  color: rgb(159 28 51);
+  flex: 1;
+  margin: 0 30px; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center; 
 }
 
-/* Horizontal line styling */
+.selected-year-box-hoddb:hover{
+  background-color: #fbf3f3;
+  color: rgb(159 28 51); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+} */
+
+
+/* Level Selection Styles */
+.level-selection-hoddb {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  margin-top: 100px;
+}
+
+.level-btn-hoddb {
+  margin: 0 15px;
+  padding: 10px 20px;
+  background-color: rgb(159 28 51);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.level-btn-hoddb:hover {
+  background-color: #fbf3f3; /* Change background to #fbf3f3 on hover */
+  color: rgb(159 28 51); /* Ensure text remains white on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.selected-level-btn-hoddb {
+  margin: 0 15px;
+  padding: 10px 20px;
+  background-color: #fbf3f3;
+  color: rgb(159 28 51);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.selected-level-btn-hoddb:hover{
+  background-color: #fbf3f3; /* Change background to #fbf3f3 on hover */
+  color: rgb(159 28 51); /* Ensure text remains white on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.fetch-levels-btn {
+  margin: 0 10px;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: rgb(159 28 51);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fetch-levels-btn:hover{
+  background-color: #fbf3f3; /* Change background to #fbf3f3 on hover */
+  color: rgb(159 28 51); /* Ensure text remains white on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Semester Box Styles */
+
+.semester-section-hoddb-fe {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between semester boxes */
+  padding: 20px 0; /* Optional: Add padding for top and bottom spacing */
+  margin-top: 100px;
+}
+
+.semester-section-hoddb {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between semester boxes */
+  padding: 20px 0; /* Optional: Add padding for top and bottom spacing */
+}
+
+.sem-box-hoddb {
+  width: 570px;
+  margin-bottom: 10px;
+  flex: 1; /* Allow the boxes to grow equally */
+  margin: 0 10px; /* Space between the boxes */
+  padding: 15px; /* Add padding for visual spacing */
+  background-color: white; /* Optional: Background color for better visibility */
+  border: 1px solid #ddd; /* Optional: Border for better visibility */
+  border-radius: 10px; /* Optional: Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for depth */
+}
+
+.sem-box-hoddb h4 {
+  font-weight: bold; /* Makes the text bold */
+  margin-bottom: 30px;
+}
+
+
+/* Horizontal Rule Styles */
 .hr-style {
-  border:none;
-  
-     width: 100%;
-    
-    margin-top: 0;
-    border-bottom: 1px solid #504f4f;
-    box-shadow: 0 10px 10px -10px #333;
- 
+  border: none;
+  height: 20px;
+  width: 100%;
+  border-bottom: 1px solid #504f4f;
+  box-shadow: 0 10px 10px -10px #333;
+  margin: 10px auto;
 }
+
+.sem-btn-hoddb{
+  height: 50px;
+  width: 535px;
+  font-size: 15px;
+  margin-top: 2px;
+  margin-bottom: 12px;
+  padding-top: 9px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background-color: rgb(159 28 51);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sem-btn-hoddb:hover{
+  background-color: #fbf3f3; /* Change background to #fbf3f3 on hover */
+  color: rgb(159 28 51); /* Ensure text remains white on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+

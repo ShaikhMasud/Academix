@@ -1,0 +1,42 @@
+.co-po-table {
+    width: 98%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+    color: rgb(159 28 51);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .co-po-table th,
+  .co-po-table td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .co-po-table th {
+    background-color: #fbf3f3;
+    font-weight: 600;
+    color: rgb(159 28 51);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .header{
+    margin-top: 30px;
+    font-weight: bold;
+    color: rgb(159 28 51);
+  }
+
+  .co-po-selects{
+    color: rgb(159 28 51);
+    background-color: #fbf3f3;
+  }
+
+  .co-description{
+    color: rgb(159 28 51);
+    background-color: #fbf3f3;
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+  }
