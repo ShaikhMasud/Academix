@@ -37,10 +37,10 @@ const Principalmainpage = () => {
     updateSemesterDisplay(level);
   };
 
-  const fetchExamData = async (semester) => {
+  const fetchExamData = async (semester,stream) => {
     try {
       console.log(stream)
-      const response = await axios.post('http://localhost:3001/getSemData', { semester });
+      const response = await axios.post('http://localhost:3001/getSemData', { semester,stream });
       console.log(`Fetched data for ${semester}:`, response.data);
 
       if (response.data) {
@@ -68,13 +68,13 @@ const Principalmainpage = () => {
       let fetchedSem1Levels, fetchedSem2Levels;
   
       if (stream === 'FE') {
-        fetchedSem1Levels = await fetchExamData(1);
-        fetchedSem2Levels = await fetchExamData(2);
+        fetchedSem1Levels = await fetchExamData(1,'FE');
+        fetchedSem2Levels = await fetchExamData(2,'FE');
       } else {
         const sem1Number = semesters.sem1.slice(-1);
         const sem2Number = semesters.sem2.slice(-1);
-        fetchedSem1Levels = await fetchExamData(sem1Number);
-        fetchedSem2Levels = await fetchExamData(sem2Number);
+        fetchedSem1Levels = await fetchExamData(sem1Number,stream);
+        fetchedSem2Levels = await fetchExamData(sem2Number,stream);
       }
   
       // Only update if data has actually changed

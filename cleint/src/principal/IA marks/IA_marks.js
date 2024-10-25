@@ -407,7 +407,7 @@ const StudentMarksEntryprin = () => {
                         <tbody></tbody>
                     </table>
 
-                    <Link to="/subjects">
+                    <Link to="/sub">
                         <button className='backbutton'>Back</button>
                     </Link>
                     <button className='submitbutton' onClick={handleSubmit}>Submit</button>

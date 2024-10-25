@@ -54,7 +54,7 @@ app.get('/teachers', async (req, res) => {
 app.get('/dept_faculty', async (req, res) => {
     const { department } = req.query; // Change this line to use req.query
     try {
-        const faculty = await UserModel.find({ department, role: { $ne: 'Principal' } }, 'name Subjects_assigned');
+        const faculty = await UserModel.find({department:department});
         if(!faculty || faculty.length === 0){
             res.status(404).json({ message: 'No teachers found' });
         }else{    
@@ -830,9 +830,10 @@ app.post('/poAttainment', async (req, res) => {
 });
 
 app.post('/getSemData', async (req, res) => {
-    const { semester, depart } = req.body; 
+    const { semester, stream } = req.body; 
+    console.log(semester,stream)
     try {
-        const students = await StudentModel.find({ dept: depart });
+        const students = await StudentModel.find({ dept: stream });
         // console.log("Full student data:", students);
 
 
