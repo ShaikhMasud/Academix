@@ -98,21 +98,21 @@ HOD UI:
 ![image](https://github.com/user-attachments/assets/a25c5b31-fb45-4a81-ac2d-e9f7919a5758)
 ![image](https://github.com/user-attachments/assets/7571e636-31c5-4bc7-9925-e4d31c9d29b5)
 
-Everything Else is same for HOD as for his subjects.
+Everything else is same for HOD as for his subjects.
 
 PRINCIPAL UI:
 ![image](https://github.com/user-attachments/assets/135a19ac-1781-4705-9a22-997d7d679e02)
 
-On each Dashboard the principal will be able to see the HOD level dashbord.
+On each dashboard the principal will be able to see the HOD level dashboard.
 
 On Generate Report:
 ![image](https://github.com/user-attachments/assets/4a4a9d4b-c288-467b-99d7-62b1df640984)
 
-On Start new Semester the whole Database get empty and a report for the whole last semester will be created and then it will be perfect fit for next year.
+On start of new semester the whole database get empty and a report for the whole last semester will be created and then it will be the perfect fit for next year.
 
 ![image](https://github.com/user-attachments/assets/1b8270f1-8806-4de1-ae88-156b338b13f5)
 
-Everything Else is same for PRINCIPAL as for his subjects.
+Everything else is same for PRINCIPAL as for his subjects.
 
 ---
 
