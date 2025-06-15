@@ -77,7 +77,7 @@
 
 ---
 
-## 📸 Screenshots (Optional)
+## 📸 Screenshots
 
 Login page:
 
